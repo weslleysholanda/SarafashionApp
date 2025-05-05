@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="app tema">
+        <section class="background-tema">
+            <div class="background-box">
+                <div class="header-nav">
+                    <header class="voltar">
+                        <a href="configuracao.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 15">
+                                <path id="Caminho_6" data-name="Caminho 6"
+                                    d="M.281,38.669a1.249,1.249,0,0,0,0,1.516L5.53,46.611a.768.768,0,0,0,1.238,0,1.249,1.249,0,0,0,0-1.516l-4.631-5.67,4.628-5.67a1.249,1.249,0,0,0,0-1.516.768.768,0,0,0-1.238,0L.279,38.665Z"
+                                    transform="translate(-0.025 -31.925)" />
+                            </svg>
+                        </a>
+
+                    </header>
+                </div>
+                <div class="tema-title">
+                    <h1>Aparência</h1>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="alterarTema">
+            <div class="mode-toggle">
+                <div class="option" data-mode="sistema">
+                    <span>Sistema</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.239 12.126">
+                        <path
+                            d="M16.955,5.15a1.4,1.4,0,0,1,2,1.963L11.5,16.441a1.4,1.4,0,0,1-2.019.037L4.532,11.532A1.4,1.4,0,1,1,6.513,9.55l3.914,3.913L16.92,5.191Z"
+                            transform="translate(-4.085 -4.763)" fill="#fff" />
+                    </svg>
+                </div>
+                <div class="option active" data-mode="claro">
+                    <span>Claro</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.239 12.126">
+                        <path
+                            d="M16.955,5.15a1.4,1.4,0,0,1,2,1.963L11.5,16.441a1.4,1.4,0,0,1-2.019.037L4.532,11.532A1.4,1.4,0,1,1,6.513,9.55l3.914,3.913L16.92,5.191Z"
+                            transform="translate(-4.085 -4.763)" fill="#fff" />
+                    </svg>
+                </div>
+                <div class="option" data-mode="escuro">
+                    <span>Escuro</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.239 12.126">
+                        <path
+                            d="M16.955,5.15a1.4,1.4,0,0,1,2,1.963L11.5,16.441a1.4,1.4,0,0,1-2.019.037L4.532,11.532A1.4,1.4,0,1,1,6.513,9.55l3.914,3.913L16.92,5.191Z"
+                            transform="translate(-4.085 -4.763)" fill="#fff" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section class="picTemas">
+            
+        </section>
+    </main>
+    <script>
+        const options = document.querySelectorAll('.mode-toggle .option');
+
+        options.forEach(opt => {
+            opt.addEventListener('click', () => {
+                options.forEach(o => o.classList.remove('active'));
+                opt.classList.add('active');
+                // aqui você pode disparar sua lógica de mudança de tema
+                console.log('Modo selecionado:', opt.dataset.mode);
+            });
+        });
+    </script>
+</body>
+
+</html>

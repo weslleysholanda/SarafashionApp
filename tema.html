@@ -62,20 +62,106 @@
         </section>
 
         <section class="picTemas">
-            
+            <div class="container-temas">
+                <div class="celular-system">
+                    <div class="barra-topo"></div>
+                    <div class="caixa-meio">
+                        <div class="container-quadrado">
+                            <div class="quadrado branco"></div>
+                            <div class="quadrado cinza"></div>
+                        </div>
+                    </div>
+                    <div class="barra-baixo"></div>
+                    <svg class="check-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" stroke="currentColor" stroke-width="4" d="M2 12 l7 7 l13 -13" />
+                    </svg>
+                </div>
+                <div class="celular-light">
+                    <div class="barra-topo"></div>
+                    <div class="caixa-meio">
+                        <div class="container-quadrado">
+                            <div class="quadrado branco"></div>
+                            <div class="quadrado light"></div>
+                        </div>
+                    </div>
+                    <div class="barra-baixo"></div>
+                    <svg class="check-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" stroke="currentColor" stroke-width="4" d="M2 12 l7 7 l13 -13" />
+                    </svg>
+                </div>
+                <div class="celular-dark">
+                    <div class="barra-topo"></div>
+                    <div class="caixa-meio">
+                        <div class="container-quadrado">
+                            <div class="quadrado branco"></div>
+                            <div class="quadrado dark"></div>
+                        </div>
+                    </div>
+                    <div class="barra-baixo"></div>
+                    <svg class="check-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" stroke="currentColor" stroke-width="4" d="M2 12 l7 7 l13 -13" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section class="darkAbsoluto">
+            <div class="switch" onclick="toggleDarkMode()">
+                <span class="label-text">Modo noturno com escuro absoluto</span>
+                <input type="checkbox" id="darkToggle" hidden>
+                <span class="slider"></span>
+            </div>
         </section>
     </main>
+
     <script>
         const options = document.querySelectorAll('.mode-toggle .option');
 
+        const celulares = {
+            sistema: document.querySelector('.celular-system'),
+            claro: document.querySelector('.celular-light'),
+            escuro: document.querySelector('.celular-dark')
+        };
+
+        function clearActives() {
+            // Remove active das opções
+            options.forEach(o => o.classList.remove('active'));
+
+            // Remove active dos celulares
+            Object.values(celulares).forEach(cel => cel.classList.remove('active'));
+        }
+
+        function activateMode(mode) {
+            const opt = document.querySelector(`.mode-toggle .option[data-mode="${mode}"]`);
+            const cel = celulares[mode];
+
+            if (opt && cel) {
+                opt.classList.add('active');
+                cel.classList.add('active');
+            }
+        }
+
+        // Adicionar eventos de clique
         options.forEach(opt => {
             opt.addEventListener('click', () => {
-                options.forEach(o => o.classList.remove('active'));
-                opt.classList.add('active');
-                // aqui você pode disparar sua lógica de mudança de tema
-                console.log('Modo selecionado:', opt.dataset.mode);
+                const mode = opt.getAttribute('data-mode');
+                clearActives();
+                activateMode(mode);
             });
         });
+
+        // Quando carregar a página, ativa o modo que já tem .active na opção
+        window.addEventListener('DOMContentLoaded', () => {
+            const activeOpt = document.querySelector('.mode-toggle .option.active');
+            const mode = activeOpt ? activeOpt.getAttribute('data-mode') : 'sistema';
+            clearActives();
+            activateMode(mode);
+        });
+
+        function toggleDarkMode() {
+            const checkbox = document.getElementById('darkToggle');
+            checkbox.checked = !checkbox.checked;
+        }
     </script>
 </body>
 

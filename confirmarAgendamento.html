@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Agendamento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <style>
+        .resumo-agendamento {
+            .resumo-header {
+                font-size: 14px;
+                font-weight: bold;
+                margin-bottom: 12px;
+                color: #333;
+            }
+
+            .card {
+                background: #fff;
+                border-radius: 12px;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+                padding: 16px;
+                margin-bottom: 16px;
+
+                .linha {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 10px;
+
+                    span {
+                        font-size: 14px;
+                    }
+
+                    .valor {
+                        font-weight: bold;
+                    }
+
+                    .mudar {
+                        font-size: 13px;
+                        color: #555;
+                    }
+                }
+            }
+
+
+        }
+
+    </style>
+
+    <main class="app checkout escolha agendamento confirmar">
+        <section class="header-nav">
+            <header>
+                <a href="home.html">
+                    <button><i class="fa-solid fa-arrow-left"></i></button>
+                </a>
+                <h1>Confirmar Agendamento</h1>
+            </header>
+        </section>
+
+        <section class="progress-line-bar">
+            <div class="bar-line">
+                <div class="stepper">
+                    <div class="progress-line"></div>
+                    <div class="background-line"></div>
+
+                    <div class="step">
+                        <div class="circle">1</div>
+                        <span>Login</span>
+                    </div>
+                    <div class="step">
+                        <div class="circle">2</div>
+                        <span>Escolha</span>
+                    </div>
+                    <div class="step">
+                        <div class="circle">3</div>
+                        <span>Horário</span>
+                    </div>
+                    <div class="step current">
+                        <div class="circle">4</div>
+                        <span>Confirmação</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script src="https://kit.fontawesome.com/25f4259441.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

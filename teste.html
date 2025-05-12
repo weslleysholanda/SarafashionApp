@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promo</title>
+    <style>
+        .chat {
+            background: linear-gradient(to bottom, #b88544, #fff);
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .conteudo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .texto h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .texto p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .indicadores {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .ponto {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            background-color: transparent;
+        }
+
+        .ponto.ativo {
+            background-color: #c89c60;
+            border-color: #c89c60;
+        }
+
+        .imagem img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat">
+        <div class="card">
+            <div class="conteudo">
+                <div class="texto">
+                    <h2>Lorem Ipsum<br>Dolor Sit Amet</h2>
+                    <p>GET 30% OFF</p>
+                    <div class="indicadores">
+                        <span class="ponto ativo"></span>
+                        <span class="ponto"></span>
+                        <span class="ponto"></span>
+                    </div>
+                </div>
+                <div class="imagem">
+                    <img src="assets/img/Kit Wella Professionals.png" alt="Produto Wella">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

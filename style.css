@@ -115,6 +115,14 @@ body {
   height: 100px;
 }
 
+.of-height-100 {
+  height: 100px;
+}
+
+.of-height-130 {
+  height: 130px;
+}
+
 .input-post {
   display: flex;
   flex-direction: column;
@@ -1288,8 +1296,8 @@ body {
 
 
 /* Home */
-.app {
-  .home {
+.home-app {
+  .home-background {
     .background-box {
       display: flex;
       justify-content: center;
@@ -1310,7 +1318,8 @@ body {
           .perfil-user {
             display: flex;
             align-items: center;
-            justify-content: space-around;
+            justify-content: space-between;
+            padding: 0 15px 0;
             gap: 7px;
 
             .usuario-conteudo {
@@ -1430,15 +1439,16 @@ body {
 
       }
     }
+  }
 
-    .icon-ativo {
-      path {
-        fill: #c39552;
-      }
-
+  .icon-ativo {
+    path {
+      fill: #c39552;
     }
 
+  }
 
+  .menuNav {
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -1447,6 +1457,8 @@ body {
       flex-direction: column;
       align-items: center;
       z-index: 999;
+
+
 
       .nav-background {
         width: 100%;
@@ -1465,6 +1477,8 @@ body {
       .navbar-Fixed {
         width: 100%;
         position: relative;
+
+
 
         .nav-icon {
           width: 100%;
@@ -1539,7 +1553,9 @@ body {
         }
       }
     }
+  }
 
+  .promocoes-slider {
     .home-promocoes {
       width: 100%;
       display: flex;
@@ -1673,8 +1689,9 @@ body {
         }
       }
     }
+  }
 
-
+  .catalogoServico {
     .servico {
       display: flex;
       justify-content: center;
@@ -1729,9 +1746,7 @@ body {
       }
 
     }
-
   }
-
 }
 
 .config {
@@ -4093,3 +4108,140 @@ body {
     }
   }
 }
+
+.loja {
+  .home-background {
+    background: #F7F7F8;
+
+    .slider-produtos {
+      width: 100%;
+      position: relative;
+
+      .container-produto {
+        width: 82%;
+        padding: 20px;
+        margin: 0 auto;
+        border-radius: 5px;
+        background: #FFFFFF;
+        box-shadow: 0 3px 11px rgba(0, 0, 0, 0.20);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: -54px;
+        left: 17px;
+
+        .card {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+
+          .swiper-wrapper {
+            display: flex;
+
+            .swiper-slide {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              .produto-left {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                width: 50%;
+
+                .title {
+                  h2 {
+                    font-family: var(--fonteMontserrat);
+                    font-size: 1.125em;
+                    max-width: 175px;
+                  }
+                }
+
+                .promo {
+                  margin-bottom: 25px;
+
+                  h3 {
+                    font-family: var(--fonteMontserrat);
+                    font-size: 0.938em;
+                  }
+                }
+              }
+
+              .produto-right {
+                width: 50%;
+
+                .produto-boxPromocoes {
+                  width: 100%;
+
+                  img {
+                    width: 100%;
+                    height: 149px;
+                    object-fit: contain;
+                  }
+                }
+              }
+            }
+          }
+
+          .swiper-pagination {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-start;
+            position: absolute;
+            top: 122px;
+            left: -6px;
+          }
+
+          .swiper-pagination-bullet {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 1px solid #707070;
+            margin: 0 6px;
+            opacity: 1;
+            transition: all 0.3s ease;
+          }
+
+          .swiper-pagination-bullet-active {
+            background-color: var(--corPrincipal);
+            border: 1px solid var(--corPrincipal);
+          }
+        }
+      }
+    }
+
+    .categoria {
+      .container-categoria {
+        .title {
+          padding: 0 0 0 15px;
+
+          h2 {
+            font-family: var(--fonteMontserrat);
+            font-size: 1em;
+            font-weight: 700;
+          }
+        }
+        
+        .selecao-categoria{
+          display: flex;
+          .cardCategoria {
+            .icon {
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: #ffffff;
+              box-shadow: 0 3px 6px rgba(0, 0, 0, 0.20)
+              }
+            }
+          }
+        }
+        
+      }
+    }
+  }

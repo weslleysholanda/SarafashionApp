@@ -4111,7 +4111,7 @@ body {
 
 .loja {
   .home-background {
-    background: #F7F7F8;
+    background: #F8F8F8;
 
     .slider-produtos {
       width: 100%;
@@ -4214,9 +4214,12 @@ body {
     }
 
     .categoria {
+      margin-bottom: 20px;
+
       .container-categoria {
         .title {
           padding: 0 0 0 15px;
+          margin-bottom: 20px;
 
           h2 {
             font-family: var(--fonteMontserrat);
@@ -4224,10 +4227,18 @@ body {
             font-weight: 700;
           }
         }
-        
-        .selecao-categoria{
+
+        .selecao-categoria {
           display: flex;
+          justify-content: space-around;
+          padding: 0 0 10px;
+
           .cardCategoria {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
             .icon {
               width: 50px;
               height: 50px;
@@ -4236,12 +4247,63 @@ body {
               justify-content: center;
               align-items: center;
               background: #ffffff;
-              box-shadow: 0 3px 6px rgba(0, 0, 0, 0.20)
+              box-shadow: 0 3px 6px rgba(0, 0, 0, 0.20);
+
+              svg {
+                path {
+                  fill: var(--corPrincipal);
+                }
+              }
+            }
+
+            p {
+              font-family: var(--fonteMontserrat);
+              font-size: 0.875em;
+              font-weight: 700;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .produtoFavoritado {
+    height: 168vh;
+
+    .title {
+      padding: 0 0 0 10px;
+      margin-bottom: 20px;
+
+      p {
+        font-family: var(--fonteMontserrat);
+        font-size: 1em;
+        font-weight: 700;
+      }
+
+      &:nth-child(3) {
+        margin: 30px 0 20px;
+      }
+    }
+
+    .product-list {
+      .product-card {
+        .heart {
+          svg {
+            path {
+              fill: none;
+            }
+          }
+
+          &.favoritado {
+            svg {
+              path {
+                fill: #c59d5f;
               }
             }
           }
         }
-        
       }
     }
   }
+
+}

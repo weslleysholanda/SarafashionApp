@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>codigo autenticacao</title>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+  <main class="app perfil authSms confirmAuth">
+    <section class="header-perfil">
+      <div class="header-nav">
+        <header class="voltar">
+          <a href="configuracao.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 15">
+              <path id="Caminho_6" data-name="Caminho 6"
+                d="M.281,38.669a1.249,1.249,0,0,0,0,1.516L5.53,46.611a.768.768,0,0,0,1.238,0,1.249,1.249,0,0,0,0-1.516l-4.631-5.67,4.628-5.67a1.249,1.249,0,0,0,0-1.516.768.768,0,0,0-1.238,0L.279,38.665Z"
+                transform="translate(-0.025 -31.925)" />
+            </svg>
+          </a>
+        </header>
+      </div>
+    </section>
+
+    <div class="of-height-140"></div>
+
+    <section class="titleInfo">
+      <h1>Autenticação de 2 Fatores</h1>
+      <p>Digite o código de 5 dígitos enviado para<br><span>+55 11 12345-1234</span></p>
+    </section>
+
+    <section class="codigoSms">
+      <div class="container-SMS">
+        <form action="POST">
+
+          <div class="codigo-container">
+            <div class="codigo-wrapper">
+              <input type="text" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input2')" id="input1">
+              <div class="linha-baixo"></div>
+            </div>
+            <div class="codigo-wrapper">
+              <input type="text" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input3')"  id="input2">
+              <div class="linha-baixo"></div>
+            </div>
+            <div class="codigo-wrapper">
+              <input type="text" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input4')"  id="input3">
+              <div class="linha-baixo"></div>
+            </div>
+            <div class="codigo-wrapper">
+              <input type="text" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input5')"  id="input4">
+              <div class="linha-baixo"></div>
+            </div>
+            <div class="codigo-wrapper">
+              <input type="text" maxlength="1" class="codigo-input" placeholder=" " id="input5">
+              <div class="linha-baixo"></div>
+            </div>
+          </div>
+
+          <div class="containerButtons">
+            <input type="text" class="resend" placeholder="Reenviar código" disabled />
+            <button class="nextButton">Avançar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Função para mudar o foco para o próximo input
+    //current - o input atual aonde o usuário está digitando
+    //nextId - o id do próximo input a receber o foco
+
+    function nextInput(current, nextId) {
+    
+      if (current.value.length === current.maxLength) {
+        document.getElementById(nextId).focus();
+      }
+    }
+  </script>
+</body>
+
+</html>

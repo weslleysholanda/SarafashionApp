@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliar Serviço</title>
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
-</head>
+<?php
+    require_once('templates/head.php')
+?>
 
 <body>
     <main class="app favorito historico alterar-senha historico avaliar">
@@ -30,6 +26,10 @@
                 </div>
             </div>
         </section>
+
+        <?php
+        require_once('templates/background-favorito.php');
+        ?>
 
         <section class="title">
             <h2>AVALIAÇÃO:</h2>
@@ -78,10 +78,9 @@
 
     <script>
         const estrelaSVG = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.022 31.02">
-        <path d="M6.771,30.386a1.014,1.014,0,0,1-1.4-1.184l1.556-9.46L.323,13.03a1.136,1.136,0,0,1,.531-1.9l9.184-1.392,4.095-8.654a.938.938,0,0,1,1.738,0l4.095,8.654,9.184,1.392a1.134,1.134,0,0,1,.529,1.9l-6.6,6.712,1.556,9.46a1.014,1.014,0,0,1-1.4,1.184L15,25.874,6.769,30.386Z" transform="translate(0.51 0.001)" fill="none" stroke="#000" stroke-width="1"/>
-      </svg>
-    `;
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.022 31.02">
+            <path d="M6.771,30.386a1.014,1.014,0,0,1-1.4-1.184l1.556-9.46L.323,13.03a1.136,1.136,0,0,1,.531-1.9l9.184-1.392,4.095-8.654a.938.938,0,0,1,1.738,0l4.095,8.654,9.184,1.392a1.134,1.134,0,0,1,.529,1.9l-6.6,6.712,1.556,9.46a1.014,1.014,0,0,1-1.4,1.184L15,25.874,6.769,30.386Z" transform="translate(0.51 0.001)" fill="none" stroke="#000" stroke-width="1"/>
+        </svg>`;
 
         const container = document.getElementById('avaliacao-estrelas');
         let nota = 0;

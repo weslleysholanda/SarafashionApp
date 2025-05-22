@@ -10,11 +10,11 @@ define('BASE_URL', 'https://sarafashionapp.webdevsolutions.com.br/');
 
 
 spl_autoload_register(function ($class){
-    if(file_exists('../app/controllers/'.$class.'.php')){
-        require_once '../app/controllers/'.$class.'.php';
+    if(file_exists('app/controllers/'.$class.'.php')){
+        require_once 'app/controllers/'.$class.'.php';
     }
 
-    if(file_exists('../routes/'.$class.'.php')){
-        require_once '../routes/'.$class.'.php';
+    if(file_exists('routes/'.$class.'.php')){
+        require_once 'routes/'.$class.'.php';
     }
 });

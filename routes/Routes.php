@@ -36,8 +36,8 @@ class Routes{
             $acaoAtual = 'index';
         }
 
-        if(!file_exists('../app/controllers/' . $controladorAtual . '.php') || !method_exists($controladorAtual, $acaoAtual)){
-            echo 'Estou aqui, Não existe o arquivo' . $controladorAtual . 'e nem a ação atual ' . '$acaoAtual';
+        if(!file_exists('app/controllers/' . $controladorAtual . '.php') || !method_exists($controladorAtual, $acaoAtual)){
+            // echo 'Estou aqui, Não existe o arquivo' . $controladorAtual . 'e nem a ação atual ' . '$acaoAtual';
 
             //Definir um controlador de erro
             $controladorAtual = 'ErroController';

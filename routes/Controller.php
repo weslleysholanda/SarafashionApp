@@ -2,9 +2,9 @@
 
 class Controller{
 
-    public function carregarViews($view,$dados = array()){
+    public function carregarViews($view, $dados = array()){
         extract($dados);
 
-        require_once '../app/views/' . $view . '.php';
+        require_once 'app/views/' . $view . '.php';
     }
 }

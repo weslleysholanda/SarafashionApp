@@ -8,4 +8,11 @@ class RegistrarController extends Controller{
 
         $this->carregarViews('registrar', $dados);
     }
+    
+    public function autenticar(){
+        $email = $_POST['email'] ?? null;
+        $senha =  $_POST['senha'] ?? null;
+
+        
+    }
 }

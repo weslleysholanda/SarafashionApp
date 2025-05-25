@@ -204,6 +204,8 @@ body {
       border-radius: 50%;
       padding: 10px;
       position: relative;
+      display: flex;
+      align-items: center;
 
       .notification {
         position: absolute;
@@ -218,7 +220,10 @@ body {
         bottom: -5px;
 
         h2 {
+          font-family: var(--fonteMontserrat);
+          font-size: 0.813em;
           color: var(--corLetras);
+          margin: 0;
         }
       }
     }
@@ -348,6 +353,7 @@ body {
   a {
     display: flex;
     align-items: center;
+
     svg {
       width: 10px;
     }
@@ -429,7 +435,7 @@ body {
             font-size: 0.875em;
             font-family: Arial, Helvetica, sans-serif;
             color: var(--cor6);
-            margin:0;
+            margin: 0;
           }
         }
 
@@ -481,8 +487,8 @@ body {
               transform: translateX(-125%);
               width: 23px;
               cursor: pointer;
-              
-              path{
+
+              path {
                 fill: var(--corPrincipal);
               }
             }
@@ -1365,15 +1371,17 @@ body {
                   width: 45px;
                   height: 45px;
                   border: 1px solid #fff;
+                  object-fit: cover;
                   border-radius: 50%;
                 }
 
               }
 
               h2 {
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 1.563em;
+                font-family: var(--fonteMontserrat);
+                font-size: 0.813em;
                 color: var(--corLetras);
+                margin: 0 0 5px;
               }
 
               small {
@@ -1474,12 +1482,6 @@ body {
     }
   }
 
-  .icon-ativo {
-    path {
-      fill: #c39552;
-    }
-  }
-
   .menuNav {
     .bottom-nav {
       position: fixed;
@@ -1526,6 +1528,12 @@ body {
             display: flex;
             justify-content: space-evenly;
             align-items: center;
+
+            .icon-ativo {
+              path {
+                fill: #c39552;
+              }
+            }
           }
 
           .icon-Right {
@@ -1540,10 +1548,6 @@ body {
             svg {
               position: relative;
               cursor: pointer;
-
-
-
-
             }
 
             &::after {
@@ -1607,6 +1611,8 @@ body {
       }
 
       .card {
+        position: relative;
+
         &.swiper-slide {
           width: 80vw;
           max-width: 289px;
@@ -1614,8 +1620,6 @@ body {
           display: flex;
           flex-direction: column;
         }
-
-        position: relative;
 
         .card-image {
           position: relative;
@@ -1688,6 +1692,7 @@ body {
               font-weight: 700;
               color: var(--corPrincipal);
               position: relative;
+              margin: 0;
 
             }
 
@@ -1724,22 +1729,26 @@ body {
   }
 
   .catalogoServico {
+    width: 100%;
+
     .servico {
       display: flex;
       justify-content: center;
       background: #F8F8F8;
       padding: 10px;
-      height: 100vh;
+      height: 113vh;
 
       .container-Servico {
+        width: 100%;
+
         .titulo-Catalogo {
           h2 {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: var(--fonteMontserrat);
             font-size: 1.125em;
             margin-bottom: 10px;
 
             span {
-              font-family: Arial, Helvetica, sans-serif;
+              font-family: var(--fonteMontserrat);
               color: var(--corPrincipal);
             }
           }
@@ -1756,8 +1765,10 @@ body {
 
 
             img {
+              width: 100%;
               height: 112px;
               border-radius: 5px;
+              object-fit: cover;
             }
 
 
@@ -1767,8 +1778,9 @@ body {
               bottom: 44px;
 
               h3 {
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 0.688em;
+                font-family: var(--fonteParisienne);
+                font-size: 1.375em;
+                margin: 0;
                 color: var(--corLetras);
                 font-weight: bold;
               }
@@ -3569,11 +3581,11 @@ body {
       }
     }
 
-    & .box.disponivel {
+    &.box.disponivel {
       background: #fff;
     }
 
-    & .box.indisponivel {
+    &.box.indisponivel {
       background: rgba(44, 46, 61, 0.20);
       border-color: rgba(44, 46, 61, 0.20);
     }
@@ -4843,14 +4855,19 @@ body {
 .esqueceuSenha {
   .login {
     .container-login {
+      gap: 30px;
+
       .header-login {
         display: flex;
         flex-direction: column;
         align-items: center;
-        h1{
+
+        h1 {
+          font-size: 1.875em;
           font-family: var(--fonteMontserrat);
-          margin-bottom: 10px;
+          margin: 0 0 10px;
         }
+
         p {
           font-size: 0.875em;
           font-family: var(--fonteMontserrat);
@@ -4862,16 +4879,15 @@ body {
         }
       }
 
-      .perfil {
-        .campo-info {
-          margin-top: 50px;
-          form{
-            .campo-input{
-              border-radius: 5px;
-            }
+
+      .campo-info {
+        form {
+          .campo-input {
+            border-radius: 5px;
           }
         }
       }
+
     }
   }
 }

@@ -12,10 +12,10 @@
                 <h6>Faça login na sua conta</h6>
             </div>
             <div class="form-inputs">
-                <form action="">
-                    <input type="email" class="form_control" placeholder="E-mail">
+                <form action="<?= BASE_URL ?>index.php?url=login/autenticar" method="POST">
+                    <input type="email" name="email" class="form_control" placeholder="E-mail">
                     <div class="input_password">
-                        <input type="password" id="senha" placeholder="Senha">
+                        <input type="password" name="senha" id="senha" placeholder="Senha">
 
                         <svg xmlns="http://www.w3.org/2000/svg" id="eyeClosed" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
                             <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
@@ -32,11 +32,11 @@
                             <input type="radio">
                             <label>Lembrar de mim</label>
                         </div>
-                        <a href="#">Esqueceu a senha?</a>
+                        <a href="<?= BASE_URL?>index.php?url=esqueceuSenha">Esqueceu a senha?</a>
                     </div>
                     <div class="input-post">
                         <button>Entrar</button>
-                        <a href="<?php echo BASE_URL; ?>index.php?url=registrar">Não tem uma conta? <span>Inscreva-se</span></a>
+                        <a href="<?= BASE_URL; ?>index.php?url=registrar">Não tem uma conta? <span>Inscreva-se</span></a>
                     </div>
                 </form>
             </div>

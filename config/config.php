@@ -6,7 +6,11 @@ if(session_status() == PHP_SESSION_NONE){
 
 define('BASE_URL', 'https://sarafashionapp.webdevsolutions.com.br/');
 
+define('BASE_URL_SITE', 'https://sarafashion.webdevsolutions.com.br/');
+
 // Definir a api base.
+
+define('BASE_API','https://sarafashion.webdevsolutions.com.br/api/');
 
 
 spl_autoload_register(function ($class){

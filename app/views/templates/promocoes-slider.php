@@ -3,7 +3,7 @@
         <div class="swiper-wrapper">
             <div class="card swiper-slide">
                 <div class="card-image">
-                    <img src="assets/img/promoIdoso.png" alt="Promoção de corte de cabelo">
+                    <img src="<?= BASE_URL ?>public/assets/img/promoIdoso.png" alt="Promoção de corte de cabelo">
                     <div class="footer-img">
                         <h3>Desconto para 60+ | Somente 5ª e 6ª feira</h3>
                         <div class="footer-button">
@@ -25,7 +25,7 @@
             </div>
             <div class="card swiper-slide">
                 <div class="card-image">
-                    <img src="assets/img/futuraProm.png" alt="Promoção de corte de cabelo">
+                    <img src="<?= BASE_URL ?>public/assets/img/futuraProm.png" alt="Promoção de corte de cabelo">
                     <div class="footer-img">
                         <h3>06 - 09 Mar - Somente para membros vip</h3>
                         <div class="footer-button">

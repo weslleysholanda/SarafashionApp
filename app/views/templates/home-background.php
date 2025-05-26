@@ -26,16 +26,19 @@
                             <h2><?= htmlspecialchars($cliente['nome_cliente'], ENT_QUOTES, "UTF-8") ?></h2>
                             <small>
                                 <?php
-                                $data = new DateTime($data['membro_desde']);
+                                $data = new DateTime($cliente['membro_desde']);
 
                                 $fmt = new IntlDateFormatter(
                                     'pt_BR', //Localidade
                                     IntlDateFormatter::NONE, // Ignora a da data
                                     IntlDateFormatter::NONE, //Ignora a hora
-                                    date_default_timezone_get(), //Timezone
+                                    'UTC', //Timezone
                                     IntlDateFormatter::GREGORIAN,
                                     "dd MMMM yyyy"  // Formato de texto exemplo: 00-00-0000
                                 );
+
+                                // var_dump($fmt);
+                                // var_dump($data);
 
                                 $dataFormatada = $fmt->format($data); //Formata o objeto DateTime
                                 $dataFormatada = mb_convert_case($dataFormatada, MB_CASE_TITLE, "UTF-8"); //Transforma a string ou seja capitaliza a primeira letra do mês.
@@ -62,7 +65,7 @@
             <div class="fidelidade-box">
                 <div class="topo">
                     <p class="titulo">Pontos Fidelidade:</p>
-                    <p class="pontos"><?= $pontos_acumulados ?>  Pontos</p>
+                    <p class="pontos"><?= $pontos_acumulados ?> Pontos</p>
                 </div>
 
                 <div class="icones-box">

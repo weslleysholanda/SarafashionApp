@@ -2,7 +2,7 @@
     <ul class="settings-list">
         <!-- Perfil -->
         <li class="setting-item">
-            <a href="perfil.html">
+            <a href="index.php?url=perfil">
                 <div class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30.704" height="30.704"
                         viewBox="0 0 30.704 30.704">
@@ -29,7 +29,7 @@
 
         <!-- Tema -->
         <li class="setting-item">
-            <a href="">
+            <a href="index.php?url=tema">
                 <div class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="29.662" height="29.662"
                         viewBox="0 0 29.662 29.662">

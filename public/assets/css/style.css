@@ -1999,6 +1999,7 @@ body {
 /* perfil */
 .perfil {
   .header-perfil {
+    margin-bottom: 50px;
     .header-nav {
       display: flex;
       justify-content: space-between;
@@ -2035,10 +2036,14 @@ body {
     .avatar-container {
       position: relative;
       text-align: center;
+      width: 100%;
 
       img {
+        width: 37.437%;
+        height: 150px;
         filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
         border: 2px solid white;
+        object-fit: cover;
         border-radius: 50%;
       }
 

@@ -608,11 +608,28 @@ body {
           }
         }
 
+        .container-mensagemErro {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+
+          .mensagem-erro {
+            width: 100%;
+            background-color: #ffe5e5;
+            color: #d10000;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-left: 4px solid #d10000;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.95rem;
+          }
+        }
+
         .form-inputs {
           form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
 
             .campo-input {
               display: flex;
@@ -622,14 +639,13 @@ body {
               padding: 0.2rem 1rem;
               width: 100%;
               max-width: 75%;
-              margin: 0 auto;
+              margin: 0 auto 20px;
               height: 2.625rem;
 
               svg {
                 margin-right: 0.5rem;
                 width: 20px;
                 color: gray;
-
               }
 
               input {
@@ -653,9 +669,54 @@ body {
                 width: 20px;
               }
 
+              &:nth-of-type(3) {
+                margin-bottom: 0;
+              }
+
+            }
+
+
+            .container_password {
+              width: 100%;
+              text-align: center;
+
+              .forca-senha {
+                margin-bottom: 5px;
+
+                span {
+                  display: inline-block;
+                  width: 18%;
+                  height: 5px;
+                  margin-right: 4px;
+                  background-color: #ccc;
+                  border-radius: 2px;
+                }
+              }
+
+              .erro-senha {
+                color: red;
+                font-family: var(--fonteMontserrat);
+                font-size: 0.938em;
+                margin: 0 0 10px;
+              }
+
+            }
+
+            .senha-confirmada {
+              margin-bottom: 10px;
+            }
+
+            .erro-senha {
+              color: red;
+              text-align: center;
+              font-family: var(--fonteMontserrat);
+              font-size: 0.938em;
+              margin-bottom: 10px;
             }
 
             .informacao {
+              margin: 10px 0 10px;
+
               p {
                 text-align: center;
                 font-size: 0.95em;
@@ -739,31 +800,36 @@ body {
       gap: 30px;
       flex-direction: column;
 
-
-      .box-selecionar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 15px;
-        padding: 16px 20px;
-        background: #FFFFFF;
-        filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.2));
-        border-radius: 5px;
-
-        .box-img {
+      a {
+        .box-selecionar {
           display: flex;
+          justify-content: center;
           align-items: center;
+          gap: 15px;
+          padding: 16px 20px;
+          background: #FFFFFF;
+          filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.2));
+          border-radius: 5px;
 
-          svg {
-            display: block;
-            width: 100%;
+          .box-img {
+            display: flex;
+            align-items: center;
+
+            svg {
+              display: block;
+              width: 100%;
+            }
           }
-        }
 
-        .box-conteudo {
-          h2 {
-            font-size: 1.25em;
-            font-weight: bold;
+          .box-conteudo {
+            h2 {
+              color: black;
+              font-size: 1.25em;
+              font-weight: bold;
+            }
+            p{
+              color: black;
+            }
           }
         }
       }
@@ -2000,6 +2066,7 @@ body {
 .perfil {
   .header-perfil {
     margin-bottom: 50px;
+
     .header-nav {
       display: flex;
       justify-content: space-between;

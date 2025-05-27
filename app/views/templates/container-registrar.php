@@ -4,15 +4,41 @@
             <h1>FAÇA SEU REGISTRO</h1>
             <h3>Crie uma conta nova</h3>
         </div>
+
+        <?php
+        $erro = $_GET['erro'] ?? null;
+        $mensagemErro = '';
+
+        switch ($erro) {
+            case 'campos_obrigatorios':
+                $mensagemErro = 'Preencha todos os campos obrigatórios.';
+                break;
+            case 'senhas_diferentes':
+                $mensagemErro = 'As senhas não coincidem.';
+                break;
+            case 'erro_api':
+                $mensagemErro = 'Erro ao registrar. Tente novamente.';
+                break;
+        }
+        ?>
+
+        <?php if ($mensagemErro): ?>
+            <div class="container-mensagemErro">
+                <div class="mensagem-erro">
+                    <?= htmlspecialchars($mensagemErro) ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <div class="form-inputs">
-            <form action="">
+            <form action="<?= BASE_URL ?>index.php?url=registrar/preRegistro" method="POST">
                 <div class="campo-input">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                         <path id="user-regular"
                             d="M12.214,4.5A3.034,3.034,0,0,0,9,1.688,3.034,3.034,0,0,0,5.786,4.5,3.034,3.034,0,0,0,9,7.313,3.034,3.034,0,0,0,12.214,4.5Zm-8.357,0C3.857,2.015,6.16,0,9,0s5.143,2.015,5.143,4.5S11.84,9,9,9,3.857,6.985,3.857,4.5ZM1.981,16.313H16.023a5.061,5.061,0,0,0-5.183-3.937H7.168a5.061,5.061,0,0,0-5.183,3.938ZM0,16.956c0-3.463,3.206-6.268,7.164-6.268h3.672c3.958,0,7.164,2.805,7.164,6.268A1.126,1.126,0,0,1,16.807,18H1.193A1.126,1.126,0,0,1,0,16.956Z"
                             fill="#888" />
                     </svg>
-                    <input type="text" placeholder="Nome:" />
+                    <input type="text" name="nome" placeholder="Nome:" />
                 </div>
 
                 <div class="campo-input">
@@ -22,7 +48,7 @@
                             transform="translate(0 -64)" fill="#888" />
                     </svg>
 
-                    <input type="email" placeholder="Email:" />
+                    <input type="email" name="email" placeholder="Email:" />
                 </div>
 
                 <div class="campo-input">
@@ -34,18 +60,28 @@
                         </g>
                     </svg>
 
-                    <input type="password" placeholder="Senha:" />
+                    <input type="password" name="senha" id="senha" placeholder="Senha:" />
                 </div>
 
-                <div class="campo-input">
+                <div class="container_password">
+                    <div class="forca-senha">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+
+                    <div class="erro-senha" id="erro-senha"></div>
+                </div>
+
+                <div class="campo-input senha-confirmada">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.703 14.257">
                         <path id="check"
                             d="M17.347,5.218a1.32,1.32,0,0,1,2.008.017,1.819,1.819,0,0,1,.053,2.291L11.723,18.493a1.372,1.372,0,0,1-1.032.527,1.357,1.357,0,0,1-1.048-.483l-5.1-5.816a1.8,1.8,0,0,1-.415-1.614A1.56,1.56,0,0,1,5.173,9.918a1.334,1.334,0,0,1,1.414.473l4.034,4.6,6.69-9.726Z"
                             transform="translate(-4.085 -4.763)" fill="#888" />
                     </svg>
 
-                    <input type="password" placeholder="Confirmar a senha" />
+                    <input type="password" name="confirmar_senha" id="confirmarSenha" placeholder="Confirmar a senha" />
                 </div>
+
+                <div class="erro-senha" id="erro-confirmacao"></div>
 
                 <div class="informacao">
                     <p><span>Ao assinar você concorda</span> com seus termos de <span>uso</span> e <br>
@@ -53,7 +89,7 @@
                     </p>
                 </div>
                 <div class="input-post">
-                    <button>Registrar</button>
+                    <button id="btn-submit" disabled>Registrar</button>
                     <a href="<?php echo BASE_URL; ?>index.php?url=login">Ja tem uma conta? <span>Entrar</span></a>
                 </div>
 

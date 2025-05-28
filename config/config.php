@@ -13,9 +13,9 @@ define('BASE_URL_SITE', 'https://sarafashion.webdevsolutions.com.br/');
 define('BASE_API','https://sarafashion.webdevsolutions.com.br/api/');
 
 //enviar email
-define("HOST_EMAIL", "devweb@webdevsolutions.com.br");
+define("HOST_EMAIL", "smtp.hostinger.com");
 define("PORT_EMAIL", "465");
-define("USER_EMAIL", "weslleyh98@gmail.com");
+define("USER_EMAIL", "devweb@webdevsolutions.com.br");
 define("PASS_EMAIL", "21566647aA#");
 
 

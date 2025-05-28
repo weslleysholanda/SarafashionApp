@@ -14,7 +14,7 @@ class SelecionarVerificacaoController extends Controller
             exit;
         }
 
-        // var_dump($_SESSION['preRegistro']);
+        var_dump($_SESSION['preRegistro']);
         $dados = array();
         $dados['titulo'] = 'SarafashionAPP - Selecionar metodo de verificacao ';
 

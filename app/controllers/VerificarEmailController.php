@@ -18,7 +18,7 @@ class VerificarEmailController extends Controller
             exit;
         }
 
-        var_dump($_SESSION['preRegistro']);
+        // var_dump($_SESSION['preRegistro']);
 
         $dados = array();
         $dados['titulo'] = 'Verificação por E-mail';
@@ -28,7 +28,7 @@ class VerificarEmailController extends Controller
     public function enviarCodigo()
     {
 
-        echo 'oi';
+        // echo 'oi';
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -83,23 +83,22 @@ class VerificarEmailController extends Controller
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->Subject = 'Código de Verificação - Sara Fashion';
-            $mail->Body    = "
-                <div style='text-align: center;'>
-                    <div style='border: 2px solid #C59D5F; border-radius: 5px; padding: 40px; display: inline-block;'>
-                        <div style='background-color: #fdfdfd; padding: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);'>
-                            <img src='https://sarafashionapp.webdevsolutions.com.br/public/assets/img/logoDark.png'style='width: 300px; object-fit: cover;' alt='logoSara'>
-                        </div>
-
-                        <h1 style='font-size: 1.563em; color:black;'>Olá, <strong>{$nome}</strong>!</h1>
-                        <p style='color:black;'>Seu código de verificação é:</p>
-                        <h2 style='color: #C59D5F;'>{$codigo}</h2>
-                        <p style='font-weight: bold;'>Válido por 10 minutos.</p>
+            $mail->Body = "
+            <div style='text-align: center; font-family: Trebuchet MS, Verdana, sans-serif;'>
+                <div style='border: 2px solid #C59D5F; border-radius: 5px; padding: 40px; display: inline-block; background-color: #fff;'>
+                    <div style='background-color: #C59D5F; padding: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom:25px;'>
+                        <img src='https://sarafashionapp.webdevsolutions.com.br/public/assets/img/logo_sarafashionEmail.png' style='width: 250px; object-fit: cover;' alt='logoSara'>
                     </div>
+                    
+                    <h1 style='font-size: 1.563em; color: black;'>Olá, <strong>{$nome}</strong>!</h1>
+                    <p style='color: black;'>Seu código de verificação é:</p>
+                    <div>
+                        <h2 style='color: #B8860B; font-size: 25px; font-weight: bold;'>{$codigo}</h2>
+                    </div>
+                    <p style='font-weight: bold; color: black;'>Válido por 10 minutos.</p>
                 </div>
+            </div>";
 
-
-                
-            ";
 
             $mail->send();
 

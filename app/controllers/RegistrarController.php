@@ -32,15 +32,16 @@ class RegistrarController extends Controller
             exit;
         }
 
-        // Armazenar dados temporariamente na sessão
+        // Criptografa a senha antes de salvar
+        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
         $_SESSION['preRegistro'] = [
             'nome'  => $nome,
             'email' => $email,
-            'senha' => $senha
+            'senha' => $senhaHash
         ];
 
-        // Redireciona para a seleção de verificação
-        header('Location: ' . BASE_URL . 'index.php?url=selecionarVerificacao');
+        header('Location:' . BASE_URL . 'index.php?url=selecionarVerificacao');
         exit;
     }
 

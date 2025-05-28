@@ -60,6 +60,8 @@ require_once('templates/head.php')
                 }
             }
         }
+
+       
     </script>
 </body>
 

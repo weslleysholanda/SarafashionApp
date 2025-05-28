@@ -827,7 +827,8 @@ body {
               font-size: 1.25em;
               font-weight: bold;
             }
-            p{
+
+            p {
               color: black;
             }
           }
@@ -1258,6 +1259,9 @@ body {
     }
 
     form {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
       .codigo-container {
         display: flex;
         justify-content: center;
@@ -1311,6 +1315,16 @@ body {
           }
         }
 
+      }
+    }
+
+    .timer {
+      display: flex;
+      justify-content: center;
+
+      span {
+        font-weight: bold;
+        font-size: 18px;
       }
     }
 
@@ -1392,6 +1406,14 @@ body {
         font-size: 1.125em;
         color: var(--cor6);
         font-style: italic;
+      }
+    }
+
+    .input-post{
+      width: 100%;
+
+      a{
+        width: 80%;
       }
     }
 

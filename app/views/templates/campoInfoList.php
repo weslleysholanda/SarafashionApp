@@ -37,12 +37,18 @@
                 d="M3.5,0A.5.5,0,0,1,4,.5V1h8V.5a.5.5,0,0,1,1,0V1h1a2,2,0,0,1,2,2V14a2,2,0,0,1-2,2H2a2,2,0,0,1-2-2V3A2,2,0,0,1,2,1H3V.5A.5.5,0,0,1,3.5,0M1,4V14a1,1,0,0,0,1,1H14a1,1,0,0,0,1-1V4Z"
                 fill="#888" />
         </svg>
-        <span>
-            <?php
-                $data = new DateTime($cliente['data_nasc_cliente']);
-                echo $data->format('d/m/Y');
-            ?>
-        </span>
+        <?php
+        $dataNasc = $cliente['data_nasc_cliente'] ?? null;
+        $dataFormatada = '';
+
+        if (!empty($dataNasc) && $dataNasc !== '0000-00-00') {
+            $dataObj = DateTime::createFromFormat('Y-m-d', $dataNasc);
+            if ($dataObj) {
+                $dataFormatada = $dataObj->format('d/m/Y');
+            }
+        }
+        ?>
+        <span><?= htmlspecialchars($dataFormatada ?: '00/00/0000') ?></span>
     </div>
 
 </section>

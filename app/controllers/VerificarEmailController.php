@@ -102,11 +102,9 @@ class VerificarEmailController extends Controller
 
             $mail->send();
 
-            // Redireciona para a página de confirmação
             header('Location: ' . BASE_URL . 'index.php?url=confirmarCodigoEmail');
             exit;
         } catch (Exception $e) {
-            // Redireciona com erro
             header('Location: ' . BASE_URL . 'index.php?url=verificacaoEmail&erro=erro_envio');
             exit;
         }

@@ -32,18 +32,51 @@ class RegistrarController extends Controller
             exit;
         }
 
-        // Criptografa a senha antes de salvar
-        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+        // Aqui chama a API preCadastro
+        $url = BASE_API . 'preCadastro';
 
-        $_SESSION['preRegistro'] = [
+        $dados = [
             'nome'  => $nome,
             'email' => $email,
-            'senha' => $senhaHash
+            'senha' => $senha
         ];
 
-        header('Location:' . BASE_URL . 'index.php?url=selecionarVerificacao');
-        exit;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($dados));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json'
+        ]);
+
+        $response = curl_exec($ch);
+        $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        $responseData = json_decode($response, true);
+
+        if ($statusCode === 200) {
+            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+            $_SESSION['preRegistro'] = [
+                'nome'  => $nome,
+                'email' => $email,
+                'senha' => $senhaHash
+            ];
+
+            header('Location:' . BASE_URL . 'index.php?url=selecionarVerificacao');
+            exit;
+        } elseif ($statusCode === 409) {
+            $erro = $responseData['erro'] ?? 'email_em_uso';
+            header('Location: ' . BASE_URL . 'index.php?url=registrar&erro=' . $erro);
+            exit;
+        } else {
+            $erro = $responseData['erro'] ?? 'erro_api';
+            header('Location: ' . BASE_URL . 'index.php?url=registrar&erro=' . $erro);
+            exit;
+        }
     }
+
+
 
     public function sair()
     {

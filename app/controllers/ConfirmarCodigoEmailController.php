@@ -37,7 +37,7 @@ class ConfirmarCodigoEmailController extends Controller
             session_start();
         }
 
-        $codigoDigitado = $_POST['codigo_verificacao'] ?? null;  // corrigido aqui
+        $codigoDigitado = $_POST['codigo_verificacao'] ?? null;
 
         if (!$codigoDigitado) {
             http_response_code(400);
@@ -66,32 +66,33 @@ class ConfirmarCodigoEmailController extends Controller
             return;
         }
 
+        var_dump($codigoDigitado);
+
         // Dados do pré-registro
         $nome  = $_SESSION['preRegistro']['nome'];
         $email = $_SESSION['preRegistro']['email'];
         $senha = $_SESSION['preRegistro']['senha'];
 
-        // Envia os dados para o endpoint de cadastro
         $url = BASE_API . "cadastrarCliente";
-
         $dados = [
             'nome_cliente'  => $nome,
             'email_cliente' => $email,
             'senha_cliente' => $senha
         ];
 
-        $options = [
-            'http' => [
-                'header'  => "Content-type: application/json",
-                'method'  => 'POST',
-                'content' => json_encode($dados),
-            ]
-        ];
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($dados));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json'
+        ]);
 
-        $context = stream_context_create($options);
-        $response = file_get_contents($url, false, $context);
+        $response = curl_exec($ch);
+        $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
 
-        if ($response === false) {
+        if ($response === false || $statusCode >= 500) {
             http_response_code(500);
             echo json_encode(['erro' => 'Erro ao cadastrar o cliente.']);
             return;
@@ -105,15 +106,16 @@ class ConfirmarCodigoEmailController extends Controller
             return;
         }
 
-        // Guarda o token na sessão
+        // Guarda o token na sessão, se existir
         if (isset($respostaApi['token'])) {
             $_SESSION['token'] = $respostaApi['token'];
         }
 
-        // Limpa sessão
+        // Limpa sessões
         unset($_SESSION['verificacao_email']);
         unset($_SESSION['preRegistro']);
 
+        // Redireciona
         header('Location: ' . BASE_URL . 'index.php?url=concluidoEmail');
         exit;
     }

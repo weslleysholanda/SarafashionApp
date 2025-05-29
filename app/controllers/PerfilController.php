@@ -50,6 +50,8 @@ class PerfilController extends Controller{
         $dados['titulo'] = 'Sarafashion App - Perfil';
         $dados['cliente'] = $cliente;
 
+        // var_dump($cliente);
+
         $this->carregarViews('perfil',$dados);
     }
 }

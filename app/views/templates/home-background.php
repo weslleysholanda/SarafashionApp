@@ -16,7 +16,7 @@
                                 $headers = @get_headers($caminhoArquivo);
                                 if ($headers && strpos($headers[0], '200') !== false) {
                                     $img = $caminhoArquivo;
-                                    $alt_foto = htmlspecialchars($cliente['alt_cliente'], ENT_QUOTES, 'UTF-8');
+                                    $alt_foto = htmlspecialchars($cliente['alt_foto_cliente'], ENT_QUOTES, 'UTF-8');
                                 }
                             }
                             ?>

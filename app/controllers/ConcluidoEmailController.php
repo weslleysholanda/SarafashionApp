@@ -4,8 +4,10 @@
         public function index(){
             if (!isset($_SESSION['token'])) {
                 header("Location: " . BASE_URL . "index.php?url=login");
+                // var_dump($_SESSION['token']);
                 exit;
             }
+
 
             $dadosToken = TokenHelper::validar($_SESSION['token']);
 

@@ -76,8 +76,6 @@ class RegistrarController extends Controller
         }
     }
 
-
-
     public function sair()
     {
         // Destroi a sessão

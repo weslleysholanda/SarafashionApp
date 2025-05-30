@@ -11,6 +11,7 @@ class ConfirmarCodigoEmailController extends Controller
 
 
         // var_dump($_SESSION['preRegistro']);
+        // var_dump($_SESSION['verificacao_email']);
         // var_dump($_SESSION['verificacao_email']['codigo']);
 
         // Garante que o pré-registro foi feito
@@ -31,10 +32,6 @@ class ConfirmarCodigoEmailController extends Controller
             http_response_code(405);
             echo json_encode(['erro' => 'Método não permitido.']);
             return;
-        }
-
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
         }
 
         $codigoDigitado = $_POST['codigo_verificacao'] ?? null;
@@ -66,12 +63,14 @@ class ConfirmarCodigoEmailController extends Controller
             return;
         }
 
-        var_dump($codigoDigitado);
-
+        // var_dump($codigoDigitado);
+        // var_dump($dadosSessao['codigo']);
         // Dados do pré-registro
         $nome  = $_SESSION['preRegistro']['nome'];
         $email = $_SESSION['preRegistro']['email'];
         $senha = $_SESSION['preRegistro']['senha'];
+
+
 
         $url = BASE_API . "cadastrarCliente";
         $dados = [
@@ -79,6 +78,9 @@ class ConfirmarCodigoEmailController extends Controller
             'email_cliente' => $email,
             'senha_cliente' => $senha
         ];
+        var_dump($dados);
+
+        
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -91,6 +93,8 @@ class ConfirmarCodigoEmailController extends Controller
         $response = curl_exec($ch);
         $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
+        // var_dump($response);
+        // exit;
 
         if ($response === false || $statusCode >= 500) {
             http_response_code(500);

@@ -10,7 +10,7 @@
             </a>
 
         </header>
-        <a href="editarPerfil.html">Editar</a>
+        <a href="<?= BASE_URL ?>index.php?url=editarPerfil">Editar</a>
     </div>
 
 </section>

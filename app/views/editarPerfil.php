@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar - Perfil</title>
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
-</head>
+<?php
+require_once('templates/head.php')
+?>
 
 <body>
     <main class="app perfil editar-perfil">
         <section class="header-perfil">
             <div class="header-nav">
                 <header class="voltar">
-                    <a href="perfil.html">
+                    <a href="<?= BASE_URL ?>index.php?url=perfil">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 15">
                             <path id="Caminho_6" data-name="Caminho 6"
                                 d="M.281,38.669a1.249,1.249,0,0,0,0,1.516L5.53,46.611a.768.768,0,0,0,1.238,0,1.249,1.249,0,0,0,0-1.516l-4.631-5.67,4.628-5.67a1.249,1.249,0,0,0,0-1.516.768.768,0,0,0-1.238,0L.279,38.665Z"
@@ -31,7 +27,22 @@
 
         <section class="perfil-user">
             <div class="avatar-container">
-                <img src="assets/img/fotoperfil.png" alt="Jessica Lopes" />
+                <?php
+                $caminhoArquivo = BASE_URL_SITE . "uploads/" . $cliente['foto_cliente'];
+                $img = BASE_URL_SITE . "uploads/cliente/sem-foto-cliente.png";
+                $alt_foto = "imagem sem foto";
+
+                // var_dump($cliente['foto_cliente']);
+
+                if (!empty($cliente['foto_cliente'])) {
+                    $headers = @get_headers($caminhoArquivo);
+                    if ($headers && strpos($headers[0], '200') !== false) {
+                        $img = $caminhoArquivo;
+                        $alt_foto = htmlspecialchars($cliente['alt_foto_cliente'], ENT_QUOTES, 'UTF-8');
+                    }
+                }
+                ?>
+                <img src="<?= $img ?>" alt="<?= $alt_foto ?>" />
                 <div class="icon-pic">
                     <svg xmlns="http://www.w3.org/2000/svg" width="23.515" height="18.33" viewBox="0 0 23.515 18.33">
                         <g id="Grupo_328" data-name="Grupo 328" transform="translate(-258.242 -242.835)">
@@ -46,7 +57,26 @@
 
                 </div>
             </div>
-            <p>Membro desde: 09 Mar 2020</p>
+            <p>
+                <?php
+                    $data = new DateTime($cliente['membro_desde']);
+
+                    $fmt = new IntlDateFormatter(
+                        'pt_BR', //Localidade
+                        IntlDateFormatter::NONE, // Ignora a da data
+                        IntlDateFormatter::NONE, //Ignora a hora
+                        'UTC', //Timezone
+                        IntlDateFormatter::GREGORIAN,
+                        "dd MMMM yyyy"  // Formato de texto exemplo: 00-00-0000
+                    );
+
+
+                    $dataFormatada = $fmt->format($data); //Formata o objeto DateTime
+                    $dataFormatada = mb_convert_case($dataFormatada, MB_CASE_TITLE, "UTF-8"); //Transforma a string ou seja capitaliza a primeira letra do mês.
+
+                    echo htmlspecialchars('Membro desde: ' . $dataFormatada, ENT_QUOTES, 'UTF-8');
+                ?>
+            </p>
         </section>
 
         <section class="campo-info">

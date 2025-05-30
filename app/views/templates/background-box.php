@@ -42,7 +42,7 @@
                         IntlDateFormatter::NONE, //Ignora a hora
                         'UTC', //Timezone
                         IntlDateFormatter::GREGORIAN,
-                        "dd MMM yyyy"  // Formato de texto exemplo: 00-00-0000
+                        "dd MMMM yyyy"  // Formato de texto exemplo: 00-00-0000
                     );
 
 

@@ -31,26 +31,22 @@ require_once('templates/head.php')
     </main>
 
     <script>
-        // Função para mudar o foco para o próximo input
-        //current - o input atual aonde o usuário está digitando
-        //nextId - o id do próximo input a receber o foco
-
-        // Função para avançar automaticamente para o próximo input
         function nextInput(current, nextId) {
-            if (current.value.length === 1) {
-                const next = document.getElementById(nextId);
-                if (next) {
-                    next.focus();
+            setTimeout(() => {
+                if (current.value.length === 1) {
+                    const next = document.getElementById(nextId);
+                    if (next) {
+                        next.focus();
+                    }
                 }
-            }
-            updateHiddenInput();
+                updateHiddenInput();
+            }, 0);
         }
 
-        // Permite colar todos os números de uma vez no primeiro input
         function handlePaste(event) {
             event.preventDefault();
             const pastedData = (event.clipboardData || window.clipboardData).getData('text');
-            const cleanData = pastedData.replace(/\D/g, ''); // Remove caracteres não numéricos
+            const cleanData = pastedData.replace(/\D/g, '');
 
             const inputs = document.querySelectorAll('.codigo-input');
             for (let i = 0; i < inputs.length; i++) {
@@ -68,35 +64,45 @@ require_once('templates/head.php')
             updateHiddenInput();
         }
 
-        // Atualiza o campo hidden com o código completo
         function updateHiddenInput() {
             const inputs = document.querySelectorAll('.codigo-input');
             let codigo = '';
             inputs.forEach(input => {
                 codigo += input.value;
             });
-            document.getElementById('codigo_verificacao').value = codigo;
+
+            const hidden = document.getElementById('codigo_verificacao');
+            if (hidden) {
+                hidden.value = codigo;
+                console.log('[DEBUG] Código final:', codigo);
+            }
         }
 
-        // Atualiza o código escondido toda vez que qualquer input mudar
-        document.querySelectorAll('.codigo-input').forEach(input => {
-            input.addEventListener('input', updateHiddenInput);
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('.codigo-input');
+            inputs.forEach(input => {
+                input.addEventListener('input', updateHiddenInput);
+            });
+
+            const form = document.getElementById('form-codigo');
+            form.addEventListener('submit', function(e) {
+                updateHiddenInput();
+                // Espera o hidden atualizar antes de enviar
+                setTimeout(() => this.submit(), 10);
+                e.preventDefault();
+            });
+
+            iniciarTimer();
         });
 
-        // Também garante que o código vai com o form se colar direto e apertar submit rápido
-        document.getElementById('form-codigo').addEventListener('submit', updateHiddenInput);
-
-
-        // Define o tempo inicial: 10 minutos (em segundos)
         let tempoRestante = 10 * 60;
-
         const timerElemento = document.getElementById('timer');
+        let contador;
 
-        const atualizarTimer = () => {
+        function atualizarTimer() {
             let minutos = Math.floor(tempoRestante / 60);
             let segundos = tempoRestante % 60;
 
-            // Adiciona zero à esquerda se for menor que 10
             minutos = minutos < 10 ? '0' + minutos : minutos;
             segundos = segundos < 10 ? '0' + segundos : segundos;
 
@@ -106,18 +112,21 @@ require_once('templates/head.php')
             } else {
                 clearInterval(contador);
                 timerElemento.textContent = 'Código expirado';
-                timerElemento.style.color = 'red'; // Deixa o texto vermelho quando expira
+                timerElemento.style.color = 'red';
             }
-        };
+        }
 
-        // Atualiza o timer a cada 1 segundo
-        const contador = setInterval(atualizarTimer, 1000);
-
-        // Executa a primeira vez imediatamente
-        atualizarTimer();
-
-
+        function iniciarTimer() {
+            atualizarTimer();
+            contador = setInterval(atualizarTimer, 1000);
+        }
     </script>
+
+
+
+
+
+
 </body>
 
 </html>

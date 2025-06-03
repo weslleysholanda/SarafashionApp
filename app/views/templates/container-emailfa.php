@@ -5,33 +5,33 @@
     <form action="<?= BASE_URL ?>index.php?url=confirmarCodigoEmail/validarCodigo" method="POST" id="form-codigo">
         <div class="codigo-container">
             <div class="codigo-wrapper">
-                <input type="number" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input2')" onpaste="handlePaste(event)" autocomplete="off" />
+                <input type="text" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input2')" id="input1" onpaste="handlePaste(event)" autocomplete="one-time-code" />
                 <div class="linha-baixo"></div>
             </div>
             <div class="codigo-wrapper">
-                <input type="number" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input3')" autocomplete="off"/>
+                <input type="text" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input3')" id="input2" autocomplete="one-time-code"/>
                 <div class="linha-baixo"></div>
             </div>
             <div class="codigo-wrapper">
-                <input type="number" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input4')" autocomplete="off"/>
+                <input type="text" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input4')" id="input3" autocomplete="one-time-code"/>
                 <div class="linha-baixo"></div>
             </div>
             <div class="codigo-wrapper">
-                <input type="number" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input5')" autocomplete="off"/>
+                <input type="text" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input5')" id="input4" autocomplete="one-time-code"/>
                 <div class="linha-baixo"></div>
             </div>
             <div class="codigo-wrapper">
-                <input type="number" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input6')" autocomplete="off"/>
+                <input type="text" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input6')" id="input5" autocomplete="one-time-code"/>
                 <div class="linha-baixo"></div>
             </div>
             <div class="codigo-wrapper">
-                <input type="number" maxlength="1" class="codigo-input" placeholder=" " autocomplete="off"/>
+                <input type="text" maxlength="1" class="codigo-input" placeholder=" " id="input6" autocomplete="one-time-code"/>
                 <div class="linha-baixo"></div>
             </div>
         </div>
 
         <!-- Input hidden para enviar o código completo -->
-        <input type="number" name="codigo_verificacao" id="codigo_verificacao"  style="display:none;"/>
+        <input type="text" name="codigo_verificacao" id="codigo_verificacao" style="display:none;"/>
 
         <div class="timer" id="timer-container">
             <span id="timer">Código expira em: 10:00</span>
@@ -47,8 +47,3 @@
         </div>
     </form>
 </div>
-
-<script>
-  
-
-</script>

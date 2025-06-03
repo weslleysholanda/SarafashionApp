@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <?php
 require_once('templates/head.php')
@@ -42,7 +42,8 @@ require_once('templates/head.php')
                     }
                 }
                 ?>
-                <img src="<?= $img ?>" alt="<?= $alt_foto ?>" />
+                <img src="<?= $img ?>" alt="<?= $alt_foto ?>" id="preview-img" />
+                <input type="file" name="foto_cliente" id="foto_cliente" style="display: none;" accept="image/*">
                 <div class="icon-pic">
                     <svg xmlns="http://www.w3.org/2000/svg" width="23.515" height="18.33" viewBox="0 0 23.515 18.33">
                         <g id="Grupo_328" data-name="Grupo 328" transform="translate(-258.242 -242.835)">
@@ -59,35 +60,57 @@ require_once('templates/head.php')
             </div>
             <p>
                 <?php
-                    $data = new DateTime($cliente['membro_desde']);
+                $data = new DateTime($cliente['membro_desde']);
 
-                    $fmt = new IntlDateFormatter(
-                        'pt_BR', //Localidade
-                        IntlDateFormatter::NONE, // Ignora a da data
-                        IntlDateFormatter::NONE, //Ignora a hora
-                        'UTC', //Timezone
-                        IntlDateFormatter::GREGORIAN,
-                        "dd MMMM yyyy"  // Formato de texto exemplo: 00-00-0000
-                    );
+                $fmt = new IntlDateFormatter(
+                    'pt_BR', //Localidade
+                    IntlDateFormatter::NONE, // Ignora a da data
+                    IntlDateFormatter::NONE, //Ignora a hora
+                    'UTC', //Timezone
+                    IntlDateFormatter::GREGORIAN,
+                    "dd MMMM yyyy"  // Formato de texto exemplo: 00-00-0000
+                );
 
 
-                    $dataFormatada = $fmt->format($data); //Formata o objeto DateTime
-                    $dataFormatada = mb_convert_case($dataFormatada, MB_CASE_TITLE, "UTF-8"); //Transforma a string ou seja capitaliza a primeira letra do mês.
+                $dataFormatada = $fmt->format($data); //Formata o objeto DateTime
+                $dataFormatada = mb_convert_case($dataFormatada, MB_CASE_TITLE, "UTF-8"); //Transforma a string ou seja capitaliza a primeira letra do mês.
 
-                    echo htmlspecialchars('Membro desde: ' . $dataFormatada, ENT_QUOTES, 'UTF-8');
+                echo htmlspecialchars('Membro desde: ' . $dataFormatada, ENT_QUOTES, 'UTF-8');
                 ?>
             </p>
         </section>
 
         <section class="campo-info">
-            <form action="">
+            <form method="POST">
                 <div class="campo-input">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                         <path id="user-regular"
                             d="M12.214,4.5A3.034,3.034,0,0,0,9,1.688,3.034,3.034,0,0,0,5.786,4.5,3.034,3.034,0,0,0,9,7.313,3.034,3.034,0,0,0,12.214,4.5Zm-8.357,0C3.857,2.015,6.16,0,9,0s5.143,2.015,5.143,4.5S11.84,9,9,9,3.857,6.985,3.857,4.5ZM1.981,16.313H16.023a5.061,5.061,0,0,0-5.183-3.937H7.168a5.061,5.061,0,0,0-5.183,3.938ZM0,16.956c0-3.463,3.206-6.268,7.164-6.268h3.672c3.958,0,7.164,2.805,7.164,6.268A1.126,1.126,0,0,1,16.807,18H1.193A1.126,1.126,0,0,1,0,16.956Z"
                             fill="#888" />
                     </svg>
-                    <input type="text" placeholder="Nome:" />
+                    <input type="text" placeholder="Nome:" name="nome_cliente" value="<?= $cliente['nome_cliente'] ?>" />
+                </div>
+
+                <div class="campo-input">
+                    <svg id="iconeTipoFornecedor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+                        <path d="M12.214,4.5A3.034,3.034,0,0,0,9,1.688,3.034,3.034,0,0,0,5.786,4.5,3.034,3.034,0,0,0,9,7.313,3.034,3.034,0,0,0,12.214,4.5Zm-8.357,0C3.857,2.015,6.16,0,9,0s5.143,2.015,5.143,4.5S11.84,9,9,9,3.857,6.985,3.857,4.5ZM1.981,16.313H16.023a5.061,5.061,0,0,0-5.183-3.937H7.168a5.061,5.061,0,0,0-5.183,3.938ZM0,16.956c0-3.463,3.206-6.268,7.164-6.268h3.672c3.958,0,7.164,2.805,7.164,6.268A1.126,1.126,0,0,1,16.807,18H1.193A1.126,1.126,0,0,1,0,16.956Z"
+                            fill="#888" />
+                    </svg>
+
+                    <select class="form-select" name="tipo_fornecedor" id="tipoFornecedor" required>
+                        <option selected disabled>Selecione o tipo do fornecedor</option>
+                        <option value="Pessoa Jurídica">Pessoa Jurídica</option>
+                        <option value="Pessoa Física">Pessoa Física</option>
+                    </select>
+                </div>
+
+                <div class="campo-input">
+                    <svg id="iconeDocumento" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+                        <path d="M12.214,4.5A3.034,3.034,0,0,0,9,1.688,3.034,3.034,0,0,0,5.786,4.5,3.034,3.034,0,0,0,9,7.313,3.034,3.034,0,0,0,12.214,4.5Zm-8.357,0C3.857,2.015,6.16,0,9,0s5.143,2.015,5.143,4.5S11.84,9,9,9,3.857,6.985,3.857,4.5ZM1.981,16.313H16.023a5.061,5.061,0,0,0-5.183-3.937H7.168a5.061,5.061,0,0,0-5.183,3.938ZM0,16.956c0-3.463,3.206-6.268,7.164-6.268h3.672c3.958,0,7.164,2.805,7.164,6.268A1.126,1.126,0,0,1,16.807,18H1.193A1.126,1.126,0,0,1,0,16.956Z"
+                            fill="#888" />
+                    </svg>
+
+                    <input type="text" placeholder="CPF ou CNPJ" name="cpf_cnpj_fornecedor" id="cpfCnpjFornecedor" required />
                 </div>
 
                 <div class="campo-input">
@@ -97,7 +120,7 @@ require_once('templates/head.php')
                             transform="translate(0 -64)" fill="#888" />
                     </svg>
 
-                    <input type="email" placeholder="Email:" />
+                    <input type="email" placeholder="Email:" name="email_cliente" value="<?= $cliente['email_cliente'] ?>" />
                 </div>
 
                 <div class="campo-input">
@@ -108,7 +131,7 @@ require_once('templates/head.php')
                     </svg>
 
 
-                    <input type="tel" placeholder="Telefone:" />
+                    <input type="tel" placeholder="Telefone:" name="telefone_cliente" value="<?= $cliente['telefone_cliente'] ?>" />
                 </div>
 
                 <div class="campo-input">
@@ -118,7 +141,25 @@ require_once('templates/head.php')
                             fill="#888" />
                     </svg>
 
-                    <input type="date" placeholder="data de nascimento:" />
+                    <input type="date" placeholder="data de nascimento:" name="data_nasc_cliente" value="<?= $cliente['data_nasc_cliente'] ?>" />
+                </div>
+
+                <div class="campo-input">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                    </svg>
+
+                    <input type="text" placeholder="Endereço:" name="endereco_cliente" value="<?= $cliente['endereco_cliente'] ?>" />
+                </div>
+
+                <div class="campo-input">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                    </svg>
+
+                    <input type="text" placeholder="Bairro:" name="bairro_cliente" value="<?= $cliente['bairro_cliente'] ?>" />
                 </div>
 
                 <div class="input-post">
@@ -129,6 +170,109 @@ require_once('templates/head.php')
 
         </section>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Upload de foto e preview
+            const visualizarImg = document.getElementById('preview-img');
+            const arquivo = document.getElementById('foto_cliente');
+
+            visualizarImg.addEventListener('click', function() {
+                arquivo.click();
+            });
+
+            arquivo.addEventListener('change', function() {
+                if (arquivo.files && arquivo.files[0]) {
+                    let render = new FileReader();
+                    render.onload = function(e) {
+                        visualizarImg.src = e.target.result;
+                    }
+                    render.readAsDataURL(arquivo.files[0]);
+                }
+            });
+
+            // Elementos de ícone e input documento
+            const select = document.getElementById('tipoFornecedor');
+            const iconeTipoFornecedor = document.getElementById('iconeTipoFornecedor');
+            const iconeDocumento = document.getElementById('iconeDocumento');
+            const inputDoc = document.getElementById('cpfCnpjFornecedor');
+
+            // Ícones para tipoFornecedor (exemplo)
+            const iconesTipoFornecedor = {
+                'Pessoa Física': [
+                    `M12.214,4.5A3.034,3.034,0,0,0,9,1.688,3.034,3.034,0,0,0,5.786,4.5,3.034,3.034,0,0,0,9,7.313,3.034,3.034,0,0,0,12.214,4.5Zm-8.357,0C3.857,2.015,6.16,0,9,0s5.143,2.015,5.143,4.5S11.84,9,9,9,3.857,6.985,3.857,4.5ZM1.981,16.313H16.023a5.061,5.061,0,0,0-5.183-3.937H7.168a5.061,5.061,0,0,0-5.183,3.938ZM0,16.956c0-3.463,3.206-6.268,7.164-6.268h3.672c3.958,0,7.164,2.805,7.164,6.268A1.126,1.126,0,0,1,16.807,18H1.193A1.126,1.126,0,0,1,0,16.956Z`
+                ],
+                'Pessoa Jurídica': [
+                    `M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z`,
+                    `M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3z`
+                ]
+            };
+
+            // Ícones para campo documento
+            const iconesDocumento = {
+                'Pessoa Física': [
+                    `M12.214,4.5A3.034,3.034,0,0,0,9,1.688,3.034,3.034,0,0,0,5.786,4.5,3.034,3.034,0,0,0,9,7.313,3.034,3.034,0,0,0,12.214,4.5Zm-8.357,0C3.857,2.015,6.16,0,9,0s5.143,2.015,5.143,4.5S11.84,9,9,9,3.857,6.985,3.857,4.5ZM1.981,16.313H16.023a5.061,5.061,0,0,0-5.183-3.937H7.168a5.061,5.061,0,0,0-5.183,3.938ZM0,16.956c0-3.463,3.206-6.268,7.164-6.268h3.672c3.958,0,7.164,2.805,7.164,6.268A1.126,1.126,0,0,1,16.807,18H1.193A1.126,1.126,0,0,1,0,16.956Z`
+                ],
+                'Pessoa Jurídica': [
+                    `M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z`,
+                    `M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3z`
+                ]
+            };
+
+            select.addEventListener('change', () => {
+                const tipo = select.value;
+
+                // Troca ícone tipoFornecedor
+                const pathsTipo = iconesTipoFornecedor[tipo];
+                if (pathsTipo) {
+                    iconeTipoFornecedor.innerHTML = '';
+                    pathsTipo.forEach(d => {
+                        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                        path.setAttribute("d", d);
+                        path.setAttribute("fill", "#888");
+                        iconeTipoFornecedor.appendChild(path);
+                    });
+                }
+
+                // Troca ícone documento
+                const pathsDoc = iconesDocumento[tipo];
+                if (pathsDoc) {
+                    iconeDocumento.innerHTML = '';
+                    pathsDoc.forEach(d => {
+                        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                        path.setAttribute("d", d);
+                        path.setAttribute("fill", "#888");
+                        iconeDocumento.appendChild(path);
+                    });
+                }
+
+                // Limpa e seta placeholder no campo documento
+                inputDoc.value = '';
+                inputDoc.setAttribute('placeholder', tipo === 'Pessoa Física' ? 'Digite o CPF' : 'Digite o CNPJ');
+            });
+
+            // Máscaras simples para CPF e CNPJ
+            inputDoc.addEventListener('input', () => {
+                let val = inputDoc.value.replace(/\D/g, '');
+
+                if (select.value === 'Pessoa Física') {
+                    if (val.length > 11) val = val.slice(0, 11);
+                    val = val.replace(/(\d{3})(\d)/, '$1.$2');
+                    val = val.replace(/(\d{3})(\d)/, '$1.$2');
+                    val = val.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                } else if (select.value === 'Pessoa Jurídica') {
+                    if (val.length > 14) val = val.slice(0, 14);
+                    val = val.replace(/^(\d{2})(\d)/, '$1.$2');
+                    val = val.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+                    val = val.replace(/\.(\d{3})(\d)/, '.$1/$2');
+                    val = val.replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+                }
+
+                inputDoc.value = val;
+            });
+        });
+    </script>
+
 </body>
 
 </html>

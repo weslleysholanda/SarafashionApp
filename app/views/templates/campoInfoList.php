@@ -27,7 +27,7 @@
                 transform="translate(0 0)" fill="#888" />
         </svg>
 
-        <span><?= $cliente['telefone_cliente'] ?></span>
+        <span><?= !empty($cliente['telefone_cliente']) ? $cliente['telefone_cliente'] : '(00) 00000-0000' ?></span>
     </div>
 
     <div class="campo">

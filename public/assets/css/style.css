@@ -1262,6 +1262,7 @@ body {
       display: flex;
       flex-direction: column;
       gap: 30px;
+
       .codigo-container {
         display: flex;
         justify-content: center;
@@ -1409,10 +1410,10 @@ body {
       }
     }
 
-    .input-post{
+    .input-post {
       width: 100%;
 
-      a{
+      a {
         width: 80%;
       }
     }
@@ -2213,6 +2214,15 @@ body {
           pointer-events: none;
         }
 
+        .form-select {
+          flex: 1;
+          border: none;
+          outline: none;
+          color: var(--cor6);
+          background: transparent;
+          padding: 0;
+        }
+
         input {
           border: none;
           background: transparent;
@@ -2245,12 +2255,8 @@ body {
           }
         }
 
-        &:nth-of-type(2) svg {
-          width: 25px;
-        }
-
         &:nth-of-type(3) svg {
-          width: 20px;
+          width: 22.46px;
         }
       }
 

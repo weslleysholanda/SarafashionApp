@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="container-box">
-                    <a href="">
+                    <a href="<?= BASE_URL ?>index.php?url=verificarSms">
                         <div class="box-selecionar">
                             <div class="box-img">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="67" height="62">

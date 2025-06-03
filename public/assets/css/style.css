@@ -73,6 +73,8 @@
   --cor4: #2A2A2A;
   --cor5: #6A3D16;
   --cor6: #888888;
+  --sucess: #25A23A;
+  --error: #ff0707;
   --notification: #EE4C6E;
   --corBlack: #222222;
 
@@ -129,6 +131,61 @@ body {
 
 .of-height-140 {
   height: 140px;
+}
+
+.custom-alert-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  .custom-alert {
+    width: 85%;
+    padding: 15px 8px;
+    border-radius: 8px;
+    position: relative;
+    font-family: var(--fonteMontserrat);
+    font-size: 15px;
+    color: #f1f1f1;
+    background-color: transparent;
+    border-left: 5px solid;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
+    &.success {
+      background: #d4edda;
+      border-color: #28a745;
+      color: #0d3b2e;
+    }
+
+    &.error {
+      background: #f8d7da;
+      border-color: #dc3545;
+      color: #3b0d0d;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 13px;
+      right: 11px;
+      color: #ccc;
+      cursor: pointer;
+
+      svg {
+        width: 20px;
+        height: 20px;
+        opacity: 0.5;
+
+        path {
+          fill: var(--corBlack);
+        }
+      }
+
+      &:hover {
+        color: #fff;
+      }
+    }
+
+  }
 }
 
 .input-post {
@@ -662,7 +719,7 @@ body {
               }
 
               &:nth-of-type(2) svg {
-                width: 25px;
+                width: 20px;
               }
 
               &:nth-of-type(3) svg {
@@ -2165,6 +2222,7 @@ body {
     flex-direction: column;
     align-items: center;
     margin-top: 64px;
+    height: 60vh;
     gap: 16px;
 
     .campo {
@@ -2178,19 +2236,68 @@ body {
 
       svg {
         flex-shrink: 0;
+        width: 20px;
 
-        span {
-          font-size: 14px;
-          color: #333;
+        path {
+          fill: #888;
         }
+      }
+
+      span {
+        font-family: var(--fonteMontserrat);
+        font-size: 15px;
+        color: var(--cor6);
       }
     }
   }
 }
 
 .editar-perfil {
-  .campo-info {
-    form {
+  form {
+    .perfil-user {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 40px;
+
+      .avatar-container {
+        position: relative;
+        text-align: center;
+        width: 100%;
+
+        img {
+          width: 37.437%;
+          height: 146px;
+          filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+          border: 2px solid white;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+        .icon-pic {
+          position: absolute;
+          bottom: 5px;
+          left: 64%;
+          transform: translateX(-50%);
+          background: var(--corPrincipal);
+          width: 10.260%;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      p {
+        font-size: 1.125em;
+        text-align: center;
+        font-family: var(--fonteMontserrat);
+        font-weight: 500;
+      }
+    }
+
+    .campo-info {
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -2201,8 +2308,8 @@ body {
         align-items: center;
         background-color: #EEEEEE;
         border-radius: 25px;
-        padding: 0.2rem 1rem;
-        width: 75%;
+        padding: 15px 15px;
+        width: 80%;
         margin: 0 auto;
         height: 2.625rem;
         position: relative;
@@ -2215,7 +2322,7 @@ body {
         }
 
         .form-select {
-          flex: 1;
+          width: 100%;
           border: none;
           outline: none;
           color: var(--cor6);
@@ -2254,20 +2361,17 @@ body {
             }
           }
         }
-
-        &:nth-of-type(3) svg {
-          width: 22.46px;
-        }
       }
 
 
       .input-post {
         margin-top: 20px;
-
+        padding: 0 0 10px;
         button {
           border-radius: 10px;
         }
       }
+
     }
   }
 }

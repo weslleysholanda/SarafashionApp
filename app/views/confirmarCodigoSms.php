@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2faSms</title>
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
-</head>
+<?php
+    require_once('templates/head.php')
+?>
 <body>
     <main class="app authSms">
         <section class="codigoSms">
@@ -20,9 +16,9 @@
                 </a>
             </header>
             <div class="background_SmsNumero">
-                <img src="assets/img/login-light.png" alt="">
+                <img src="<?=  BASE_URL ?>public/assets/img/login-light.png" alt="">
                 <div class="logo">
-                    <img src="assets/img/logo_sarafashion.svg" alt="">
+                    <img src="<?=  BASE_URL ?>public/assets/img/logo_sarafashion.svg" alt="">
                 </div>
             </div>
             <div class="container-SMS">

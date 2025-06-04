@@ -22,7 +22,7 @@ class EditarPerfilController extends Controller
         // Atualizar Cliente
         //method spoofing = o HTML puro não permite o uso do method Patch
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_method']) && $_POST['_method'] === 'PATCH') {
-            
+
             $dadosAtualizados = [
                 'nome_cliente' => $_POST['nome_cliente'],
                 'tipo_cliente' => $_POST['tipo_cliente'],
@@ -33,15 +33,6 @@ class EditarPerfilController extends Controller
                 'endereco_cliente' => $_POST['endereco_cliente'],
                 'bairro_cliente' => $_POST['bairro_cliente']
             ];
-
-            // Criptografa a senha se fornecida
-            if (!empty($_POST['senha_cliente'])) {
-                $dadosAtualizados['senha_cliente'] = password_hash($_POST['senha_cliente'], PASSWORD_DEFAULT);
-            }
-
-            if (!empty($_POST['foto_cliente'])) {
-                $dadosAtualizados['foto_cliente'] = $_POST['foto_cliente'];
-            }
 
             $urlAtualizar = BASE_API . "atualizarCliente/" . $dadosToken['id'];
             $chAtualizar = curl_init($urlAtualizar);
@@ -90,5 +81,87 @@ class EditarPerfilController extends Controller
         $dados['titulo'] = 'Sarafashion - Editar Perfil';
         $dados['cliente'] = $cliente;
         $this->carregarViews('editarPerfil', $dados);
+    }
+
+    public function uploadFoto()
+    {
+        header('Content-Type: application/json');
+
+        if (!isset($_SESSION['token'])) {
+            echo json_encode([
+                'status' => 'erro',
+                'mensagem' => 'Sessão expirada. Faça login novamente.'
+            ]);
+            return;
+        }
+
+        $dadosToken = TokenHelper::validar($_SESSION['token']);
+        if (!$dadosToken) {
+            session_destroy();
+            unset($_SESSION['token']);
+            echo json_encode([
+                'status' => 'erro',
+                'mensagem' => 'Token inválido. Faça login novamente.'
+            ]);
+            return;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['foto_cliente']['name'])) {
+            $urlUpload = BASE_API . "uploadFotoCliente/" . $dadosToken['id'];
+
+            $foto = new CURLFile(
+                $_FILES['foto_cliente']['tmp_name'],
+                $_FILES['foto_cliente']['type'],
+                $_FILES['foto_cliente']['name']
+            );
+
+            $postData = ['foto_cliente' => $foto];
+
+            $ch = curl_init($urlUpload);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Authorization: Bearer ' . $_SESSION['token']
+            ]);
+
+            $resposta = curl_exec($ch);
+            $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $erroCurl = curl_error($ch);
+            curl_close($ch);
+
+            if ($resposta === false) {
+                echo json_encode([
+                    'status' => 'erro',
+                    'mensagem' => 'Erro ao se comunicar com o servidor de arquivos: ' . $erroCurl
+                ]);
+                return;
+            }
+
+            $respostaDecoded = json_decode($resposta, true);
+
+            // Aqui está o ajuste importante — verifica 'caminho' ao invés de 'foto'
+            if ($status === 200 && isset($respostaDecoded['caminho'])) {
+                $novoNomeArquivo = $respostaDecoded['caminho'];
+                $caminhoImagem = BASE_URL_SITE . 'uploads/' . $novoNomeArquivo;
+
+                echo json_encode([
+                    'status' => 'sucesso',
+                    'mensagem' => 'Foto atualizada com sucesso!',
+                    'novaFoto' => $caminhoImagem
+                ]);
+            } else {
+                $erro = $respostaDecoded['erro'] ?? 'Erro desconhecido ou resposta inválida da API.';
+                echo json_encode([
+                    'status' => 'erro',
+                    'mensagem' => "Erro ao atualizar a foto: $erro"
+                ]);
+            }
+        } else {
+            echo json_encode([
+                'status' => 'erro',
+                'mensagem' => 'Nenhum arquivo enviado.'
+            ]);
+        }
     }
 }

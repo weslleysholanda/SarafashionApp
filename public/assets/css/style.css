@@ -2203,6 +2203,7 @@ body {
         width: 10.260%;
         height: 40px;
         border-radius: 50%;
+        border: none;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -2253,18 +2254,18 @@ body {
 }
 
 .editar-perfil {
-  form {
-    .perfil-user {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 40px;
+  .perfil-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
 
-      .avatar-container {
-        position: relative;
-        text-align: center;
+    .avatar-container {
+      position: relative;
+      text-align: center;
+      width: 100%;
+      form{
         width: 100%;
-
         img {
           width: 37.437%;
           height: 146px;
@@ -2273,7 +2274,7 @@ body {
           object-fit: cover;
           border-radius: 50%;
         }
-
+  
         .icon-pic {
           position: absolute;
           bottom: 5px;
@@ -2288,30 +2289,31 @@ body {
           align-items: center;
         }
       }
-
-      p {
-        font-size: 1.125em;
-        text-align: center;
-        font-family: var(--fonteMontserrat);
-        font-weight: 500;
-      }
     }
 
-    .campo-info {
+    p {
+      font-size: 1.125em;
+      text-align: center;
+      font-family: var(--fonteMontserrat);
+      font-weight: 500;
+    }
+  }
+
+  .campo-info {
+    form {
       display: flex;
       flex-direction: column;
       gap: 20px;
       width: 100%;
-
       .campo-input {
         display: flex;
         align-items: center;
         background-color: #EEEEEE;
-        border-radius: 25px;
+        border-radius: 15px;
         padding: 15px 15px;
         width: 80%;
         margin: 0 auto;
-        height: 2.625rem;
+        height: 1.80rem;
         position: relative;
 
         svg {
@@ -2367,13 +2369,14 @@ body {
       .input-post {
         margin-top: 20px;
         padding: 0 0 10px;
+
         button {
           border-radius: 10px;
         }
       }
-
     }
   }
+
 }
 
 /* Segurança */

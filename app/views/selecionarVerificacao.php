@@ -29,27 +29,6 @@
                 </div>
 
                 <div class="container-box">
-                    <a href="<?= BASE_URL ?>index.php?url=verificarSms">
-                        <div class="box-selecionar">
-                            <div class="box-img">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="67" height="62">
-                                    <g fill="none">
-                                        <path d="M12.538 12C12.242 12 12 12.242 12 12.538v42.449l8.404-5.603h42.058c.297 0 .538-.242.538-.538V12.538C63 12.242 62.758 12 62.462 12H12.538ZM8 8h54.462A4.538 4.538 0 0 1 67 12.538v36.308a4.538 4.538 0 0 1-4.538 4.538H21.615L8 62.462V12.538A4.538 4.538 0 0 1 12.538 8Z" fill="#555" />
-                                    </g>
-                                    <text x="33.5" y="33" text-anchor="middle" fill="#555" font-size="16" font-family="Arial, sans-serif" font-weight="700">
-                                        SMS
-                                    </text>
-                                </svg>
-
-
-                            </div>
-                            <div class="box-conteudo">
-                                <h2>Verificar via SMS</h2>
-                                <p>Um código será enviado <br>
-                                    por sms</p>
-                            </div>
-                        </div>
-                    </a>
                     <a href="<?= BASE_URL ?>index.php?url=verificarEmail">
                         <div class="box-selecionar">
                             <div class="box-img">

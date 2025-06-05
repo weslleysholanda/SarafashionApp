@@ -28,19 +28,19 @@ require_once('templates/head.php')
             <div class="avatar-container">
                 <form id="upload-foto-form" enctype="multipart/form-data">
                     <?php
-                    $caminhoArquivo = BASE_URL_SITE . "uploads/" . $cliente['foto_cliente'];
-                    $img = BASE_URL_SITE . "uploads/cliente/sem-foto-cliente.png";
-                    $alt_foto = "imagem sem foto";
-
-                    // var_dump($cliente['foto_cliente']);
-
-                    if (!empty($cliente['foto_cliente'])) {
-                        $headers = @get_headers($caminhoArquivo);
-                        if ($headers && strpos($headers[0], '200') !== false) {
-                            $img = $caminhoArquivo;
-                            $alt_foto = htmlspecialchars($cliente['alt_foto_cliente'], ENT_QUOTES, 'UTF-8');
+                        $caminhoArquivo = BASE_URL_SITE . "uploads/" . $cliente['foto_cliente'];
+                        $img = BASE_URL_SITE . "uploads/cliente/sem-foto-cliente.png";
+                        $alt_foto = "imagem sem foto";
+    
+                        // var_dump($cliente['foto_cliente']);
+    
+                        if (!empty($cliente['foto_cliente'])) {
+                            $headers = @get_headers($caminhoArquivo);
+                            if ($headers && strpos($headers[0], '200') !== false) {
+                                $img = $caminhoArquivo;
+                                $alt_foto = htmlspecialchars($cliente['alt_foto_cliente'], ENT_QUOTES, 'UTF-8');
+                            }
                         }
-                    }
                     ?>
                     <img src="<?= $img ?>" alt="<?= $alt_foto ?>" id="preview-img" />
                     <input type="file" name="foto_cliente" id="foto_cliente" style="display: none;" accept="image/*">
@@ -59,7 +59,7 @@ require_once('templates/head.php')
                     </button>
                 </form>
             </div>
-            <div id="mensagem-upload"></div>
+
             <p>
                 <?php
                 $data = new DateTime($cliente['membro_desde']);
@@ -80,6 +80,8 @@ require_once('templates/head.php')
                 echo htmlspecialchars('Membro desde: ' . $dataFormatada, ENT_QUOTES, 'UTF-8');
                 ?>
             </p>
+
+            <div id="mensagem-upload"></div>
         </section>
 
         <section class="campo-info">
@@ -284,7 +286,7 @@ require_once('templates/head.php')
         document.getElementById('foto_cliente').addEventListener('change', function() {
             const file = this.files[0];
             const msgDiv = document.getElementById('mensagem-upload');
-            msgDiv.innerHTML = ''; // Limpa mensagens anteriores
+            msgDiv.innerHTML = '';
 
             if (!file) return;
 
@@ -300,18 +302,40 @@ require_once('templates/head.php')
                     if (data.status === 'sucesso') {
                         // Atualiza a imagem
                         document.getElementById('preview-img').src = data.novaFoto;
-                        msgDiv.innerHTML = `<div class="custom-alert success">${data.mensagem}</div>`;
+                        exibirMensagem(data.mensagem, 'success');
                     } else if (data.status === 'erro') {
-                        msgDiv.innerHTML = `<div class="custom-alert error">${data.mensagem}</div>`;
+                        exibirMensagem(data.mensagem, 'error');
                     } else {
-                        msgDiv.innerHTML = `<div class="custom-alert error">Ocorreu um erro desconhecido.</div>`;
+                        exibirMensagem('Ocorreu um erro desconhecido.', 'error');
                     }
                 })
                 .catch(err => {
                     console.error('Erro no envio da imagem:', err);
-                    msgDiv.innerHTML = `<div class="custom-alert error">Erro inesperado ao enviar a imagem.</div>`;
+                    exibirMensagem('Erro inesperado ao enviar a imagem.', 'error');
                 });
         });
+
+        function exibirMensagem(mensagem, tipo) {
+            const msgDiv = document.getElementById('mensagem-upload');
+            msgDiv.innerHTML = `
+            <div class="custom-alert-container">
+                <div class="custom-alert ${tipo}">
+                    ${mensagem}
+                    <span class="close-btn" onclick="closeAlert(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                        </svg>
+                    </span>
+                </div>
+            </div>`;
+        }
+
+        function closeAlert(el) {
+            const alertBox = el.closest('.custom-alert-container');
+            alertBox.style.opacity = '0';
+            alertBox.style.transform = 'translateY(-10px)';
+            setTimeout(() => alertBox.remove(), 300);
+        }
 
 
         $(document).ready(function() {

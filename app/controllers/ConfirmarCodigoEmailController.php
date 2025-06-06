@@ -78,7 +78,8 @@ class ConfirmarCodigoEmailController extends Controller
             'email_cliente' => $email,
             'senha_cliente' => $senha
         ];
-        var_dump($dados);
+        
+        // var_dump($dados);
 
         
 

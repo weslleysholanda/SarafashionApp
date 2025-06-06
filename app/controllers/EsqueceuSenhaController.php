@@ -55,7 +55,6 @@ class EsqueceuSenhaController extends Controller
         $_SESSION['recuperarSenha'] = [
             'email' => $email
         ];
-
         
 
         if ($http_code === 200 && isset($data['sucesso'])) {
@@ -66,6 +65,18 @@ class EsqueceuSenhaController extends Controller
 
         http_response_code($http_code ?: 400);
         echo json_encode(['erro' => $data['erro'] ?? 'Erro inesperado ao enviar o código.']);
+        exit;
+    }
+
+    public function sair()
+    {
+        // Destroi a sessão
+        session_start();
+        session_unset();
+        session_destroy();
+
+        // Redireciona para a tela de login
+        header("Location: " . BASE_URL . "index.php?url=esqueceuSenha");
         exit;
     }
 }

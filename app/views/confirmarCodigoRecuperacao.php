@@ -9,7 +9,7 @@ require_once('templates/head.php')
     <main class="app">
         <section class="codigoEmail">
             <header class="voltar">
-                <a href="<?= BASE_URL ?>index.php?url=verificarEmail">
+                <a href="<?= BASE_URL ?>index.php?url=esqueceuSenha/sair">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 15">
                         <path id="Caminho_6" data-name="Caminho 6"
                             d="M.281,38.669a1.249,1.249,0,0,0,0,1.516L5.53,46.611a.768.768,0,0,0,1.238,0,1.249,1.249,0,0,0,0-1.516l-4.631-5.67,4.628-5.67a1.249,1.249,0,0,0,0-1.516.768.768,0,0,0-1.238,0L.279,38.665Z"
@@ -120,12 +120,72 @@ require_once('templates/head.php')
             atualizarTimer();
             contador = setInterval(atualizarTimer, 1000);
         }
+
+        function showErrorMessage(msg) {
+            const mensagemDiv = document.getElementById('mensagem');
+            mensagemDiv.innerHTML = `
+                <div class="custom-alert-container">
+                    <div class="custom-alert error">
+                        ${msg}
+                        <span class="close-btn" onclick="closeAlert(this);">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function closeAlert(el) {
+            const alertBox = el.closest('.custom-alert-container');
+            alertBox.style.opacity = '0';
+            alertBox.style.transform = 'translateY(-10px)';
+            setTimeout(() => alertBox.remove(), 300);
+        }
+
+
+
+        const form = document.getElementById('form-codigo');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Junta os dígitos no campo hidden
+            updateHiddenInput();
+
+            const formData = new FormData(form);
+
+            // Desabilita o botão enquanto envia
+            const botao = form.querySelector('button[type="submit"]');
+            botao.disabled = true;
+            botao.textContent = 'Verificando...';
+
+            fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.sucesso) {
+                        // Redireciona se o código for válido
+                        window.location.href = "<?= BASE_URL ?>index.php?url=trocarSenha/formulario";
+                    } else {
+                        // Exibe erro na tela
+                        showErrorMessage(data.erro || "Código incorreto ou expirado.");
+                    }
+                })
+                .catch(err => {
+                    showErrorMessage("Erro de conexão. Tente novamente.");
+                    console.error('[AJAX erro]', err);
+                })
+                .finally(() => {
+                    // Reativa o botão
+                    botao.disabled = false;
+                    botao.textContent = 'Verificar Código';
+                });
+        });
     </script>
-
-
-
-
-
 
 </body>
 

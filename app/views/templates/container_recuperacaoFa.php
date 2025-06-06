@@ -2,7 +2,8 @@
     <div class="header-Email_Codigo">
         <h1>Um código de verificação foi enviado para o e-mail <?= htmlspecialchars($email) ?></h1>
     </div>
-    <form action="<?= BASE_URL ?>index.php?url=confirmarCodigoEmail/validarCodigo" method="POST" id="form-codigo">
+    <div id="mensagem"></div>
+    <form action="<?= BASE_URL ?>index.php?url=confirmarCodigoRecuperacao/validarCodigoRec" method="POST" id="form-codigo">
         <div class="codigo-container">
             <div class="codigo-wrapper">
                 <input type="text" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input2')" id="input1" onpaste="handlePaste(event)" autocomplete="one-time-code" />

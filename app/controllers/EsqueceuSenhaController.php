@@ -53,7 +53,8 @@ class EsqueceuSenhaController extends Controller
         $data = json_decode($response, true);
 
         $_SESSION['recuperarSenha'] = [
-            'email' => $email
+            'email' => $email,
+            'token' => $data['token']
         ];
         
 

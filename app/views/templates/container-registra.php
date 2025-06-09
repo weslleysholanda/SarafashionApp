@@ -6,20 +6,20 @@
         </div>
 
         <?php
-        $erro = $_GET['erro'] ?? null;
-        $mensagemErro = '';
-
-        switch ($erro) {
-            case 'campos_obrigatorios':
-                $mensagemErro = 'Preencha todos os campos obrigatórios.';
-                break;
-            case 'senhas_diferentes':
-                $mensagemErro = 'As senhas não coincidem.';
-                break;
-            case 'erro_api':
-                $mensagemErro = 'Erro ao registrar. Tente novamente.';
-                break;
-        }
+            $erro = $_GET['erro'] ?? null;
+            $mensagemErro = '';
+    
+            switch ($erro) {
+                case 'campos_obrigatorios':
+                    $mensagemErro = 'Preencha todos os campos obrigatórios.';
+                    break;
+                case 'senhas_diferentes':
+                    $mensagemErro = 'As senhas não coincidem.';
+                    break;
+                case 'erro_api':
+                    $mensagemErro = 'Erro ao registrar. Tente novamente.';
+                    break;
+            }
         ?>
 
         <?php if ($mensagemErro): ?>

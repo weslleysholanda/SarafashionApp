@@ -30,6 +30,7 @@ require_once('templates/head.php')
             </div>
         </section>
     </main>
+
     <script>
         function showErrorMessage(msg) {
             const mensagemDiv = document.getElementById('mensagem');
@@ -89,8 +90,6 @@ require_once('templates/head.php')
 
         });
     </script>
-
-
 </body>
 
 </html>

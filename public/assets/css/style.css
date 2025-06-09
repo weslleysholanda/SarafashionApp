@@ -792,6 +792,25 @@ body {
   }
 }
 
+.resetarSenha{
+  .registrar{
+    .container-registrar{
+      .content-info{
+        .header-registrar{
+          margin-bottom: 40px;
+        }
+        .form-inputs{
+          form{
+            .input-post{
+              margin-top: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 /* Selecionar Verificação */
 .selecionar {
   position: relative;

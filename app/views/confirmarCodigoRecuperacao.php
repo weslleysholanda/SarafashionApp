@@ -169,7 +169,7 @@ require_once('templates/head.php')
                 .then(data => {
                     if (data.sucesso) {
                         // Redireciona se o código for válido
-                        window.location.href = "<?= BASE_URL ?>index.php?url=trocarSenha/formulario";
+                        window.location.href = "<?= BASE_URL ?>index.php?url=alterarSenha";
                     } else {
                         // Exibe erro na tela
                         showErrorMessage(data.erro || "Código incorreto ou expirado.");

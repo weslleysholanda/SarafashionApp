@@ -3,7 +3,7 @@
         <h1>Um código de verificação foi enviado para o e-mail <?= htmlspecialchars($email) ?></h1>
     </div>
     <div id="mensagem"></div>
-    <form action="<?= BASE_URL ?>index.php?url=confirmarCodigoRecuperacao/validarCodigoRec" method="POST" id="form-codigo">
+    <form action="<?= BASE_URL ?>index.php?url=confirmarCodigoRecuperacao/validarCodigoRecuperacao" method="POST" id="form-codigo">
         <div class="codigo-container">
             <div class="codigo-wrapper">
                 <input type="text" maxlength="1" class="codigo-input" placeholder=" " oninput="nextInput(this, 'input2')" id="input1" onpaste="handlePaste(event)" autocomplete="one-time-code" />
@@ -32,7 +32,7 @@
         </div>
 
         <!-- Input hidden para enviar o código completo -->
-        <input type="text" name="codigo_verificacao" id="codigo_verificacao" style="display:none;"/>
+        <input type="hidden" name="codigo_verificacao" id="codigo_verificacao"/>
 
         <div class="timer" id="timer-container">
             <span id="timer">Código expira em: 10:00</span>

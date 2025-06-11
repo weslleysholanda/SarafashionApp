@@ -5,33 +5,12 @@
             <h3>Defina uma nova senha segura</h3>
         </div>
 
-        <?php
-        $erro = $_GET['erro'] ?? null;
-        $mensagemErro = '';
 
-            switch ($erro) {
-                case 'campos_obrigatorios':
-                    $mensagemErro = 'Preencha todos os campos obrigatórios.';
-                    break;
-                case 'senhas_diferentes':
-                    $mensagemErro = 'As senhas não coincidem.';
-                    break;
-                case 'erro_api':
-                    $mensagemErro = 'Erro ao registrar. Tente novamente.';
-                    break;
-            }
-        ?>
+        <div id="mensagem-retorno"></div>
 
-        <?php if ($mensagemErro): ?>
-            <div class="container-mensagemErro">
-                <div class="mensagem-erro">
-                    <?= htmlspecialchars($mensagemErro) ?>
-                </div>
-            </div>
-        <?php endif; ?>
 
         <div class="form-inputs">
-            <form action="" method="POST">
+            <form  id="form-alterar-senha" action="<?= BASE_URL ?>alterarSenha/atualizarSenha" method="POST">
                 <div class="campo-input">
                     <svg id="_x32_37._Locked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 20">
                         <g id="Grupo_2" data-name="Grupo 2">
@@ -41,7 +20,7 @@
                         </g>
                     </svg>
 
-                    <input type="password" name="senha" id="senha" placeholder="Senha:" />
+                    <input type="password" name="senha" id="senha" placeholder="Senha:" required/>
                 </div>
 
                 <div class="container_password">
@@ -59,7 +38,7 @@
                             transform="translate(-4.085 -4.763)" fill="#888" />
                     </svg>
 
-                    <input type="password" name="confirmar_senha" id="confirmarSenha" placeholder="Confirmar a senha" />
+                    <input type="password" name="confirmar_senha" id="confirmarSenha" placeholder="Confirmar a senha" required/>
                 </div>
 
                 <div class="erro-senha" id="erro-confirmacao"></div>
@@ -70,4 +49,4 @@
             </form>
         </div>
     </div>
-</div>
+</div> 

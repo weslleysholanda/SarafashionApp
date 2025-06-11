@@ -21,77 +21,72 @@ class AlterarSenhaController extends Controller
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
             echo json_encode(['erro' => 'Método não permitido']);
-            exit;
+            return;
         }
 
-        $novaSenha = $_POST['nova_senha'] ?? null;
-        $confirmarSenha = $_POST['confirmar_senha'] ?? null;
+        /* ← os nomes vêm da view */
+        $novaSenha      = $_POST['senha']            ?? null;
+        $confirmarSenha = $_POST['confirmar_senha']  ?? null;
 
         if (!$novaSenha || !$confirmarSenha) {
             http_response_code(400);
             echo json_encode(['erro' => 'Preencha todos os campos.']);
-            exit;
+            return;
         }
 
         if ($novaSenha !== $confirmarSenha) {
             http_response_code(400);
             echo json_encode(['erro' => 'As senhas não conferem.']);
-            exit;
+            return;
         }
 
-        $idCliente = $_SESSION['recuperarSenha']['id_cliente'] ?? null;
+        /* token salvo na sessão quando o código foi validado */
+        $token = $_SESSION['recuperarSenha']['token'] ?? null;
 
-        if (!$idCliente) {
+        if (!$token) {
             http_response_code(401);
-            echo json_encode(['erro' => 'Usuário não autenticado para essa ação.']);
-            exit;
+            echo json_encode(['erro' => 'Token ausente ou sessão expirada.']);
+            return;
         }
 
-        // URL da API para atualizar senha
-        $url = BASE_API . 'alterarSenha';
-
-        // Prepare o POST com id e nova senha (hash se necessário na API)
-        $postFields = http_build_query([
-            'id_cliente' => $idCliente,
-            'nova_senha' => $novaSenha,
-        ]);
-
-        // cURL para chamar API
-        $ch = curl_init($url);
+        /* chama a API real */
+        $ch = curl_init(BASE_API . 'alterarSenha');
         curl_setopt_array($ch, [
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $postFields,
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => http_build_query([
+                'token'            => $token,
+                'nova_senha'       => $novaSenha,
+                'confirmar_senha'  => $confirmarSenha
+            ]),
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 8,
-            CURLOPT_HTTPHEADER => [
-                'Content-Type: application/x-www-form-urlencoded'
-            ],
+            CURLOPT_TIMEOUT        => 8,
+            CURLOPT_HTTPHEADER     => ['Content-Type: application/x-www-form-urlencoded'],
         ]);
 
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $resp = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if ($response === false) {
+        if ($resp === false) {
             http_response_code(500);
             echo json_encode(['erro' => 'Erro na comunicação com a API.']);
-            exit;
+            return;
         }
 
-        $data = json_decode($response, true);
-
+        $data = json_decode($resp, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
             http_response_code(500);
             echo json_encode(['erro' => 'Resposta inválida da API.']);
-            exit;
+            return;
         }
 
-        if ($httpCode === 200 && isset($data['sucesso'])) {
-            // Sucesso na alteração da senha
+        if ($code === 200 && !empty($data['sucesso'])) {
+            unset($_SESSION['recuperarSenha']);              // limpa sessão
             echo json_encode(['sucesso' => $data['sucesso']]);
         } else {
-            http_response_code($httpCode ?: 400);
+            http_response_code($code ?: 400);
             echo json_encode(['erro' => $data['erro'] ?? 'Erro desconhecido.']);
         }
     }
 }
+

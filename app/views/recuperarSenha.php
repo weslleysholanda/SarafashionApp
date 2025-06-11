@@ -16,7 +16,7 @@ require_once('templates/head.php')
             </div>
 
             <?php
-                require_once('templates/container-alterarSenha.php');
+            require_once('templates/container-alterarSenha.php');
             ?>
         </section>
     </main>
@@ -62,7 +62,6 @@ require_once('templates/head.php')
                 }
             });
 
-            // Só exibe a mensagem se houver algo digitado
             if (senhaInput.value) {
                 erroSenha.textContent = mensagem;
                 erroSenha.style.color = corMensagem;
@@ -71,19 +70,16 @@ require_once('templates/head.php')
             }
         }
 
-
         function validar() {
             const senha = senhaInput.value;
             const confirmacao = confirmarSenhaInput.value;
             const forca = verificarForca(senha);
             atualizarIndicadores(forca);
 
-            // Só limpa a mensagem se o campo estiver vazio
             if (!senha) {
                 erroSenha.textContent = '';
             }
 
-            // Validação da confirmação
             if (!confirmacao) {
                 erroConfirmacao.textContent = '';
             } else if (senha !== confirmacao) {
@@ -97,7 +93,56 @@ require_once('templates/head.php')
 
         senhaInput.addEventListener('input', validar);
         confirmarSenhaInput.addEventListener('input', validar);
-    </script>
-</body>
 
-</html>
+        document.getElementById('form-alterar-senha').addEventListener('submit', e => {
+            e.preventDefault();
+
+            if (btnSubmit.disabled) return;
+
+            const formData = new FormData(e.target);
+            btnSubmit.disabled = true;
+            btnSubmit.textContent = 'Atualizando';
+
+            fetch(e.target.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(r => r.json())
+                .then(d => {
+                    if (d.sucesso) {
+                        if (typeof showMsg === 'function') {
+                            showMsg('success', d.sucesso);
+                        } else {
+                            alert(d.sucesso); // fallback
+                        }
+
+                        e.target.reset();
+                        setTimeout(() => {
+                            location.href = '<?= BASE_URL ?>index.php?url=login';
+                        }, 3000);
+                    } else {
+                        if (typeof showMsg === 'function') {
+                            showMsg('error', d.erro || 'Erro desconhecido.');
+                        } else {
+                            alert(d.erro || 'Erro desconhecido.'); // fallback
+                        }
+
+                        btnSubmit.disabled = false;
+                        btnSubmit.textContent = 'Alterar';
+                    }
+                })
+                .catch(err => {
+                    if (typeof showMsg === 'function') {
+                        showMsg('error', 'Falha de rede, tente novamente.');
+                    } else {
+                        alert('Falha de rede, tente novamente.');
+                    }
+
+                    btnSubmit.disabled = false;
+                    btnSubmit.textContent = 'Alterar';
+                    console.error(err);
+                });
+        });
+    </script>
+
+</body>

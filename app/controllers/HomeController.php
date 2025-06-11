@@ -89,7 +89,6 @@ class HomeController extends Controller
 
         $listarServico = json_decode($responseListarServico, true);
 
-
         $dados = array();
         $dados['titulo'] = 'Sarafashion - Home';
         $dados['cliente'] = $cliente;

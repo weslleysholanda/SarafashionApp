@@ -56,6 +56,8 @@ class EsqueceuSenhaController extends Controller
             'email' => $email,
             'token' => $data['token']
         ];
+
+        // var_dump($data['token']);
         
 
         if ($http_code === 200 && isset($data['sucesso'])) {

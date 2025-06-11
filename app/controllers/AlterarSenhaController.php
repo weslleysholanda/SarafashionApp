@@ -50,7 +50,6 @@ class AlterarSenhaController extends Controller
         // URL da API para atualizar senha
         $url = BASE_API . 'alterarSenha';
 
-        // Prepare o POST com id e nova senha (hash se necessário na API)
         $postFields = http_build_query([
             'id_cliente' => $idCliente,
             'nova_senha' => $novaSenha,
@@ -87,7 +86,7 @@ class AlterarSenhaController extends Controller
         }
 
         if ($httpCode === 200 && isset($data['sucesso'])) {
-            // Sucesso na alteração da senha
+            
             echo json_encode(['sucesso' => $data['sucesso']]);
         } else {
             http_response_code($httpCode ?: 400);

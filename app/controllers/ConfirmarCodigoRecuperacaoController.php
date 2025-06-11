@@ -16,8 +16,8 @@ class ConfirmarCodigoRecuperacaoController extends Controller
         // $email = $_SESSION['recuperarSenha']['email'];
         // var_dump($email);
 
-        $id = $_SESSION['recuperarSenha']['id'];
-        var_dump($id);
+        // $id = $_SESSION['recuperarSenha']['id'];
+        // var_dump($id);
 
         // $token = $_SESSION['recuperarSenha']['token'];
         // var_dump($token);

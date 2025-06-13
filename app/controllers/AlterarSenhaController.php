@@ -49,8 +49,21 @@ class AlterarSenhaController extends Controller
             return;
         }
 
+<<<<<<< HEAD
         /* chama a API real */
         $ch = curl_init(BASE_API . 'alterarSenha');
+=======
+        // URL da API para atualizar senha
+        $url = BASE_API . 'alterarSenha';
+
+        $postFields = http_build_query([
+            'id_cliente' => $idCliente,
+            'nova_senha' => $novaSenha,
+        ]);
+
+        // cURL para chamar API
+        $ch = curl_init($url);
+>>>>>>> 22cf9b418e30e80139be98cea78efd7347c4c641
         curl_setopt_array($ch, [
             CURLOPT_POST           => true,
             CURLOPT_POSTFIELDS     => http_build_query([
@@ -80,8 +93,13 @@ class AlterarSenhaController extends Controller
             return;
         }
 
+<<<<<<< HEAD
         if ($code === 200 && !empty($data['sucesso'])) {
             unset($_SESSION['recuperarSenha']);              // limpa sessão
+=======
+        if ($httpCode === 200 && isset($data['sucesso'])) {
+            
+>>>>>>> 22cf9b418e30e80139be98cea78efd7347c4c641
             echo json_encode(['sucesso' => $data['sucesso']]);
         } else {
             http_response_code($code ?: 400);

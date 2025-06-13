@@ -58,6 +58,7 @@ require_once('templates/head.php');
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div class="swiper-slide">
                                         <div class="produto-left">
                                             <div class="title">

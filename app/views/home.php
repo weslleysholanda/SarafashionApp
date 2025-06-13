@@ -33,15 +33,20 @@ require_once('templates/head.php');
         document.addEventListener("DOMContentLoaded", function() {
             const iconLinks = document.querySelectorAll(".nav-icon a");
 
-            // Pega o parâmetro "url" atual da URL
+            // Obtém o valor do parâmetro "url" da URL atual
             const currentParams = new URLSearchParams(window.location.search);
             const currentUrl = currentParams.get("url");
 
             iconLinks.forEach(link => {
-                const linkParams = new URLSearchParams(link.search);
+                const linkHref = link.getAttribute("href"); // Pega o href inteiro
+                const linkParams = new URLSearchParams(linkHref.split("?")[1]); // Só a parte dos parâmetros
                 const linkUrl = linkParams.get("url");
 
-                if (linkUrl === currentUrl) {
+                // Remove a classe antes
+                link.classList.remove("icon-ativo");
+
+                // Compara só o valor do parâmetro "url"
+                if (linkUrl === currentUrl || (!currentUrl && linkUrl === "home")) {
                     link.classList.add("icon-ativo");
                 }
             });

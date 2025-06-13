@@ -17,11 +17,47 @@ require_once('templates/head.php');
                         <div class="perfil-user">
                             <div class="usuario-conteudo">
                                 <div class="usuario-img">
-                                    <img src="assets/img/fotoperfil.png" alt="">
+                                    <?php
+                                        $caminhoArquivo = BASE_URL_SITE . "uploads/" . $cliente['foto_cliente'];
+                                        $img = BASE_URL_SITE . "uploads/cliente/sem-foto-cliente.png";
+                                        $alt_foto = "imagem sem foto";
+    
+                                        // var_dump($cliente['foto_cliente']);
+    
+                                        if (!empty($cliente['foto_cliente'])) {
+                                            $headers = @get_headers($caminhoArquivo);
+                                            if ($headers && strpos($headers[0], '200') !== false) {
+                                                $img = $caminhoArquivo;
+                                                $alt_foto = htmlspecialchars($cliente['alt_foto_cliente'], ENT_QUOTES, 'UTF-8');
+                                            }
+                                        }
+                                    ?>
+                                    <img src="<?= $img ?>" alt="<?= $alt_foto ?>">
                                 </div>
                                 <div class="usuario-info">
-                                    <h2>Jessica Lopes</h2>
-                                    <small>Membro desde: 09 Mar 2020</small>
+                                    <h2><?= $cliente['nome_cliente'] ?></h2>
+                                    <small>
+                                        <?php
+                                        $data = new DateTime($cliente['membro_desde']);
+
+                                        $fmt = new IntlDateFormatter(
+                                            'pt_BR', //Localidade
+                                            IntlDateFormatter::NONE, // Ignora a da data
+                                            IntlDateFormatter::NONE, //Ignora a hora
+                                            'UTC', //Timezone
+                                            IntlDateFormatter::GREGORIAN,
+                                            "dd MMMM yyyy"  // Formato de texto exemplo: 00-00-0000
+                                        );
+
+                                        // var_dump($fmt);
+                                        // var_dump($data);
+
+                                        $dataFormatada = $fmt->format($data); //Formata o objeto DateTime
+                                        $dataFormatada = mb_convert_case($dataFormatada, MB_CASE_TITLE, "UTF-8"); //Transforma a string ou seja capitaliza a primeira letra do mês.
+
+                                        echo htmlspecialchars('Membro desde: ' . $dataFormatada, ENT_QUOTES, 'UTF-8');
+                                        ?>
+                                    </small>
                                 </div>
                             </div>
                             <div class="notification-alarm">
@@ -58,7 +94,7 @@ require_once('templates/head.php');
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="swiper-slide">
                                         <div class="produto-left">
                                             <div class="title">
@@ -371,8 +407,8 @@ require_once('templates/head.php');
 
                         <p class="category">Hair Care</p>
                         <p class="price">
-                            <span class="old-price">R$<?= $produto['preco_anterior']?></span>
-                            <span class="new-price">R$<?= $produto['preco_produto']?></span>
+                            <span class="old-price">R$<?= $produto['preco_anterior'] ?></span>
+                            <span class="new-price">R$<?= $produto['preco_produto'] ?></span>
                         </p>
                     </div>
 
@@ -389,14 +425,14 @@ require_once('templates/head.php');
                 <div class="navbar-Fixed">
                     <div class="nav-icon">
                         <div class="icon-Right">
-                            <a href="#" class="icon-ativo">
+                            <a href="<?= BASE_URL ?>index.php?url=home" class="icon-ativo">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
                                     <path id="Caminho_358" data-name="Caminho 358"
                                         d="M1.036,44.218H3.48V55.179a1.12,1.12,0,0,0,1.047,1.174h7.156a1.12,1.12,0,0,0,1.047-1.174V47.154h4.364v8.025a1.12,1.12,0,0,0,1.047,1.174h6.807A1.12,1.12,0,0,0,26,55.179V44.218h2.967a1.054,1.054,0,0,0,.96-.724,1.287,1.287,0,0,0-.227-1.272L16.047,26.7a.965.965,0,0,0-1.466-.02L.321,42.2a1.279,1.279,0,0,0-.244,1.292A1.028,1.028,0,0,0,1.036,44.218ZM15.279,29.187,26.45,41.87h-1.5A1.12,1.12,0,0,0,23.9,43.044V54H19.189V45.98a1.12,1.12,0,0,0-1.047-1.174H11.683a1.12,1.12,0,0,0-1.047,1.174V54H5.574V43.044A1.12,1.12,0,0,0,4.527,41.87H3.62Z"
                                         transform="translate(0 -26.353)" fill="rgba(73,73,74,0.5)" />
                                 </svg>
                             </a>
-                            <a href="">
+                            <a href="<?= BASE_URL ?>index.php?url=loja">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23.572" height="28.869"
                                     viewBox="0 0 23.572 28.869">
                                     <path id="Caminho_361" data-name="Caminho 361"
@@ -408,14 +444,14 @@ require_once('templates/head.php');
 
 
                         <div class="icon-Left">
-                            <a href="">
+                            <a href="<?= BASE_URL ?>index.php?url=carrinho">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
                                     <path id="cart_1_" data-name="cart (1)"
                                         d="M0,1.867A.867.867,0,0,1,.867,1h2.6a.867.867,0,0,1,.841.657l.7,2.81H25.134a.867.867,0,0,1,.851,1.026l-2.6,13.867a.867.867,0,0,1-.851.707H6.934a.867.867,0,0,1-.851-.707L3.484,5.519,2.791,2.733H.867A.867.867,0,0,1,0,1.867M5.377,6.2,7.653,18.333H21.815L24.091,6.2Zm3.29,13.867a3.467,3.467,0,1,0,3.467,3.467,3.467,3.467,0,0,0-3.467-3.467m12.134,0a3.467,3.467,0,1,0,3.467,3.467A3.467,3.467,0,0,0,20.8,20.067M8.667,21.8a1.733,1.733,0,1,1-1.733,1.733A1.733,1.733,0,0,1,8.667,21.8m12.134,0a1.733,1.733,0,1,1-1.733,1.733A1.733,1.733,0,0,1,20.8,21.8"
                                         transform="translate(0 -1)" fill="rgba(73,73,74,0.5)" />
                                 </svg>
                             </a>
-                            <a href="">
+                            <a href="<?= BASE_URL ?>index.php?url=configuracao">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="28" viewBox="0 0 24 28">
                                     <path id="Caminho_65" data-name="Caminho 65"
                                         d="M16,16A7,7,0,1,0,9,9a7,7,0,0,0,7,7ZM16,4a5,5,0,1,1-5,5A5,5,0,0,1,16,4Z"

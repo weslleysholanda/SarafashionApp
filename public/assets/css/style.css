@@ -290,7 +290,6 @@ body {
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1651,7 +1650,6 @@ body {
     .bottom-nav {
       position: fixed;
       bottom: 0;
-      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1676,8 +1674,6 @@ body {
       .navbar-Fixed {
         width: 100%;
         position: relative;
-
-
 
         .nav-icon {
           width: 100%;
@@ -1936,6 +1932,14 @@ body {
               object-fit: cover;
             }
 
+            &::after{
+              content: " ";
+              position: absolute;
+              inset: 0;
+              background: linear-gradient(to top,rgba(0,0,0,0.2), transparent);
+
+            }
+
 
             .nome-Servico {
               position: absolute;
@@ -1948,6 +1952,8 @@ body {
                 margin: 0;
                 color: var(--corLetras);
                 font-weight: bold;
+                position: relative;
+                z-index: 2;
               }
             }
           }

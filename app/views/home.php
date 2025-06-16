@@ -26,6 +26,7 @@ require_once('templates/head.php');
         require_once('templates/catalogoServico.php');
         ?>
     </main>
+    <script src="<?= BASE_URL ?>public/assets/js/tema.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="<?= BASE_URL ?>public/assets/js/script.js"></script>
 

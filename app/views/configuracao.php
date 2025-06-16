@@ -20,6 +20,8 @@ require_once('templates/head.php');
         ?>
     </main>
 
+    <script src="<?= BASE_URL ?>public/assets/js/tema.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const iconLinks = document.querySelectorAll(".nav-icon a");

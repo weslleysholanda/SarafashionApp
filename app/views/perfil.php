@@ -21,6 +21,7 @@ require_once('templates/head.php');
     require_once('templates/campoInfoList.php');
     ?>
   </main>
+  <script src="<?= BASE_URL ?>public/assets/js/tema.js"></script>
   <script>
     function closeAlert(el) {
       const alertBox = el.closest('.custom-alert-container');

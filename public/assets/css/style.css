@@ -90,6 +90,221 @@
 
 }
 
+/* Temas Dinamicos - Alterar Tema */
+
+/* Black and White */
+[data-mode="escuro"] {
+  .menuNav {
+    .bottom-nav {
+      .navbar-Fixed {
+        .central-button {
+          background: #222222;
+          filter: drop-shadow(5px 5px 25px rgba(34, 34, 34));
+        }
+      }
+    }
+  }
+
+  .home-app {
+    .home-background {
+      .background-box {
+        background: #222222;
+
+        .navbar-box {
+          .fidelidade-box {
+            .icones-box {
+              .item {
+                a {
+                  .icone {
+                    svg {
+                      fill: #222222;
+
+                      #Caminho_179 {
+                        stroke: #222222;
+                      }
+
+                      #Grupo_319 {
+                        fill: #222222;
+                        stroke: #222222;
+
+                        rect {
+                          stroke: #222222;
+                        }
+
+                        #Elipse_14 {
+                          fill: #222222;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .menuNav {
+      .bottom-nav {
+        .navbar-Fixed {
+          .central-button {
+            background: #222222;
+            filter: drop-shadow(5px 5px 25px rgba(34, 34, 34));
+          }
+        }
+      }
+    }
+  }
+
+  .config {
+    .background-box {
+      background: #222222;
+    }
+
+    .logout-button {
+      background: #222222;
+
+      &:hover {
+        background: #1b1b1b;
+      }
+    }
+  }
+
+  .perfil {
+    .header-nav {
+      .voltar {
+        background: #222222 !important;
+      }
+
+      a {
+        color: #222222 !important;
+      }
+    }
+
+    .campo-info {
+      .campo {
+        background: #222222;
+
+        svg {
+          path {
+            fill: var(--corLetras);
+          }
+        }
+
+        span {
+          color: var(--corLetras);
+        }
+      }
+    }
+  }
+
+  .editar-perfil {
+    .header-perfil {
+      .header-nav {
+        .voltar {
+          background: #222222;
+        }
+      }
+    }
+
+    .perfil-user {
+      .avatar-container {
+        form {
+          .icon-pic {
+            background: #222222;
+          }
+        }
+      }
+    }
+
+    .campo-info {
+      form {
+        .campo-input {
+          background: #222222;
+
+          svg {
+            path {
+              fill: var(--corLetras);
+            }
+          }
+
+          input {
+            color: var(--corLetras);
+          }
+
+          .form-select {
+            color: var(--corLetras);
+          }
+        }
+
+        .input-post {
+          button {
+            border: 1px solid #222222;
+            background: #222222;
+          }
+        }
+      }
+    }
+  }
+
+  .tema {
+    .background-tema {
+      .background-box {
+        background: #222222;
+
+        .header-nav {
+          .voltar {
+            svg {
+              fill: #222222;
+            }
+          }
+        }
+      }
+    }
+
+    .alterarTema {
+      .mode-toggle {
+        .option {
+          &.active {
+            background: #222222;
+          }
+        }
+      }
+    }
+
+    .picTemas {
+      .container-temas {
+        .celular-dark {
+          .check-icon {
+            background-color: #222222;
+          }
+        }
+      }
+    }
+
+    .darkAbsoluto {
+      .switch {
+        .slider {
+          border: 1px solid #222222;
+
+          &::before {
+            background-color: #222222;
+          }
+        }
+
+        #darkToggle {
+          &:checked+.slider {
+            background-color: #222222;
+
+          }
+        }
+      }
+    }
+  }
+}
+
+
 /* config inicial */
 body {
   margin: 0;
@@ -553,7 +768,7 @@ body {
           .questions {
             display: flex;
             width: 80%;
-            justify-content:flex-end;
+            justify-content: flex-end;
             align-items: center;
 
             .lembrar {
@@ -791,17 +1006,19 @@ body {
   }
 }
 
-.resetarSenha{
-  .registrar{
-    .container-registrar{
-      .content-info{
-        .header-registrar{
+.resetarSenha {
+  .registrar {
+    .container-registrar {
+      .content-info {
+        .header-registrar {
           margin-bottom: 40px;
         }
-        .form-inputs{
-          form{
+
+        .form-inputs {
+          form {
             margin-top: 30px;
-            .input-post{
+
+            .input-post {
               margin-top: 20px;
             }
           }
@@ -1933,11 +2150,11 @@ body {
               object-fit: cover;
             }
 
-            &::after{
+            &::after {
               content: " ";
               position: absolute;
               inset: 0;
-              background: linear-gradient(to top,rgba(0,0,0,0.2), transparent);
+              background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
 
             }
 
@@ -5117,6 +5334,7 @@ body {
 
         .campo-info {
           height: unset;
+
           form {
             .campo-input {
               width: 74%;

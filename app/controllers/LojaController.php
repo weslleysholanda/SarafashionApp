@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 
 class LojaController extends Controller
 {
 
     public function index()
-    { 
+    {
         if (!isset($_SESSION['token'])) {
             header("Location: " . BASE_URL . "index.php?url=login");
             exit;
@@ -49,7 +49,7 @@ class LojaController extends Controller
         //Separa os dados em 'campos'
         $cliente = json_decode($response, true);
 
-        $urlListarProduto = BASE_API . "ListarProdutos";
+        $urlListarProduto = BASE_API . "listarProdutos";
         $chListarProduto = curl_init($urlListarProduto);
         curl_setopt($chListarProduto, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($chListarProduto, CURLOPT_HTTPHEADER, [
@@ -59,23 +59,38 @@ class LojaController extends Controller
         $responseListarProduto = curl_exec($chListarProduto);
         $statusCodeListarProduto = curl_getinfo($chListarProduto, CURLINFO_HTTP_CODE);
         curl_close($chListarProduto);
-        
-        if($statusCodeListarProduto != 200){
+
+        if ($statusCodeListarProduto != 200) {
             echo "Erro ao buscar a lista de produtos na API. \n
             Código HTTP: $statusCodeListarProduto";
             exit;
         }
 
-        
-
         $listarProdutos = json_decode($responseListarProduto, true);
+
+        
+        // Buscar produtos populares
+        $urlPopulares = BASE_API . "produtosPopulares";
+        $chPopulares = curl_init($urlPopulares);
+        curl_setopt($chPopulares, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($chPopulares, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $_SESSION['token']
+        ]);
+        $responsePopulares = curl_exec($chPopulares);
+        $statusCodePopulares = curl_getinfo($chPopulares, CURLINFO_HTTP_CODE);
+        curl_close($chPopulares);
+
+        if ($statusCodePopulares != 200) {
+            echo "Erro ao buscar os produtos populares na API. Código HTTP: $statusCodePopulares";
+            exit;
+        }
+
         $dados = array();
         $dados['titulo'] = 'SarafashionAPP - Loja ';
         $dados['cliente'] = $cliente;
+
         $dados['produtos'] = $listarProdutos;
 
         $this->carregarViews('loja', $dados);
-
-
     }
 }

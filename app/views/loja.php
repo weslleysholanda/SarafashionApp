@@ -18,19 +18,19 @@ require_once('templates/head.php');
                             <div class="usuario-conteudo">
                                 <div class="usuario-img">
                                     <?php
-                                        $caminhoArquivo = BASE_URL_SITE . "uploads/" . $cliente['foto_cliente'];
-                                        $img = BASE_URL_SITE . "uploads/cliente/sem-foto-cliente.png";
-                                        $alt_foto = "imagem sem foto";
-    
-                                        // var_dump($cliente['foto_cliente']);
-    
-                                        if (!empty($cliente['foto_cliente'])) {
-                                            $headers = @get_headers($caminhoArquivo);
-                                            if ($headers && strpos($headers[0], '200') !== false) {
-                                                $img = $caminhoArquivo;
-                                                $alt_foto = htmlspecialchars($cliente['alt_foto_cliente'], ENT_QUOTES, 'UTF-8');
-                                            }
+                                    $caminhoArquivo = BASE_URL_SITE . "uploads/" . $cliente['foto_cliente'];
+                                    $img = BASE_URL_SITE . "uploads/cliente/sem-foto-cliente.png";
+                                    $alt_foto = "imagem sem foto";
+
+                                    // var_dump($cliente['foto_cliente']);
+
+                                    if (!empty($cliente['foto_cliente'])) {
+                                        $headers = @get_headers($caminhoArquivo);
+                                        if ($headers && strpos($headers[0], '200') !== false) {
+                                            $img = $caminhoArquivo;
+                                            $alt_foto = htmlspecialchars($cliente['alt_foto_cliente'], ENT_QUOTES, 'UTF-8');
                                         }
+                                    }
                                     ?>
                                     <img src="<?= $img ?>" alt="<?= $alt_foto ?>">
                                 </div>
@@ -287,92 +287,27 @@ require_once('templates/head.php');
                 <p>Mais Popular</p>
             </div>
 
-            <div class="product-list">
-                <div class="product-card">
-                    <div class="heart">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
-                            <g transform="translate(-0.5 -0.495)">
-                                <path
-                                    d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"
-                                    fill="none" stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="card-img">
-                        <img src="assets/img/shampoo_clear_restore_plus_ativare.png" alt="Shampoo Restore">
-                    </div>
 
-                    <h3>SHAMPOO Restore Plus Extra Liss Ativare </h3>
+
+
+            <?php foreach ($produtosPopulares as $produto): ?>
+                <div class="product-card">
+                    <div class="card-img">
+                        <img src="<?= BASE_FOTO . $produto['foto_galeria'] ?>" alt="<?= $produto['alt_foto_galeria'] ?>">
+                    </div>
+                    <h3><?= $produto['nome_produto'] ?></h3>
                     <p class="category">Hair Care</p>
                     <p class="price">
-                        <span class="old-price">R$00,00</span>
-                        <span class="new-price">R$79,00</span>
+                    <span class="old-price">R$<?= $produto['preco_anterior'] ?></span>
+                        <span class="new-price">R$<?= $produto['preco_produto'] ?? '00,00' ?></span>
                     </p>
                 </div>
-                <div class="product-card">
-                    <div class="heart">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
-                            <g transform="translate(-0.5 -0.495)">
-                                <path
-                                    d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"
-                                    fill="none" stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="card-img">
-                        <img src="assets/img/joico_Defy_Damage.png" alt="Shampoo Restore">
-                    </div>
+            <?php endforeach ?>
 
-                    <h3>KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE JOICO</h3>
-                    <p class="category">Hair Care</p>
-                    <p class="price">
-                        <span class="old-price">R$00,00</span>
-                        <span class="new-price">R$79,00</span>
-                    </p>
-                </div>
-                <div class="product-card">
-                    <div class="heart">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
-                            <g transform="translate(-0.5 -0.495)">
-                                <path
-                                    d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"
-                                    fill="none" stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="card-img">
-                        <img src="assets/img/Kit Wella Professionals.png" alt="Shampoo Restore">
-                    </div>
 
-                    <h3>Kit Wella Professionals Invigo Nutri-Enrich Salon Trio (3 Produtos)</h3>
-                    <p class="category">Hair Care</p>
-                    <p class="price">
-                        <span class="old-price">R$00,00</span>
-                        <span class="new-price">R$79,00</span>
-                    </p>
-                </div>
-                <div class="product-card">
-                    <div class="heart">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
-                            <g transform="translate(-0.5 -0.495)">
-                                <path
-                                    d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"
-                                    fill="none" stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="card-img">
-                        <img src="assets/img/agua_oxigenada_volumes_iluminata_.png" alt="Shampoo Restore">
-                    </div>
 
-                    <h3>Descolorante Iluminata AGU...</h3>
-                    <p class="category">Hair Care</p>
-                    <p class="price">
-                        <span class="old-price">R$00,00</span>
-                        <span class="new-price">R$79,00</span>
-                    </p>
-                </div>
-            </div>
+
+
 
             <div class="title">
                 <p>Produtos</p>

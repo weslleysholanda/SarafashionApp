@@ -293,12 +293,27 @@ require_once('templates/head.php');
             <?php foreach ($produtosPopulares as $produto): ?>
                 <div class="product-card">
                     <div class="card-img">
-                        <img src="<?= BASE_FOTO . $produto['foto_galeria'] ?>" alt="<?= $produto['alt_foto_galeria'] ?>">
+                        <?php
+                        $caminhoArquivo = BASE_URL_SITE . "uploads/" . $produto['foto_galeria'];
+                        $img = BASE_URL_SITE . "uploads/produto/sem-foto-produto.png";
+                        $alt_foto = "imagem sem foto";
+
+                        // var_dump($cliente['foto_cliente']);
+
+                        if (!empty($produto['foto_produto'])) {
+                            $headers = @get_headers($caminhoArquivo);
+                            if ($headers && strpos($headers[0], '200') !== false) {
+                                $img = $caminhoArquivo;
+                                $alt_foto = htmlspecialchars($produto['alt_foto_galeria'], ENT_QUOTES, 'UTF-8');
+                            }
+                        }
+                        ?>
+                        <img src="<?= $img  ?>>" alt="<?= $alt_foto ?>">
                     </div>
                     <h3><?= $produto['nome_produto'] ?></h3>
                     <p class="category">Hair Care</p>
                     <p class="price">
-                    <span class="old-price">R$<?= $produto['preco_anterior'] ?></span>
+                        <span class="old-price">R$<?= $produto['preco_anterior'] ?></span>
                         <span class="new-price">R$<?= $produto['preco_produto'] ?? '00,00' ?></span>
                     </p>
                 </div>

@@ -68,7 +68,7 @@ class LojaController extends Controller
 
         $listarProdutos = json_decode($responseListarProduto, true);
 
-        
+
         // Buscar produtos populares
         $urlPopulares = BASE_API . "produtosPopulares";
         $chPopulares = curl_init($urlPopulares);
@@ -85,11 +85,16 @@ class LojaController extends Controller
             exit;
         }
 
+        $produtosPopulares = json_decode($responsePopulares, true);
+
         $dados = array();
         $dados['titulo'] = 'SarafashionAPP - Loja ';
         $dados['cliente'] = $cliente;
 
         $dados['produtos'] = $listarProdutos;
+        
+        $dados['produtosPopulares'] = $produtosPopulares;
+        var_dump($dados['produtosPopulares']);
 
         $this->carregarViews('loja', $dados);
     }

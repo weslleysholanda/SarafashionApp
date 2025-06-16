@@ -1,101 +1,101 @@
-<?php
+    <?php
 
-class ConfirmarCodigoRecuperacaoController extends Controller
-{
-
-    public function index()
+    class ConfirmarCodigoRecuperacaoController extends Controller
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+
+        public function index()
+        {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            if (!isset($_SESSION['recuperarSenha'])) {
+                header('Location: ' . BASE_URL . 'index.php?url=esqueceuSenha');
+                exit;
+            }
+            // $email = $_SESSION['recuperarSenha']['email'];
+            // var_dump($email);
+
+
+            $dados = array();
+            $dados['titulo'] = "SaraFashion - Confirmar codigo recuperacao";
+            $dados['email'] = $_SESSION['recuperarSenha']['email'];
+            $dados['token'] = $_SESSION['recuperarSenha']['token'];
+            // var_dump($dados['token']);
+            $this->carregarViews('confirmarCodigoRecuperacao', $dados);
         }
 
-        if (!isset($_SESSION['recuperarSenha'])) {
-            header('Location: ' . BASE_URL . 'index.php?url=esqueceuSenha');
-            exit;
-        }
-        // $email = $_SESSION['recuperarSenha']['email'];
-        // var_dump($email);
+        public function validarCodigoRecuperacao()
+        {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
 
+            header('Content-Type: application/json; charset=utf-8');
 
-        $dados = array();
-        $dados['titulo'] = "SaraFashion - Confirmar codigo recuperacao";
-        $dados['email'] = $_SESSION['recuperarSenha']['email'];
-        $dados['token'] = $_SESSION['recuperarSenha']['token'];
-        // var_dump($dados['token']);
-        $this->carregarViews('confirmarCodigoRecuperacao', $dados);
-    }
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                http_response_code(405);
+                echo json_encode(['erro' => 'Método não permitido']);
+                exit;
+            }
 
-    public function validarCodigoRecuperacao()
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+            $token = $_SESSION['recuperarSenha']['token'] ?? null;
+            $codigo = $_POST['codigo_verificacao'] ?? null;
 
-        header('Content-Type: application/json; charset=utf-8');
+            if (!$token || !$codigo) {
+                http_response_code(400);
+                echo json_encode(['erro' => 'Token ou código não informado']);
+                exit;
+            }
 
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            http_response_code(405);
-            echo json_encode(['erro' => 'Método não permitido']);
-            exit;
-        }
+            // URL da sua API de validação
+            $url = BASE_API . 'validarCodigoRecuperacao';
 
-        $token = $_SESSION['recuperarSenha']['token'] ?? null;
-        $codigo = $_POST['codigo_verificacao'] ?? null;
+            // Dados para enviar via POST
+            $postFields = http_build_query([
+                'token_recuperacao' => $token,
+                'codigo_verificacao' => $codigo,
+            ]);
 
-        if (!$token || !$codigo) {
-            http_response_code(400);
-            echo json_encode(['erro' => 'Token ou código não informado']);
-            exit;
-        }
+            // Inicializa cURL
+            $ch = curl_init($url);
+            curl_setopt_array($ch, [
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => $postFields,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT => 8,
+                CURLOPT_HTTPHEADER => [
+                    'Content-Type: application/x-www-form-urlencoded'
+                ],
+            ]);
 
-        // URL da sua API de validação
-        $url = BASE_API . 'validarCodigoRecuperacao';
+            // Executa a requisição
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        // Dados para enviar via POST
-        $postFields = http_build_query([
-            'token_recuperacao' => $token,
-            'codigo_verificacao' => $codigo,
-        ]);
+            if ($response === false) {
+                curl_close($ch);
+                http_response_code(500);
+                echo json_encode(['erro' => 'Erro na comunicação com a API.']);
+                exit;
+            }
 
-        // Inicializa cURL
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $postFields,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 8,
-            CURLOPT_HTTPHEADER => [
-                'Content-Type: application/x-www-form-urlencoded'
-            ],
-        ]);
-
-        // Executa a requisição
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        if ($response === false) {
             curl_close($ch);
-            http_response_code(500);
-            echo json_encode(['erro' => 'Erro na comunicação com a API.']);
-            exit;
-        }
 
-        curl_close($ch);
+            $data = json_decode($response, true);
 
-        $data = json_decode($response, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                http_response_code(500);
+                echo json_encode(['erro' => 'Resposta da API inválida.']);
+                exit;
+            }
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            http_response_code(500);
-            echo json_encode(['erro' => 'Resposta da API inválida.']);
-            exit;
-        }
-
-        // Se sucesso, retorna sucesso, senão retorna o erro da API
-        if ($httpCode === 200 && isset($data['sucesso'])) {
-            echo json_encode(['sucesso' => $data['sucesso']]);
-        } else {
-            http_response_code($httpCode ?: 400);
-            echo json_encode(['erro' => $data['erro'] ?? 'Erro desconhecido']);
+            // Se sucesso, retorna sucesso, senão retorna o erro da API
+            if ($httpCode === 200 && isset($data['sucesso'])) {
+                echo json_encode(['sucesso' => $data['sucesso']]);
+            } else {
+                http_response_code($httpCode ?: 400);
+                echo json_encode(['erro' => $data['erro'] ?? 'Erro desconhecido']);
+            }
         }
     }
-}

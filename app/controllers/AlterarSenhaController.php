@@ -8,9 +8,9 @@ class AlterarSenhaController extends Controller
         $dados = array();
         $dados['titulo'] = 'Sarafashion - Alterar Senha ';
 
-        $this->carregarViews('recuperarSenha', $dados);
         $dados['token'] = $_SESSION['recuperarSenha']['token'];
         // var_dump($dados['token']);
+        $this->carregarViews('recuperarSenha', $dados);
     }
 
     public function atualizarSenha()

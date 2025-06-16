@@ -28,10 +28,6 @@
                         </svg>
                     </div>
                     <div class="questions">
-                        <div class="lembrar">
-                            <input type="radio">
-                            <label>Lembrar de mim</label>
-                        </div>
                         <a href="<?= BASE_URL?>index.php?url=esqueceuSenha">Esqueceu a senha?</a>
                     </div>
                     <div class="input-post">

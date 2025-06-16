@@ -8,8 +8,8 @@
         <div id="mensagem-retorno"></div>
 
         <div class="form-inputs">
-            <form id="form-alterar-senha" action="<?= BASE_URL ?>alterarSenha/atualizarSenha" method="POST">
-            <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
+            <form id="form-alterar-senha">
+                <input type="hidden" name="token" id="token" value="<?= htmlspecialchars($_SESSION['recuperarSenha']['token']) ?>">
                 <div class="campo-input">
                     <svg id="_x32_37._Locked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 20">
                         <g id="Grupo_2" data-name="Grupo 2">

@@ -5,12 +5,11 @@
             <h3>Defina uma nova senha segura</h3>
         </div>
 
-
         <div id="mensagem-retorno"></div>
 
-
         <div class="form-inputs">
-            <form  id="form-alterar-senha" action="<?= BASE_URL ?>alterarSenha/atualizarSenha" method="POST">
+            <form id="form-alterar-senha" action="<?= BASE_URL ?>alterarSenha/atualizarSenha" method="POST">
+            <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
                 <div class="campo-input">
                     <svg id="_x32_37._Locked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 20">
                         <g id="Grupo_2" data-name="Grupo 2">
@@ -20,7 +19,7 @@
                         </g>
                     </svg>
 
-                    <input type="password" name="senha" id="senha" placeholder="Senha:" required/>
+                    <input type="password" name="senha" id="senha" placeholder="Senha:" required />
                 </div>
 
                 <div class="container_password">
@@ -38,7 +37,7 @@
                             transform="translate(-4.085 -4.763)" fill="#888" />
                     </svg>
 
-                    <input type="password" name="confirmar_senha" id="confirmarSenha" placeholder="Confirmar a senha" required/>
+                    <input type="password" name="confirmar_senha" id="confirmarSenha" placeholder="Confirmar a senha" required />
                 </div>
 
                 <div class="erro-senha" id="erro-confirmacao"></div>
@@ -49,4 +48,4 @@
             </form>
         </div>
     </div>
-</div> 
+</div>

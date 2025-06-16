@@ -7,7 +7,10 @@ class AlterarSenhaController extends Controller
     {
         $dados = array();
         $dados['titulo'] = 'Sarafashion - Alterar Senha ';
+
         $this->carregarViews('recuperarSenha', $dados);
+        $dados['token'] = $_SESSION['recuperarSenha']['token'];
+        // var_dump($dados['token']);
     }
 
     public function atualizarSenha()
@@ -24,9 +27,8 @@ class AlterarSenhaController extends Controller
             return;
         }
 
-        /* ← os nomes vêm da view */
-        $novaSenha      = $_POST['senha']            ?? null;
-        $confirmarSenha = $_POST['confirmar_senha']  ?? null;
+        $novaSenha = $_POST['senha'] ?? null;
+        $confirmarSenha = $_POST['confirmar_senha'] ?? null;
 
         if (!$novaSenha || !$confirmarSenha) {
             http_response_code(400);
@@ -48,7 +50,7 @@ class AlterarSenhaController extends Controller
             return;
         }
 
-        /* chama a API real */
+        // Consumo da API real
         $ch = curl_init(BASE_API . 'alterarSenha');
         curl_setopt_array($ch, [
             CURLOPT_POST           => true,
@@ -88,4 +90,3 @@ class AlterarSenhaController extends Controller
         }
     }
 }
-

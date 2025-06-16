@@ -28,6 +28,7 @@ require_once('templates/head.php')
         const erroSenha = document.getElementById('erro-senha');
         const erroConfirmacao = document.getElementById('erro-confirmacao');
         const btnSubmit = document.getElementById('btn-submit');
+        const mensagemRetorno = document.getElementById('mensagem-retorno');
 
         function verificarForca(senha) {
             let forca = 0;
@@ -62,12 +63,8 @@ require_once('templates/head.php')
                 }
             });
 
-            if (senhaInput.value) {
-                erroSenha.textContent = mensagem;
-                erroSenha.style.color = corMensagem;
-            } else {
-                erroSenha.textContent = '';
-            }
+            erroSenha.textContent = senhaInput.value ? mensagem : '';
+            erroSenha.style.color = corMensagem;
         }
 
         function validar() {
@@ -76,17 +73,8 @@ require_once('templates/head.php')
             const forca = verificarForca(senha);
             atualizarIndicadores(forca);
 
-            if (!senha) {
-                erroSenha.textContent = '';
-            }
-
-            if (!confirmacao) {
-                erroConfirmacao.textContent = '';
-            } else if (senha !== confirmacao) {
-                erroConfirmacao.textContent = 'As senhas não coincidem.';
-            } else {
-                erroConfirmacao.textContent = '';
-            }
+            erroConfirmacao.textContent = (!confirmacao) ? '' :
+                (senha !== confirmacao) ? 'As senhas não coincidem.' : '';
 
             btnSubmit.disabled = !(forca >= 3 && senha === confirmacao);
         }
@@ -101,7 +89,7 @@ require_once('templates/head.php')
 
             const formData = new FormData(e.target);
             btnSubmit.disabled = true;
-            btnSubmit.textContent = 'Atualizando';
+            btnSubmit.textContent = 'Atualizando...';
 
             fetch(e.target.action, {
                     method: 'POST',
@@ -109,40 +97,60 @@ require_once('templates/head.php')
                 })
                 .then(r => r.json())
                 .then(d => {
+                    mensagemRetorno.innerHTML = ''; 
+                    console.log('URL da requisição:', e.target.action);
+
                     if (d.sucesso) {
-                        if (typeof showMsg === 'function') {
-                            showMsg('success', d.sucesso);
-                        } else {
-                            alert(d.sucesso); // fallback
-                        }
+                        showCustomAlert('success', d.sucesso);
 
                         e.target.reset();
-                        setTimeout(() => {
-                            location.href = '<?= BASE_URL ?>index.php?url=login';
-                        }, 3000);
+                        btnSubmit.textContent = 'Voltar para o Login';
+                        btnSubmit.disabled = false;
+                        btnSubmit.onclick = () => {
+                            window.location.href = '<?= BASE_URL ?>login';
+                        };
                     } else {
-                        if (typeof showMsg === 'function') {
-                            showMsg('error', d.erro || 'Erro desconhecido.');
-                        } else {
-                            alert(d.erro || 'Erro desconhecido.'); // fallback
-                        }
-
+                        showCustomAlert('error', d.erro || 'Erro desconhecido.');
                         btnSubmit.disabled = false;
                         btnSubmit.textContent = 'Alterar';
                     }
                 })
                 .catch(err => {
-                    if (typeof showMsg === 'function') {
-                        showMsg('error', 'Falha de rede, tente novamente.');
-                    } else {
-                        alert('Falha de rede, tente novamente.');
-                    }
-
+                    showCustomAlert('error', 'Falha de rede, tente novamente.');
                     btnSubmit.disabled = false;
                     btnSubmit.textContent = 'Alterar';
                     console.error(err);
                 });
+
         });
+
+        // Função para exibir alertas personalizados
+        function showCustomAlert(tipo, mensagem) {
+            const container = document.createElement('div');
+            container.classList.add('custom-alert-container');
+
+            const alert = document.createElement('div');
+            alert.classList.add('custom-alert', tipo === 'success' ? 'success' : 'error');
+            alert.innerHTML = `
+            ${mensagem}
+            <span class="close-btn" onclick="closeAlert(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                </svg>
+            </span>
+        `;
+            container.appendChild(alert);
+            mensagemRetorno.appendChild(container);
+        }
+
+        function closeAlert(el) {
+            const alertBox = el.closest('.custom-alert-container');
+            alertBox.style.opacity = '0';
+            alertBox.style.transform = 'translateY(-10px)';
+            setTimeout(() => alertBox.remove(), 300);
+        }
     </script>
+
+
 
 </body>

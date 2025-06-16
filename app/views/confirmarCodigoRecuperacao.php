@@ -74,7 +74,7 @@ require_once('templates/head.php')
             const hidden = document.getElementById('codigo_verificacao');
             if (hidden) {
                 hidden.value = codigo;
-                console.log('[DEBUG] Código final:', codigo);
+                // console.log('[DEBUG] Código final:', codigo);
             }
         }
 
@@ -151,12 +151,10 @@ require_once('templates/head.php')
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Junta os dígitos no campo hidden
             updateHiddenInput();
 
             const formData = new FormData(form);
 
-            // Desabilita o botão enquanto envia
             const botao = form.querySelector('button[type="submit"]');
             botao.disabled = true;
             botao.textContent = 'Verificando...';
@@ -167,11 +165,11 @@ require_once('templates/head.php')
                 })
                 .then(res => res.json())
                 .then(data => {
+                    // console.log('[DEBUG] Resposta da API:', data);
                     if (data.sucesso) {
-                        // Redireciona se o código for válido
+                        // console.log('[DEBUG] Redirecionando para:', "<?= BASE_URL ?>index.php?url=alterarSenha");
                         window.location.href = "<?= BASE_URL ?>index.php?url=alterarSenha";
                     } else {
-                        // Exibe erro na tela
                         showErrorMessage(data.erro || "Código incorreto ou expirado.");
                     }
                 })
@@ -180,7 +178,6 @@ require_once('templates/head.php')
                     console.error('[AJAX erro]', err);
                 })
                 .finally(() => {
-                    // Reativa o botão
                     botao.disabled = false;
                     botao.textContent = 'Verificar Código';
                 });

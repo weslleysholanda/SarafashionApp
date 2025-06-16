@@ -16,15 +16,12 @@ class ConfirmarCodigoRecuperacaoController extends Controller
         // $email = $_SESSION['recuperarSenha']['email'];
         // var_dump($email);
 
-        // $id = $_SESSION['recuperarSenha']['id'];
-        // var_dump($id);
-
-        // $token = $_SESSION['recuperarSenha']['token'];
-        // var_dump($token);
 
         $dados = array();
         $dados['titulo'] = "SaraFashion - Confirmar codigo recuperacao";
         $dados['email'] = $_SESSION['recuperarSenha']['email'];
+        $dados['token'] = $_SESSION['recuperarSenha']['token'];
+        // var_dump($dados['token']);
         $this->carregarViews('confirmarCodigoRecuperacao', $dados);
     }
 

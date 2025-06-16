@@ -55,13 +55,21 @@ require_once('templates/head.php')
             setTimeout(() => alertBox.remove(), 300);
         }
 
-        document.getElementById('formRecuperacaoSenha').addEventListener('submit', function(e) {
+        const form = document.getElementById('formRecuperacaoSenha');
+
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
+
+            const botao = form.querySelector('button[type="submit"]');
+            botao.disabled = true;
+            botao.textContent = 'Enviando...';
 
             const email = document.getElementById('email_cliente').value.trim();
 
             if (!email) {
                 showErrorMessage('Por favor, insira um e-mail válido.');
+                botao.disabled = false;
+                botao.textContent = 'Enviar Email';
                 return;
             }
 
@@ -78,14 +86,18 @@ require_once('templates/head.php')
                     const data = await response.json();
 
                     if (response.status === 200 && data.sucesso) {
-                        window.location.href = '<?=  BASE_URL ?>index.php?url=confirmarCodigoRecuperacao';
+                        window.location.href = '<?= BASE_URL ?>index.php?url=confirmarCodigoRecuperacao';
                     } else {
                         showErrorMessage(data.erro || 'Erro inesperado. Tente novamente.');
                     }
                 })
                 .catch((error) => {
-                    // console.error('Erro na comunicação:', error);
                     showErrorMessage('Erro na comunicação com o servidor.');
+                    console.error('Erro na comunicação:', error);
+                })
+                .finally(() => {
+                    botao.disabled = false;
+                    botao.textContent = 'Enviar Email';
                 });
 
         });

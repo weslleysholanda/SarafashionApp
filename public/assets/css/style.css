@@ -800,6 +800,7 @@ body {
         }
         .form-inputs{
           form{
+            margin-top: 30px;
             .input-post{
               margin-top: 20px;
             }

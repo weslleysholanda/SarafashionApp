@@ -1,6 +1,7 @@
 <?php
 
 
+
 class LojaController extends Controller
 {
 
@@ -71,30 +72,52 @@ class LojaController extends Controller
 
         // Buscar produtos populares
         $urlPopulares = BASE_API . "produtosPopulares";
-        $chPopulares = curl_init($urlPopulares);
-        curl_setopt($chPopulares, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($chPopulares, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer ' . $_SESSION['token']
-        ]);
-        $responsePopulares = curl_exec($chPopulares);
-        $statusCodePopulares = curl_getinfo($chPopulares, CURLINFO_HTTP_CODE);
-        curl_close($chPopulares);
 
-        if ($statusCodePopulares != 200) {
-            echo "Erro ao buscar os produtos populares na API. Código HTTP: $statusCodePopulares";
-            exit;
+        // Inicia o cURL
+        $chPopulares = curl_init($urlPopulares);
+
+        // Configurações
+        curl_setopt_array($chPopulares, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 8,
+        ]);
+
+        // Se precisar de Authorization via Bearer Token, descomente a linha abaixo e ajuste:
+        if (isset($_SESSION['token'])) {
+            curl_setopt($chPopulares, CURLOPT_HTTPHEADER, [
+                'Authorization: Bearer ' . $_SESSION['token']
+            ]);
         }
 
-        $produtosPopulares = json_decode($responsePopulares, true);
+        // Executa
+        $responsePopulares = curl_exec($chPopulares);
+        $httpCode = curl_getinfo($chPopulares, CURLINFO_HTTP_CODE);
+        curl_close($chPopulares);
+
+        // Verificações
+        if ($responsePopulares === false) {
+            die("Erro na comunicação com a API de produtos populares.");
+        }
+
+        $dataPopulares = json_decode($responsePopulares, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            die("Erro ao decodificar JSON da resposta da API.");
+        }
+
+        if ($httpCode !== 200 || !isset($dataPopulares['status']) || $dataPopulares['status'] !== 'success') {
+            $erroMsg = $dataPopulares['message'] ?? 'Erro desconhecido.';
+            die("Erro ao buscar produtos populares. HTTP $httpCode - $erroMsg");
+        }
 
         $dados = array();
         $dados['titulo'] = 'SarafashionAPP - Loja ';
         $dados['cliente'] = $cliente;
 
         $dados['produtos'] = $listarProdutos;
-        
-        $dados['produtosPopulares'] = $produtosPopulares;
-        var_dump($dados['produtosPopulares']);
+
+        $dados['produtosPopulares'] = $dataPopulares['data'] ?? [];
+        // var_dump($dados['produtosPopulares']);
 
         $this->carregarViews('loja', $dados);
     }

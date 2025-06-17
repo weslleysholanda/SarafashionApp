@@ -148,6 +148,23 @@
     .menuNav {
       .bottom-nav {
         .navbar-Fixed {
+          .nav-icon {
+            .icon-Right {
+              a {
+                &.icon-ativo {
+                  svg {
+                    path{
+                      fill: #222222;
+                    }
+                  }
+                }
+                &::after{
+                  background: #222222;
+                }
+              }
+            }
+          }
+
           .central-button {
             background: #222222;
             filter: drop-shadow(5px 5px 25px rgba(34, 34, 34));

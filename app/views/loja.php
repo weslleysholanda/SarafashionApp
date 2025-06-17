@@ -286,42 +286,45 @@ require_once('templates/head.php');
             <div class="title">
                 <p>Mais Popular</p>
             </div>
+            <div class="product-list">
+                <?php foreach ($produtosPopulares as $produto): ?>
+                    <div class="product-card">
+                        <div class="heart">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
+                                <g transform="translate(-0.5 -0.495)">
+                                    <path
+                                        d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"
+                                        fill="none" stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
+                                </g>
+                            </svg>
+                        </div>
 
+                        <div class="card-img">
+                            <?php
+                            $caminhoArquivo = BASE_FOTO . $produto['foto_galeria'];
+                            $img = BASE_FOTO . "produto/sem-foto-produto.png";
+                            $alt_foto = "imagem sem foto";
 
-
-
-            <?php foreach ($produtosPopulares as $produto): ?>
-                <div class="product-card">
-                    <div class="card-img">
-                        <?php
-                        $caminhoArquivo = BASE_URL_SITE . "uploads/" . $produto['foto_galeria'];
-                        $img = BASE_URL_SITE . "uploads/produto/sem-foto-produto.png";
-                        $alt_foto = "imagem sem foto";
-
-                        // var_dump($cliente['foto_cliente']);
-
-                        if (!empty($produto['foto_produto'])) {
-                            $headers = @get_headers($caminhoArquivo);
-                            if ($headers && strpos($headers[0], '200') !== false) {
-                                $img = $caminhoArquivo;
-                                $alt_foto = htmlspecialchars($produto['alt_foto_galeria'], ENT_QUOTES, 'UTF-8');
+                            if (!empty($produto['foto_galeria'])) {
+                                $headers = @get_headers($caminhoArquivo);
+                                if ($headers && strpos($headers[0], '200') !== false) {
+                                    $img = $caminhoArquivo;
+                                    $alt_foto = htmlspecialchars($produto['alt_foto_galeria'] ?? "imagem sem foto", ENT_QUOTES, 'UTF-8');
+                                }
                             }
-                        }
-                        ?>
-                        <img src="<?= $img  ?>>" alt="<?= $alt_foto ?>">
+                            ?>
+                            <img src="<?= htmlspecialchars($img) ?>" alt="<?= $alt_foto ?>">
+                        </div>
+
+                        <h3><?= htmlspecialchars($produto['nome_produto']) ?></h3>
+                        <p class="category">Hair Care</p>
+                        <p class="price">
+                            <span class="old-price">R$<?= number_format($produto['preco_anterior'] ?? 0, 2, ',', '.') ?></span>
+                            <span class="new-price">R$<?= number_format($produto['preco_produto'] ?? 0, 2, ',', '.') ?></span>
+                        </p>
                     </div>
-                    <h3><?= $produto['nome_produto'] ?></h3>
-                    <p class="category">Hair Care</p>
-                    <p class="price">
-                        <span class="old-price">R$<?= $produto['preco_anterior'] ?></span>
-                        <span class="new-price">R$<?= $produto['preco_produto'] ?? '00,00' ?></span>
-                    </p>
-                </div>
-            <?php endforeach ?>
-
-
-
-
+                <?php endforeach; ?>
+            </div>
 
 
             <div class="title">

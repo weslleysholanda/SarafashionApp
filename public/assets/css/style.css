@@ -97,6 +97,37 @@
   .menuNav {
     .bottom-nav {
       .navbar-Fixed {
+        .nav-icon {
+          .icon-Right {
+            a {
+              position: relative;
+              &.icon-ativo {
+                svg {
+                  path {
+                    fill: #222222;
+                  }
+                }
+              }
+
+              &::after {
+                background: #222222;
+              }
+            }
+          }
+
+          .icon-Left {
+            a {
+              &.icon-ativo {
+                svg {
+                  path {
+                    fill: #222222;
+                  }
+                }
+              }
+            }
+          }
+        }
+
         .central-button {
           background: #222222;
           filter: drop-shadow(5px 5px 25px rgba(34, 34, 34));
@@ -153,13 +184,26 @@
               a {
                 &.icon-ativo {
                   svg {
-                    path{
+                    path {
                       fill: #222222;
                     }
                   }
                 }
-                &::after{
+
+                &::after {
                   background: #222222;
+                }
+              }
+            }
+
+            .icon-Left {
+              a {
+                &.icon-ativo {
+                  svg {
+                    path {
+                      fill: #222222;
+                    }
+                  }
                 }
               }
             }
@@ -168,6 +212,100 @@
           .central-button {
             background: #222222;
             filter: drop-shadow(5px 5px 25px rgba(34, 34, 34));
+          }
+        }
+      }
+    }
+  }
+
+  .loja {
+    .home-background {
+      .background-box {
+        .navbar-box {
+          background: #222222;
+
+          .container-header {
+            .perfil-user {
+              .notification-alarm {
+                .box-alarm {
+                  .notification {
+                    background: #FFFFFF;
+
+                    h2 {
+                      font-weight: bold;
+                      color: #222222;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .categoria {
+        .container-categoria {
+          .selecao-categoria {
+            .cardCategoria {
+              .icon {
+                svg {
+                  path {
+                    fill: #222222;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .navbar-fixed {
+      .bottom-nav {
+        .navbar-Fixed {
+          .central-button {
+            background: #222222;
+            filter: drop-shadow(5px 5px 25px rgba(34, 34, 34));
+          }
+        }
+      }
+    }
+
+    .produtoFavoritado {
+      .product-list {
+        .product-card {
+          background: #222222;
+
+          h3 {
+            color: #ffffff;
+          }
+
+          .category {
+            color: #ffffff;
+          }
+
+          .price {
+            .new-price {
+              color: #ffffff;
+            }
+          }
+
+          .heart {
+            svg {
+              g {
+                path {
+                  stroke: #FFFFFF !important;
+                }
+              }
+            }
+
+            &.favoritado {
+              svg {
+                path {
+                  fill: #ffffff;
+                }
+              }
+            }
           }
         }
       }
@@ -571,8 +709,8 @@ body {
       }
 
       a {
+        position: relative;
         svg {
-          position: relative;
           cursor: pointer;
         }
 
@@ -580,9 +718,9 @@ body {
           content: "";
           position: absolute;
           bottom: -5px;
-          left: 12.9%;
+          left: 50%;
           transform: translateX(-50%);
-          width: 10%;
+          width: 40px;
           height: 4px;
           background: #c39552;
           border-radius: 2px;
@@ -3292,6 +3430,7 @@ body {
 
             path {
               fill: #C59D5F;
+              stroke: #C59D5F;
             }
           }
         }

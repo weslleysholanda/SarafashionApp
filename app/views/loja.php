@@ -90,7 +90,7 @@ require_once('templates/head.php');
                                         </div>
                                         <div class="produto-right">
                                             <div class="produto-boxPromocoes">
-                                                <img src="assets/img/Kit Wella Professionals.png" alt="Produto 1">
+                                                <img src="<?= BASE_URL ?>public/assets/img/Kit_Wella_Professionals.pngzz" alt="Produto 1">
                                             </div>
                                         </div>
                                     </div>
@@ -294,7 +294,7 @@ require_once('templates/head.php');
                                 <g transform="translate(-0.5 -0.495)">
                                     <path
                                         d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"
-                                        fill="none" stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
+                                        fill="none" stroke-miterlimit="10" stroke-width="1" />
                                 </g>
                             </svg>
                         </div>
@@ -446,6 +446,7 @@ require_once('templates/head.php');
         </section>
     </main>
 
+    <script src="<?= BASE_URL ?>public/assets/js/tema.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         const swiper = new Swiper('.slider-produtos .swiper', {
@@ -475,6 +476,28 @@ require_once('templates/head.php');
         document.querySelectorAll('.heart').forEach(heart => {
             heart.addEventListener('click', () => {
                 heart.classList.toggle('favoritado');
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const iconLinks = document.querySelectorAll(".nav-icon a");
+
+            // Obtém o valor do parâmetro "url" da URL atual
+            const currentParams = new URLSearchParams(window.location.search);
+            const currentUrl = currentParams.get("url");
+
+            iconLinks.forEach(link => {
+                const linkHref = link.getAttribute("href"); // Pega o href inteiro
+                const linkParams = new URLSearchParams(linkHref.split("?")[1]); // Só a parte dos parâmetros
+                const linkUrl = linkParams.get("url");
+
+                // Remove a classe antes
+                link.classList.remove("icon-ativo");
+
+                // Compara só o valor do parâmetro "url"
+                if (linkUrl === currentUrl || (!currentUrl && linkUrl === "home")) {
+                    link.classList.add("icon-ativo");
+                }
             });
         });
     </script>

@@ -75,48 +75,36 @@ require_once('templates/head.php');
                         </div>
                     </div>
                     <!-- slide produtos -->
+
                     <div class="slider-produtos">
                         <div class="container-produto">
                             <div class="card swiper">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="produto-left">
-                                            <div class="title">
-                                                <h2>Lorem Ipsum Dolor Sit Amet</h2>
+                                    <?php foreach ($promocoes as $promo): ?>
+                                        <div class="swiper-slide">
+                                            <div class="produto-left">
+                                                <div class="title">
+                                                    <h2><?= $promo['descricao_promocao_produto'] ?></h2>
+                                                </div>
+                                                <div class="promo">
+                                                   <h3>ATÉ <?= intval($promo['desconto_promocao_produto']) ?>% OFF</h3>
+                                                </div>
                                             </div>
-                                            <div class="promo">
-                                                <h3>GET 30% OFF</h3>
-                                            </div>
-                                        </div>
-                                        <div class="produto-right">
-                                            <div class="produto-boxPromocoes">
-                                                <img src="assets/img/Kit Wella Professionals.png" alt="Produto 1">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="swiper-slide">
-                                        <div class="produto-left">
-                                            <div class="title">
-                                                <h2>Lorem Ipsum Dolor Sit Amet</h2>
-                                            </div>
-                                            <div class="promo">
-                                                <h3>GET 50% OFF</h3>
+                                            <div class="produto-right">
+                                                <div class="produto-boxPromocoes">
+                                                <img src="<?= BASE_FOTO . "produto/" . basename($promo['foto_promocao_produto']) ?>"
+                                                alt="<?= $promo['alt_foto_promocao_produto'] ?>">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="produto-right">
-                                            <div class="produto-boxPromocoes">
-                                                <img src="assets/img/shampoo_clear_restore_plus_ativare.png"
-                                                    alt="Produto 2">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
                                 <div class="swiper-pagination"></div>
                             </div>
                         </div>
                     </div>
-                </header>
+            </div>
+            </header>
             </div>
             <!-- categorias -->
             <div class="of-height-130"></div>

@@ -72,16 +72,13 @@ class LojaController extends Controller
 
         // Buscar produtos populares
         $urlPopulares = BASE_API . "produtosPopulares";
-
         // Inicia o cURL
         $chPopulares = curl_init($urlPopulares);
-
         // Configurações
         curl_setopt_array($chPopulares, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 8,
         ]);
-
         // Se precisar de Authorization via Bearer Token, descomente a linha abaixo e ajuste:
         if (isset($_SESSION['token'])) {
             curl_setopt($chPopulares, CURLOPT_HTTPHEADER, [
@@ -119,6 +116,41 @@ class LojaController extends Controller
         $dados['produtosPopulares'] = $dataPopulares['data'] ?? [];
         // var_dump($dados['produtosPopulares']);
 
+
+
+
+        
+
+        // consumir API das promoções
+        $urlPromocoes = BASE_API . "promocaoProduto";
+        $chPromocoes = curl_init($urlPromocoes);
+
+        curl_setopt_array($chPromocoes, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => [
+                'Authorization: Bearer ' . $_SESSION['token']
+            ]
+        ]);
+
+        $response = curl_exec($chPromocoes);
+        $httpCode = curl_getinfo($chPromocoes, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode !== 200) {
+            die("Erro ao buscar promoções. Código HTTP: $httpCode");
+        }
+
+        $promocoes = json_decode($response, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            die("Erro ao decodificar JSON das promoções.");
+        }
+
+        // adiciona ao array existente
+        $dados['promocoes'] = $promocoes;
+       
+        // carregar view final (apenas uma vez)
         $this->carregarViews('loja', $dados);
+
     }
 }

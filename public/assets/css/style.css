@@ -101,6 +101,7 @@
           .icon-Right {
             a {
               position: relative;
+
               &.icon-ativo {
                 svg {
                   path {
@@ -111,6 +112,9 @@
 
               &::after {
                 background: #222222;
+                width: 40px;
+                left:50%;
+                transform: translateX(-50%);
               }
             }
           }
@@ -123,6 +127,12 @@
                     fill: #222222;
                   }
                 }
+              }
+              &::after {
+                background: #222222;
+                width: 40px;
+                left:50%;
+                transform: translateX(-50%);
               }
             }
           }
@@ -191,7 +201,7 @@
                 }
 
                 &::after {
-                  background: #222222;
+                  background: #222222 !important;
                 }
               }
             }
@@ -204,6 +214,10 @@
                       fill: #222222;
                     }
                   }
+                }
+
+                &::after {
+                  background: #222222 !important;
                 }
               }
             }
@@ -710,6 +724,7 @@ body {
 
       a {
         position: relative;
+
         svg {
           cursor: pointer;
         }

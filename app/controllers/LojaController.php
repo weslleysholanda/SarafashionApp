@@ -117,10 +117,6 @@ class LojaController extends Controller
         // var_dump($dados['produtosPopulares']);
 
 
-
-
-        
-
         // consumir API das promoções
         $urlPromocoes = BASE_API . "promocaoProduto";
         $chPromocoes = curl_init($urlPromocoes);

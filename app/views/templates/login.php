@@ -11,8 +11,9 @@
                 <h1>Bem Vindo de Volta!</h1>
                 <h6>Faça login na sua conta</h6>
             </div>
+            <div id="mensagem"></div>
             <div class="form-inputs">
-                <form action="<?= BASE_URL ?>index.php?url=login/autenticar" method="POST">
+                <form id="formLogin">
                     <input type="email" name="email" class="form_control" placeholder="E-mail">
                     <div class="input_password">
                         <input type="password" name="senha" id="senha" placeholder="Senha">

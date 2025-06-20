@@ -411,9 +411,6 @@
   }
 } 
 
-
-
-
 /* config inicial */
 body {
   margin: 0;
@@ -797,6 +794,10 @@ body {
       top: 77%;
       z-index: 10;
       border-top-left-radius: 60px;
+
+      #mensagem{
+        margin-bottom: 20px;
+      }
 
       .content-info {
         .header-login {

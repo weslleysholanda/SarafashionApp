@@ -14,24 +14,34 @@ class LoginController extends Controller
     //Método de autenticação
     public function autenticar()
     {
+        header('Content-Type: application/json');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo json_encode(['erro' => 'Método não permitido']);
+            exit;
+        }
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $email = $_POST['email'] ?? null;
         $senha = $_POST['senha'] ?? null;
 
-        //Fazer a requisição da API de login
+        if (!$email || !$senha) {
+            http_response_code(400);
+            echo json_encode(['erro' => 'Preencha todos os campos.']);
+            exit;
+        }
+
         $url = BASE_API . "login?email_cliente=$email&senha_cliente=$senha";
 
-        //Reconhecimento da chave (Inicializa uma sessão cURL)
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-
-        //Recebe os dados dessa solicitação
         $response = curl_exec($ch);
-
-        //Obtém o código HTTP da resposta (200, 400, 401)
         $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        //Encerra a sessão da chave
         curl_close($ch);
 
         if ($statusCode == 200) {
@@ -39,17 +49,21 @@ class LoginController extends Controller
 
             if (!empty($data['token'])) {
                 $_SESSION['token'] = $data['token'];
-
-                header("Location: " . BASE_URL . "index.php?url=home");
+                echo json_encode(['sucesso' => true]);
                 exit;
             } else {
-                header("Location: " . BASE_URL . "index.php?url=login");
+                http_response_code(401);
+                echo json_encode(['erro' => 'Token inválido.']);
                 exit;
             }
         } else {
-            echo "Login Inválido!";
+            http_response_code(401);
+            echo json_encode(['erro' => 'Login ou senha incorretos.']);
+            exit;
         }
     }
+
+
 
     public function sair()
     {

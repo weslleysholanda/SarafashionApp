@@ -5,40 +5,17 @@
             <h3>Crie uma conta nova</h3>
         </div>
 
-        <?php
-            $erro = $_GET['erro'] ?? null;
-            $mensagemErro = '';
-    
-            switch ($erro) {
-                case 'campos_obrigatorios':
-                    $mensagemErro = 'Preencha todos os campos obrigatórios.';
-                    break;
-                case 'senhas_diferentes':
-                    $mensagemErro = 'As senhas não coincidem.';
-                    break;
-                case 'erro_api':
-                    $mensagemErro = 'Erro ao registrar. Tente novamente.';
-                    break;
-            }
-        ?>
-
-        <?php if ($mensagemErro): ?>
-            <div class="container-mensagemErro">
-                <div class="mensagem-erro">
-                    <?= htmlspecialchars($mensagemErro) ?>
-                </div>
-            </div>
-        <?php endif; ?>
+        <div id="mensagem"></div>
 
         <div class="form-inputs">
-            <form action="<?= BASE_URL ?>index.php?url=registrar/preRegistro" method="POST">
+            <form id="formPreRegistro">
                 <div class="campo-input">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                         <path id="user-regular"
                             d="M12.214,4.5A3.034,3.034,0,0,0,9,1.688,3.034,3.034,0,0,0,5.786,4.5,3.034,3.034,0,0,0,9,7.313,3.034,3.034,0,0,0,12.214,4.5Zm-8.357,0C3.857,2.015,6.16,0,9,0s5.143,2.015,5.143,4.5S11.84,9,9,9,3.857,6.985,3.857,4.5ZM1.981,16.313H16.023a5.061,5.061,0,0,0-5.183-3.937H7.168a5.061,5.061,0,0,0-5.183,3.938ZM0,16.956c0-3.463,3.206-6.268,7.164-6.268h3.672c3.958,0,7.164,2.805,7.164,6.268A1.126,1.126,0,0,1,16.807,18H1.193A1.126,1.126,0,0,1,0,16.956Z"
                             fill="#888" />
                     </svg>
-                    <input type="text" name="nome" placeholder="Nome:" />
+                    <input type="text" id="nome" name="nome" placeholder="Nome:" />
                 </div>
 
                 <div class="campo-input">
@@ -48,7 +25,7 @@
                             transform="translate(0 -64)" fill="#888" />
                     </svg>
 
-                    <input type="email" name="email" placeholder="Email:" />
+                    <input type="email" id="email" name="email" placeholder="Email:" />
                 </div>
 
                 <div class="campo-input">
@@ -89,7 +66,7 @@
                     </p>
                 </div>
                 <div class="input-post">
-                    <button id="btn-submit" disabled>Registrar</button>
+                    <button type="submit" id="btn-submit" disabled>Registrar</button>
                     <a href="<?php echo BASE_URL; ?>index.php?url=login">Ja tem uma conta? <span>Entrar</span></a>
                 </div>
 

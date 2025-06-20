@@ -25,7 +25,7 @@ require_once('templates/head.php')
             </div>
 
             <?php
-            require_once('templates/container-emailFa.php')
+                require_once('templates/container-emailfa.php')
             ?>
         </section>
     </main>

@@ -13,6 +13,13 @@ class RegistrarController extends Controller
 
     public function preRegistro()
     {
+        header('Content-Type: application/json');
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo json_encode(['erro' => 'Método não permitido']);
+            exit;
+        }
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -22,17 +29,20 @@ class RegistrarController extends Controller
         $senha = $_POST['senha'] ?? null;
         $confirmarSenha = $_POST['confirmar_senha'] ?? null;
 
+        // Validações
         if (!$nome || !$email || !$senha || !$confirmarSenha) {
-            header('Location: ' . BASE_URL . 'index.php?url=registrar&erro=campos_obrigatorios');
+            http_response_code(400);
+            echo json_encode(['erro' => 'Preencha todos os campos obrigatórios.']);
             exit;
         }
 
         if ($senha !== $confirmarSenha) {
-            header('Location: ' . BASE_URL . 'index.php?url=registrar&erro=senhas_diferentes');
+            http_response_code(400);
+            echo json_encode(['erro' => 'As senhas não coincidem.']);
             exit;
         }
 
-        // Aqui chama a API preCadastro
+        // Chamada API
         $url = BASE_API . 'preCadastro';
 
         $dados = [
@@ -63,15 +73,17 @@ class RegistrarController extends Controller
                 'senha' => $senhaHash
             ];
 
-            header('Location:' . BASE_URL . 'index.php?url=selecionarVerificacao');
+            echo json_encode(['sucesso' => true]);
             exit;
         } elseif ($statusCode === 409) {
-            $erro = $responseData['erro'] ?? 'email_em_uso';
-            header('Location: ' . BASE_URL . 'index.php?url=registrar&erro=' . $erro);
+            http_response_code(409);
+            $erro = $responseData['erro'] ?? 'Este e-mail já está em uso.';
+            echo json_encode(['erro' => $erro]);
             exit;
         } else {
-            $erro = $responseData['erro'] ?? 'erro_api';
-            header('Location: ' . BASE_URL . 'index.php?url=registrar&erro=' . $erro);
+            http_response_code(500);
+            $erro = $responseData['erro'] ?? 'Erro na API. Tente novamente.';
+            echo json_encode(['erro' => $erro]);
             exit;
         }
     }

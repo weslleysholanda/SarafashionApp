@@ -26,7 +26,7 @@ require_once('templates/head.php')
             </div>
 
             <?php
-            require_once('templates/container-registrar.php');
+                require_once('templates/container-registra.php');
             ?>
         </section>
     </main>
@@ -72,7 +72,6 @@ require_once('templates/head.php')
                 }
             });
 
-            // Só exibe a mensagem se houver algo digitado
             if (senhaInput.value) {
                 erroSenha.textContent = mensagem;
                 erroSenha.style.color = corMensagem;
@@ -81,19 +80,16 @@ require_once('templates/head.php')
             }
         }
 
-
         function validar() {
             const senha = senhaInput.value;
             const confirmacao = confirmarSenhaInput.value;
             const forca = verificarForca(senha);
             atualizarIndicadores(forca);
 
-            // Só limpa a mensagem se o campo estiver vazio
             if (!senha) {
                 erroSenha.textContent = '';
             }
 
-            // Validação da confirmação
             if (!confirmacao) {
                 erroConfirmacao.textContent = '';
             } else if (senha !== confirmacao) {
@@ -107,6 +103,90 @@ require_once('templates/head.php')
 
         senhaInput.addEventListener('input', validar);
         confirmarSenhaInput.addEventListener('input', validar);
+
+        function showErrorMessage(msg) {
+            const mensagemDiv = document.getElementById('mensagem');
+            mensagemDiv.innerHTML = `
+                <div class="custom-alert-container">
+                    <div class="custom-alert error">
+                        ${msg}
+                        <span class="close-btn" onclick="closeAlert(this);">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function closeAlert(el) {
+            const alertBox = el.closest('.custom-alert-container');
+            alertBox.style.opacity = '0';
+            alertBox.style.transform = 'translateY(-10px)';
+            setTimeout(() => alertBox.remove(), 300);
+        }
+
+        const form = document.getElementById('formPreRegistro');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const botao = form.querySelector('button[type="submit"]');
+            botao.disabled = true;
+            botao.textContent = 'Registrando...';
+
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const senha = document.getElementById('senha').value.trim();
+            const confirmarSenha = document.getElementById('confirmarSenha').value.trim();
+
+            if (!nome || !email || !senha || !confirmarSenha) {
+                showErrorMessage('Preencha todos os campos.');
+                botao.disabled = false;
+                botao.textContent = 'Pré-Registrar';
+                return;
+            }
+
+            if (senha !== confirmarSenha) {
+                showErrorMessage('As senhas não coincidem.');
+                botao.disabled = false;
+                botao.textContent = 'Pré-Registrar';
+                return;
+            }
+
+            const BASE_URL = '<?= BASE_URL ?>';
+
+            fetch(`${BASE_URL}index.php?url=registrar/preRegistro`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        nome: nome,
+                        email: email,
+                        senha: senha,
+                        confirmar_senha: confirmarSenha
+                    })
+                })
+                .then(async response => {
+                    const data = await response.json();
+
+                    if (response.ok && data.sucesso) {
+                        window.location.href = '<?= BASE_URL ?>index.php?url=selecionarVerificacao';
+                    } else {
+                        showErrorMessage(data.erro || 'Erro inesperado. Tente novamente.');
+                    }
+                })
+                .catch(error => {
+                    showErrorMessage('Erro na comunicação com o servidor.');
+                    console.error('Erro na comunicação:', error);
+                })
+                .finally(() => {
+                    botao.disabled = false;
+                    botao.textContent = 'Pré-Registrar';
+                });
+        });
     </script>
 </body>
 

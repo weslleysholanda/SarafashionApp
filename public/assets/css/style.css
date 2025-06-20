@@ -98,27 +98,7 @@
     .bottom-nav {
       .navbar-Fixed {
         .nav-icon {
-          .icon-Right {
-            a {
-              position: relative;
-
-              &.icon-ativo {
-                svg {
-                  path {
-                    fill: #222222;
-                  }
-                }
-              }
-
-              &::after {
-                background: #222222;
-                width: 40px;
-                left:50%;
-                transform: translateX(-50%);
-              }
-            }
-          }
-
+          .icon-Right,
           .icon-Left {
             a {
               &.icon-ativo {
@@ -127,13 +107,16 @@
                     fill: #222222;
                   }
                 }
+
+                &::after {
+                  background: #222222;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  width: 40px;
+                }
               }
-              &::after {
-                background: #222222;
-                width: 40px;
-                left:50%;
-                transform: translateX(-50%);
-              }
+
+            
             }
           }
         }
@@ -181,51 +164,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    }
-
-    .menuNav {
-      .bottom-nav {
-        .navbar-Fixed {
-          .nav-icon {
-            .icon-Right {
-              a {
-                &.icon-ativo {
-                  svg {
-                    path {
-                      fill: #222222;
-                    }
-                  }
-                }
-
-                &::after {
-                  background: #222222 !important;
-                }
-              }
-            }
-
-            .icon-Left {
-              a {
-                &.icon-ativo {
-                  svg {
-                    path {
-                      fill: #222222;
-                    }
-                  }
-                }
-
-                &::after {
-                  background: #222222 !important;
-                }
-              }
-            }
-          }
-
-          .central-button {
-            background: #222222;
-            filter: drop-shadow(5px 5px 25px rgba(34, 34, 34));
           }
         }
       }
@@ -471,7 +409,9 @@
       }
     }
   }
-}
+} 
+
+
 
 
 /* config inicial */

@@ -7,10 +7,7 @@ const celulares = {
 };
 
 function clearActives() {
-    if (options.length > 0) {
-        options.forEach(o => o.classList.remove('active'));
-    }
-
+    options.forEach(o => o.classList.remove('active'));
     Object.values(celulares).forEach(cel => {
         if (cel) cel.classList.remove('active');
     });
@@ -24,29 +21,28 @@ function activateMode(mode) {
     if (cel) cel.classList.add('active');
 
     document.documentElement.setAttribute('data-mode', mode);
+
     localStorage.setItem('modoSelecionado', mode);
 }
 
-// ✅ Só adiciona eventos se houver opções na tela
-if (options.length > 0) {
-    options.forEach(opt => {
-        opt.addEventListener('click', () => {
-            const mode = opt.getAttribute('data-mode');
-            clearActives();
-            activateMode(mode);
-        });
-    });
-}
-
-// ✅ Aplica o tema salvo sempre (mesmo se não tiver seletor, pelo menos o data-mode é aplicado)
+// Ativa modo salvo ao carregar a página
 window.addEventListener('DOMContentLoaded', () => {
     const saved = localStorage.getItem('modoSelecionado') || 'sistema';
     clearActives();
     activateMode(saved);
 });
 
+// Eventos de clique nos botões
+options.forEach(opt => {
+    opt.addEventListener('click', () => {
+        const mode = opt.getAttribute('data-mode');
+        clearActives();
+        activateMode(mode);
+    });
+});
+
+// Para uso com checkbox se quiser
 function toggleDarkMode() {
     const checkbox = document.getElementById('darkToggle');
     if (checkbox) checkbox.checked = !checkbox.checked;
 }
-

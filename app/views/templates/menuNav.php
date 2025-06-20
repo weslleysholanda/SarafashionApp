@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="central-button">
-                <a href="escolha.html">
+                <a href="<?= BASE_URL ?>index.php?url=agendamento">
                     <svg id="calendario" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                         viewBox="0 0 25 25">
                         <g id="Layer_2" data-name="Layer 2" transform="translate(0 1.372)">

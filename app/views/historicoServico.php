@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>histórico serviço</title>
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
-</head>
+<?php 
+    require_once('templates/head.php');
+?>
 
 <body>
     <main class="app tema favorito historico">
@@ -15,7 +11,7 @@
             <div class="background-box">
                 <div class="header-nav">
                     <header class="voltar">
-                        <a href="home.html">
+                        <a href="<?= BASE_URL ?>index.php?url=home">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 15">
                                 <path id="Caminho_6" data-name="Caminho 6"
                                     d="M.281,38.669a1.249,1.249,0,0,0,0,1.516L5.53,46.611a.768.768,0,0,0,1.238,0,1.249,1.249,0,0,0,0-1.516l-4.631-5.67,4.628-5.67a1.249,1.249,0,0,0,0-1.516.768.768,0,0,0-1.238,0L.279,38.665Z"
@@ -55,7 +51,7 @@
                 <div class="container-card">
                     <div class="card">
                         <div class="box-img">
-                            <img src="assets/img/depilacaoserv.jpeg" alt="imagem serviço depilação">
+                            <img src="<?= BASE_URL ?>public/assets/img/depilacaoserv.jpeg" alt="imagem serviço depilação">
                             <span class="tag">Depilação</span>
                         </div>
                         <div class="box-info">
@@ -89,7 +85,7 @@
                     </div>
                     <div class="card">
                         <div class="box-img">
-                            <img src="assets/img/corteserv.jpeg" alt="imagem serviço corte visagista">
+                            <img src="<?= BASE_URL ?>public/assets/img/corteserv.jpeg" alt="imagem serviço corte visagista">
                             <span class="tag">Corte <br>Visagista</span>
                         </div>
                         <div class="box-info">
@@ -122,7 +118,7 @@
                     </div>
                     <div class="card">
                         <div class="box-img">
-                            <img src="assets/img/alongamentoserv.jpeg" alt="imagem serviço alongamento">
+                            <img src="<?= BASE_URL ?>public/assets/img/alongamentoserv.jpeg" alt="imagem serviço alongamento">
                             <span class="tag">Alongamento</span>
                         </div>
                         <div class="box-info">

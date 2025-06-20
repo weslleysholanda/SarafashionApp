@@ -70,7 +70,7 @@
 
                 <div class="icones-box">
                     <div class="item">
-                        <a href="meusAgendamentos.html">
+                        <a href="<?= BASE_URL ?>index.php?url=meusAgendamentos">
                             <div class="icone">
                                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 44.9 47.6">
@@ -95,7 +95,7 @@
                     </div>
 
                     <div class="item">
-                        <a href="favoritos.html">
+                        <a href="<?= BASE_URL ?>index.php?url=favoritos">
                             <div class="icone">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 42.447">
                                     <path id="Caminho_179" data-name="Caminho 179"
@@ -108,7 +108,7 @@
                     </div>
 
                     <div class="item">
-                        <a href="historicoServico.html">
+                        <a href="<?= BASE_URL ?>index.php?url=historicoServico">
                             <div class="icone">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="58" height="41"
                                     viewBox="0 0 58 41">

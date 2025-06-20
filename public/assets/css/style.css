@@ -115,8 +115,6 @@
                   width: 40px;
                 }
               }
-
-            
             }
           }
         }
@@ -168,6 +166,17 @@
         }
       }
     }
+
+    .menuNav {
+      .bottom-nav {
+        .navbar-Fixed {
+          .central-button {
+            background: #222222;
+            filter: drop-shadow(5px 5px 25px rgba(34, 34, 34));
+          }
+        }
+      }
+    }
   }
 
   .loja {
@@ -190,6 +199,17 @@
                   }
                 }
               }
+            }
+          }
+        }
+      }
+
+      .slider-produtos{
+        .container-produto{
+          .card{
+            .swiper-pagination-bullet-active{
+              background-color: #222222;
+              border: 1px solid #222222;
             }
           }
         }
@@ -409,7 +429,7 @@
       }
     }
   }
-} 
+}
 
 /* config inicial */
 body {
@@ -795,7 +815,7 @@ body {
       z-index: 10;
       border-top-left-radius: 60px;
 
-      #mensagem{
+      #mensagem {
         margin-bottom: 20px;
       }
 

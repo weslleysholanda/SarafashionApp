@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendamento</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
-</head>
+<?php 
+    require_once('templates/head.php')
+?>
 
 <body>
     <main class="app checkout escolha">
         <section class="header-nav">
             <header>
-                <a href="home.html">
+                <a href="<?= BASE_URL ?>index.php?url=home">
                     <button><i class="fas fa-times"></i></button>
                 </a>
                 <h1>Escolha um serviço</h1>
@@ -139,7 +134,7 @@
                         <h3>(Sujeito a reajuste)</h3>
                     </div>
                     <div class="rightFooter">
-                        <a href="agendamento.html">
+                        <a href="<?= BASE_URL ?>index.php?url=horarioServico">
                             <button id="btn-confirmar">
                                 Confirmar
                                 <span>

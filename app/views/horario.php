@@ -2,25 +2,25 @@
 <html lang="pt-br">
 
 <?php
-require_once('templates/head.php');
+    require_once('templates/head.php');
 ?>
 
 <body>
     <main class="app checkout escolha agendamento">
         <?php
-            require_once('templates/header-agendamento-hora');
+            require_once('templates/header-agendamento-hora.php');
         ?>
 
         <?php
-            require_once('templates/progress-line-bar');
+            require_once('templates/progress-line-bar.php');
         ?>
 
         <?php
-            require_once('templates/dataAgendamento');
+            require_once('templates/dataAgendamento.php');
         ?>
 
         <?php
-            require_once('templates/footerCheckout');
+            require_once('templates/footerCheckout.php');
         ?>
 
     </main>
@@ -60,9 +60,9 @@ require_once('templates/head.php');
 
                 // Adiciona o conteúdo (nome do dia e a data no círculo)
                 div.innerHTML = `
-            <span>${diaSemana}</span>
-            <div class="circle">${dia}/${mes}</div>
-        `;
+                    <span>${diaSemana}</span>
+                    <div class="circle">${dia}/${mes}</div>
+                `;
 
                 // Adiciona o evento de clique — ao clicar, destaca o item
                 div.addEventListener('click', () => {

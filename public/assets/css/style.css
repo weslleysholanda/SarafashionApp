@@ -435,6 +435,7 @@
 body {
   margin: 0;
   height: 100vh;
+  overflow-y: auto;
   box-sizing: border-box
 }
 
@@ -2191,7 +2192,8 @@ body {
         .card-text {
           position: absolute;
           top: 65px;
-          left: 50px;
+          left: 50%;
+          transform: translateX(-50%);
 
           .container-text {
             display: flex;
@@ -2209,6 +2211,7 @@ body {
             .text-enfase {
               display: flex;
               flex-direction: column;
+              justify-content: center;
               gap: 3px;
 
               h2 {
@@ -2221,6 +2224,7 @@ body {
               h3 {
                 font-family: var(--fonteMontserrat);
                 font-size: 0.813em;
+                white-space: nowrap;
                 font-weight: 700;
                 color: var(--corLetras);
               }
@@ -4824,7 +4828,7 @@ body {
 
 .minhasCompras {
   .comprasList {
-    padding: 5px;
+    padding: 2px;
 
     .containerListCompras {
       width: 100%;

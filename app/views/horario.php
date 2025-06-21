@@ -20,6 +20,10 @@
         ?>
 
         <?php
+            require_once('templates/horarios.php');
+        ?>
+
+        <?php
             require_once('templates/footerCheckout.php');
         ?>
 

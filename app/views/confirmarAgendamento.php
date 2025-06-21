@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmar Agendamento</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
-</head>
+<?php 
+    require_once('templates/head.php');
+?>
 
 <body>
 
     <main class="app escolha checkout agendamento confirmar">
         <section class="header-nav">
             <header>
-                <a href="agendamento.html">
+                <a href="<?= BASE_URL ?>index.php?url=horarioServico">
                     <button><i class="fa-solid fa-arrow-left"></i></button>
                 </a>
                 <h1>Confirmar Agendamento</h1>

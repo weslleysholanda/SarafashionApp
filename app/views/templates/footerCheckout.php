@@ -6,7 +6,7 @@
                 <h3>(Sujeito a reajuste)</h3>
             </div>
             <div class="rightFooter">
-                <a href="confirmarAgendamento.html">
+                <a href="<?= BASE_URL ?>index.php?url=confirmarAgendamento">
                     <button id="btn-confirmar">
                         Confirmar
                         <span>

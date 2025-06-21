@@ -18,7 +18,8 @@ class CarrinhoController extends Controller
             exit;
         }
 
-        $dados = [];
+        $dados = array();
+        $dados['titulo'] = 'Sarafashion - Carrinho';
 
         // Carrega o layout com a view 'carrinho'
         $this->carregarViews('carrinho', $dados);

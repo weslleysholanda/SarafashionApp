@@ -1,11 +1,12 @@
 <section class="promocoes-slider">
     <div class="home-promocoes swiper">
         <div class="swiper-wrapper">
+            <?php foreach ($servPromocoes as $promo): ?>
             <div class="card swiper-slide">
                 <div class="card-image">
-                    <img src="<?= BASE_URL ?>public/assets/img/promoIdoso.png" alt="Promoção de corte de cabelo">
+                    <img src="<?= BASE_FOTO . "promocao/" . basename($promo['foto_promocao']) ?>" alt="<?= $promo['alt_foto_promocao'] ?>">
                     <div class="footer-img">
-                        <h3>Desconto para 60+ | Somente 5ª e 6ª feira</h3>
+                        <h3><?= htmlspecialchars($promo['descricao_promocao'], ENT_QUOTES, 'UTF-8')?></h3>
                         <div class="footer-button">
                             <button>Reserve</button>
                         </div>
@@ -13,17 +14,18 @@
                 </div>
                 <div class="card-text">
                     <div class="container-text">
-                        <h2>40</h2>
+                        <h2><?= intval($promo['desconto_promocao'])?></h2>
                         <div class="text-enfase">
                             <h2>% OFF</h2>
-                            <h3>Todos os cortes</h3>
+                            <h3><?= htmlspecialchars($promo['tipo_servico'], ENT_QUOTES, 'UTF-8')?></h3>
                         </div>
                     </div>
                     <span></span>
 
                 </div>
             </div>
-            <div class="card swiper-slide">
+            <?php endforeach; ?>
+            <!-- <div class="card swiper-slide">
                 <div class="card-image">
                     <img src="<?= BASE_URL ?>public/assets/img/futuraProm.png" alt="Promoção de corte de cabelo">
                     <div class="footer-img">
@@ -44,7 +46,7 @@
                     <span></span>
 
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>

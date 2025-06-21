@@ -89,14 +89,42 @@ class HomeController extends Controller
 
         $listarServico = json_decode($responseListarServico, true);
 
+        //Listar Promoções Serviço
+        $urlServPromocoes = BASE_API . "promocaoServico";
+        $chServPromocoes = curl_init($urlServPromocoes);
+
+        curl_setopt_array($chServPromocoes,[
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER =>[
+                'Authorization: Bearer ' . $_SESSION['token']
+            ]
+        ]);
+
+        $responseServProm = curl_exec($chServPromocoes);
+        $httpCode = curl_getinfo($chServPromocoes, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if($httpCode !== 200){
+            die("Erro ao buscar promoções. Código HTTP: $httpCode");
+        }
+
+        $servPromocoes = json_decode($responseServProm,true);
+
+        if(json_last_error() !== JSON_ERROR_NONE){
+            die("Erro ao decodificar o JSON das promoções");
+        }
+
+
         $dados = array();
         $dados['titulo'] = 'Sarafashion - Home';
         $dados['cliente'] = $cliente;
         $dados['pontos_acumulados'] = $pontosFidelidade['pontos_acumulados_fidelidade'] ?? 'Pontos';
         $dados['listarServico'] = $listarServico;
+        $dados['servPromocoes'] = $servPromocoes;
 
         // var_dump($dados['listarServico']);
         // var_dump($dados['cliente']);
+        // var_dump($dados['servPromocoes']);
 
 
         $this->carregarViews('home', $dados);

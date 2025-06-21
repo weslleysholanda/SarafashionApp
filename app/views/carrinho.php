@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <?php
-require_once('templates/head.php');
+    require_once('templates/head.php');
 ?>
 
 
@@ -12,7 +12,7 @@ require_once('templates/head.php');
             <div class="background-box">
                 <div class="header-nav">
                     <header class="voltar">
-                        <a href="home.html">
+                        <a href="<?= BASE_URL ?>index.php?url=home">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 15">
                                 <path id="Caminho_6" data-name="Caminho 6"
                                     d="M.281,38.669a1.249,1.249,0,0,0,0,1.516L5.53,46.611a.768.768,0,0,0,1.238,0,1.249,1.249,0,0,0,0-1.516l-4.631-5.67,4.628-5.67a1.249,1.249,0,0,0,0-1.516.768.768,0,0,0-1.238,0L.279,38.665Z"
@@ -31,7 +31,7 @@ require_once('templates/head.php');
             <div class="containerListCompras">
                 <div class="card">
                     <div class="imgCompras">
-                        <img src="assets/img/joico_Defy_Damage.png" alt="KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE">
+                        <img src="<?= BASE_URL ?>public/assets/img/joico_Defy_Damage.png" alt="KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE">
                     </div>
                     <div class="infoCompras">
                         <h2>KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE</h2>
@@ -50,7 +50,7 @@ require_once('templates/head.php');
                 </div>
                 <div class="card">
                     <div class="imgCompras">
-                        <img src="assets/img/joico_Defy_Damage.png" alt="KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE">
+                        <img src="<?= BASE_URL ?>public/assets/img/joico_Defy_Damage.png" alt="KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE">
                     </div>
                     <div class="infoCompras">
                         <h2>KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE</h2>
@@ -69,7 +69,7 @@ require_once('templates/head.php');
                 </div>
                 <div class="card">
                     <div class="imgCompras">
-                        <img src="assets/img/joico_Defy_Damage.png" alt="KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE">
+                        <img src="<?= BASE_URL ?>public/assets/img/joico_Defy_Damage.png" alt="KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE">
                     </div>
                     <div class="infoCompras">
                         <h2>KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE</h2>
@@ -88,7 +88,7 @@ require_once('templates/head.php');
                 </div>
                 <div class="card">
                     <div class="imgCompras">
-                        <img src="assets/img/joico_Defy_Damage.png" alt="KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE">
+                        <img src="<?= BASE_URL ?>public/assets/img/joico_Defy_Damage.png" alt="KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE">
                     </div>
                     <div class="infoCompras">
                         <h2>KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE</h2>
@@ -107,6 +107,11 @@ require_once('templates/head.php');
                 </div>
             </div>
         </section>
+
+        <?php 
+            require_once('templates/menuNav.php')
+        ?>
+
         <section class="totalCompra">
             <div class="title">
                 <h3>Total Carrinho</h3>

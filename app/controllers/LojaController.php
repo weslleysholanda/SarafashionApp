@@ -114,7 +114,7 @@ class LojaController extends Controller
         $dados['produtos'] = $listarProdutos;
 
         $dados['produtosPopulares'] = $dataPopulares['data'] ?? [];
-        // var_dump($dados['produtosPopulares']);
+        // var_dump($dados['produtosPopulares']['nome_produto']);
 
 
         // consumir API das promoções
@@ -142,10 +142,8 @@ class LojaController extends Controller
             die("Erro ao decodificar JSON das promoções.");
         }
 
-        // adiciona ao array existente
         $dados['promocoes'] = $promocoes;
        
-        // carregar view final (apenas uma vez)
         $this->carregarViews('loja', $dados);
 
     }

@@ -98,6 +98,7 @@
     .bottom-nav {
       .navbar-Fixed {
         .nav-icon {
+
           .icon-Right,
           .icon-Left {
             a {
@@ -204,10 +205,10 @@
         }
       }
 
-      .slider-produtos{
-        .container-produto{
-          .card{
-            .swiper-pagination-bullet-active{
+      .slider-produtos {
+        .container-produto {
+          .card {
+            .swiper-pagination-bullet-active {
               background-color: #222222;
               border: 1px solid #222222;
             }
@@ -3291,6 +3292,14 @@ body {
   }
 }
 
+.sem-favoritos {
+  padding: 60px 20px;
+  text-align: center;
+  font-size: 18px;
+  color: #999;
+  font-style: italic;
+}
+
 .favorito {
   .background-favorito {
     margin-bottom: 30px;
@@ -3390,6 +3399,12 @@ body {
         padding: 12px;
         position: relative;
         box-sizing: border-box;
+
+        &.fade-out {
+          opacity: 0;
+          transform: scale(0.98);
+          transition: opacity 0.3s ease, transform 0.3s ease;
+        }
 
         img {
           width: 100%;

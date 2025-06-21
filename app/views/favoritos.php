@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<?php 
-    require_once('templates/head.php');
+<?php
+require_once('templates/head.php');
 ?>
 
 <body>
@@ -47,95 +47,118 @@
             </div>
         </section>
 
+        <div id="mensagem"></div>
+
         <section class="produtoFavoritado">
             <div class="product-list">
-                <div class="product-card">
-                    <div class="heart">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
-                            <g transform="translate(-0.5 -0.495)">
-                                <path
-                                    d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"
-                                    fill="none" stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="card-img">
-                        <img src="<?= BASE_URL ?>public/assets/img/shampoo_clear_restore_plus_ativare.png" alt="Shampoo Restore">
-                    </div>
+                <?php if (!empty($favoritos)): ?>
+                    <?php foreach ($favoritos as $produto): ?>
+                        <div class="product-card">
+                            <div class="heart" onclick="toggleFavorito(<?= $produto['id_produto'] ?>, this)">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
+                                    <g transform="translate(-0.5 -0.495)">
+                                        <path d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z" fill="none" stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="card-img">
+                                <img src="<?= BASE_FOTO ?><?= $produto['foto_galeria'] ?>" alt="<?= htmlspecialchars($produto['alt_foto_galeria']) ?>">
+                            </div>
 
-                    <h3>SHAMPOO Restore Plus Extra Liss Ativare </h3>
-                    <p class="category">Hair Care</p>
-                    <p class="price">
-                        <span class="old-price">R$00,00</span>
-                        <span class="new-price">R$79,00</span>
-                    </p>
-                </div>
-                <div class="product-card">
-                    <div class="heart">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
-                            <g transform="translate(-0.5 -0.495)">
-                                <path
-                                    d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"
-                                    fill="none" stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
-                            </g>
-                        </svg>
+                            <h3><?= htmlspecialchars($produto['nome_produto'], ENT_QUOTES, 'UTF-8') ?> </h3>
+                            <p class="category"><?= htmlspecialchars($produto['categoria_produto'], ENT_QUOTES, 'UTF-8') ?></p>
+                            <p class="price">
+                                <span class="old-price"><?= htmlspecialchars($produto['preco_anterior'], ENT_QUOTES, 'UTF-8') ?></span>
+                                <span class="new-price"><?= htmlspecialchars($produto['preco_produto'], ENT_QUOTES, 'UTF-8') ?></span>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="sem-favoritos">
+                        <p>Você ainda não favoritou nenhum produto.</p>
                     </div>
-                    <div class="card-img">
-                        <img src="<?= BASE_URL ?>public/assets/img/joico_Defy_Damage.png" alt="Shampoo Restore">
-                    </div>
-
-                    <h3>KIT TRIPLO PROTETOR E NUTRITIVO DEFY DAMAGE JOICO</h3>
-                    <p class="category">Hair Care</p>
-                    <p class="price">
-                        <span class="old-price">R$00,00</span>
-                        <span class="new-price">R$79,00</span>
-                    </p>
-                </div>
-                <div class="product-card">
-                    <div class="heart">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
-                            <g transform="translate(-0.5 -0.495)">
-                                <path
-                                    d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"
-                                    fill="none" stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="card-img">
-                        <img src="<?= BASE_URL ?>public/assets/img/Kit Wella Professionals.png" alt="Shampoo Restore">
-                    </div>
-
-                    <h3>Kit Wella Professionals Invigo Nutri-Enrich Salon Trio (3 Produtos)</h3>
-                    <p class="category">Hair Care</p>
-                    <p class="price">
-                        <span class="old-price">R$00,00</span>
-                        <span class="new-price">R$79,00</span>
-                    </p>
-                </div>
-                <div class="product-card">
-                    <div class="heart">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
-                            <g transform="translate(-0.5 -0.495)">
-                                <path
-                                    d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"
-                                    fill="none" stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="card-img">
-                        <img src="<?= BASE_URL ?>public/assets/img/agua_oxigenada_volumes_iluminata_.png" alt="Shampoo Restore">
-                    </div>
-
-                    <h3>Descolorante Iluminata AGU...</h3>
-                    <p class="category">Hair Care</p>
-                    <p class="price">
-                        <span class="old-price">R$00,00</span>
-                        <span class="new-price">R$79,00</span>
-                    </p>
-                </div>
+                <?php endif; ?>
             </div>
+
         </section>
     </main>
 </body>
+
+<script>
+    function toggleFavorito(idProduto, el) {
+        const heart = el;
+        const token = "<?= $_SESSION['token'] ?>";
+
+        fetch("<?= BASE_API ?>toggleFavorito", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "id_produto=" + encodeURIComponent(idProduto)
+            })
+            .then(async response => {
+                const texto = await response.text();
+                let data;
+
+                try {
+                    data = JSON.parse(texto);
+                } catch (e) {
+                    console.error("Erro ao parsear JSON da resposta:", texto);
+                    showMessage("Erro interno ao processar favorito.", 'error');
+                    return;
+                }
+
+                if (response.ok && data.status === 'adicionado') {
+                    heart.classList.add('favoritado');
+                    showMessage("Produto adicionado aos favoritos.", 'success');
+                } else if (response.ok && data.status === 'removido') {
+                    heart.closest('.product-card').remove();
+                    showMessage("Produto removido dos favoritos.", 'success');
+
+                    // Se todos foram removidos, exibir mensagem
+                    if (document.querySelectorAll('.product-card').length === 0) {
+                        document.querySelector('.product-list').innerHTML = `
+                    <div class="sem-favoritos">
+                        <p>Você ainda não favoritou nenhum produto.</p>
+                    </div>
+                `;
+                    }
+                } else {
+                    showMessage(data.erro || "Ação não concluída.", 'error');
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao fazer requisição:", error);
+                showMessage("Erro ao conectar com o servidor.", 'error');
+            });
+    }
+
+    function showMessage(msg, tipo = 'success') {
+        const mensagemDiv = document.getElementById('mensagem');
+
+        mensagemDiv.innerHTML = `
+        <div class="custom-alert-container">
+            <div class="custom-alert ${tipo}">
+                ${msg}
+                <span class="close-btn" onclick="closeAlert(this);">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                    </svg>
+                </span>
+            </div>
+        </div>
+    `;
+    }
+
+    function closeAlert(el) {
+        const alertBox = el.closest('.custom-alert-container');
+        alertBox.style.opacity = '0';
+        alertBox.style.transform = 'translateY(-10px)';
+        setTimeout(() => alertBox.remove(), 300);
+    }
+</script>
+
+
 
 </html>

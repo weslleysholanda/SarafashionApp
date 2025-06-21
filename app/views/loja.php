@@ -87,13 +87,13 @@ require_once('templates/head.php');
                                                     <h2><?= $promo['descricao_promocao_produto'] ?></h2>
                                                 </div>
                                                 <div class="promo">
-                                                   <h3>ATÉ <?= intval($promo['desconto_promocao_produto']) ?>% OFF</h3>
+                                                    <h3>ATÉ <?= intval($promo['desconto_promocao_produto']) ?>% OFF</h3>
                                                 </div>
                                             </div>
                                             <div class="produto-right">
                                                 <div class="produto-boxPromocoes">
-                                                <img src="<?= BASE_FOTO . "produto/" . basename($promo['foto_promocao_produto']) ?>"
-                                                alt="<?= $promo['alt_foto_promocao_produto'] ?>">
+                                                    <img src="<?= BASE_FOTO . "produto/" . basename($promo['foto_promocao_produto']) ?>"
+                                                        alt="<?= $promo['alt_foto_promocao_produto'] ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -323,7 +323,7 @@ require_once('templates/head.php');
                 <?php foreach ($produtos as $produto): ?>
                     <div class="product-card">
 
-                        <div class="heart">
+                        <div class="heart" data-id="<?= $produto['id_produto'] ?>" onclick="toggleFavorito(<?= $produto['id_produto'] ?>, this)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
                                 <g transform="translate(-0.5 -0.495)">
                                     <path
@@ -461,34 +461,101 @@ require_once('templates/head.php');
             },
         });
 
-        document.querySelectorAll('.heart').forEach(heart => {
-            heart.addEventListener('click', () => {
-                heart.classList.toggle('favoritado');
-            });
-        });
-
         document.addEventListener("DOMContentLoaded", function() {
             const iconLinks = document.querySelectorAll(".nav-icon a");
-
-            // Obtém o valor do parâmetro "url" da URL atual
             const currentParams = new URLSearchParams(window.location.search);
             const currentUrl = currentParams.get("url");
 
             iconLinks.forEach(link => {
-                const linkHref = link.getAttribute("href"); // Pega o href inteiro
-                const linkParams = new URLSearchParams(linkHref.split("?")[1]); // Só a parte dos parâmetros
+                const linkHref = link.getAttribute("href");
+                const linkParams = new URLSearchParams(linkHref.split("?")[1]);
                 const linkUrl = linkParams.get("url");
 
-                // Remove a classe antes
                 link.classList.remove("icon-ativo");
 
-                // Compara só o valor do parâmetro "url"
                 if (linkUrl === currentUrl || (!currentUrl && linkUrl === "home")) {
                     link.classList.add("icon-ativo");
                 }
             });
+
+            // Buscar favoritos e marcar
+            const token = "<?= $_SESSION['token'] ?>";
+
+            fetch("<?= BASE_API ?>listarFavoritos", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                })
+                .then(res => res.json())
+                .then(favoritos => {
+                    if (Array.isArray(favoritos)) {
+                        favoritos.forEach(fav => {
+                            const el = document.querySelector(`.heart[data-id='${fav.id_produto}']`);
+                            if (el) {
+                                el.classList.add('favoritado');
+                            }
+                        });
+                    }
+                });
         });
+
+        function toggleFavorito(id_produto, el) {
+            const token = "<?= $_SESSION['token'] ?>";
+            const heart = el;
+
+            fetch("<?= BASE_API ?>toggleFavorito", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: "id_produto=" + encodeURIComponent(id_produto)
+                })
+                .then(async response => {
+                    const text = await response.text();
+                    let data;
+                    try {
+                        data = JSON.parse(text);
+                    } catch (e) {
+                        console.error("Erro ao parsear JSON:", text);
+                        return;
+                    }
+
+                    if (data.status === 'adicionado') {
+                        heart.classList.add('favoritado');
+                    } else if (data.status === 'removido') {
+                        heart.classList.remove('favoritado');
+
+                        // Desmarca o coração correspondente na loja (caso clicado nos favoritos)
+                        const heartLoja = document.querySelector(`.heart[data-id='${id_produto}']`);
+                        if (heartLoja && heartLoja !== heart) {
+                            heartLoja.classList.remove('favoritado');
+                        }
+
+                        // Remover o card SOMENTE se estiver na página de favoritos
+                        if (document.body.classList.contains('pagina-favoritos')) {
+                            const card = heart.closest('.product-card');
+                            if (card) {
+                                card.remove();
+
+                                if (document.querySelectorAll('.product-card').length === 0) {
+                                    document.querySelector('.product-list').innerHTML = `
+                                <div class="sem-favoritos">
+                                    <p>Você ainda não favoritou nenhum produto.</p>
+                                </div>
+                            `;
+                                }
+                            }
+                        }
+                    }
+                })
+                .catch(() => {
+                    console.error("Erro na requisição do toggleFavorito.");
+                });
+        }
     </script>
+
 
 </body>
 

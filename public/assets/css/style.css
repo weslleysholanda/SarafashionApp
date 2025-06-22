@@ -181,6 +181,9 @@
   }
 
   .loja {
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+
     .home-background {
       .background-box {
         .navbar-box {
@@ -265,18 +268,403 @@
 
           .heart {
             svg {
-              g {
-                path {
-                  stroke: #FFFFFF !important;
-                }
+              path {
+                stroke: #FFFFFF;
+                fill: transparent !important;
               }
             }
 
             &.favoritado {
               svg {
                 path {
-                  fill: #ffffff;
+                  fill: #ffffff !important;
                 }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .escolha {
+    .progress-line-bar {
+      .bar-line {
+        .stepper {
+          .progress-line {
+            background: linear-gradient(to right, black, #ffffff);
+          }
+
+          .step {
+            &.current .circle {
+              background: var(--corLetras);
+              color: #222222;
+              filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+            }
+          }
+        }
+      }
+    }
+
+    .escolhaServico {
+      .container-escolha {
+        form {
+          .service {
+            background-color: #222222;
+
+            .content {
+              .top-row {
+                .title {
+                  color: var(--corLetras);
+                }
+
+                .info {
+                  span {
+                    color: var(--corLetras);
+
+                    &:nth-child(2) {
+                      font-size: 0.75em;
+                      color: var(--corLetras);
+                    }
+                  }
+                }
+              }
+            }
+
+            &:not(.selected) .content .top-row .title {
+              color: #B8B8B8;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .agendamento {
+    form {
+      .dataAgendamento {
+        .date-selector {
+          .date-item {
+            &.active .circle {
+              background-color: #222222;
+            }
+          }
+        }
+      }
+
+      .horarios {
+        .container-selectHours {
+          .grade-horarios {
+            .horario {
+              &.selecionado {
+                background: #222222;
+                border-color: #222222;
+              }
+            }
+          }
+        }
+      }
+
+      .footerCheckout {
+        .confirmFooter {
+          .container-confirmFooter {
+            .rightFooter {
+              a {
+                #btn-confirmar-horario {
+                  background: #222222 !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  .checkout {
+    .footerCheckout {
+      .confirmFooter {
+        .container-confirmFooter {
+          .leftFooter {
+            h2 {
+              span {
+                color: #222222;
+              }
+            }
+          }
+
+          .rightFooter {
+            #btn-confirmar {
+              background: #222222 !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .agendamentos {
+    .listServicos {
+      .container-card {
+        .card {
+          background: var(--corLetras) !important;
+
+          .box-img {
+            .tag {
+              background-color: #222222;
+            }
+          }
+
+          .box-info {
+            background: var(--corLetras) !important;
+
+            .servicoRealizado {
+              h2 {
+                color: #222222 !important;
+              }
+            }
+
+            .servicoStatus {
+              .iconAgendamento {
+                svg {
+                  path {
+                    fill: #222222 !important;
+                  }
+                }
+
+                span {
+                  color: #222222;
+                }
+              }
+            }
+
+            .servicoDetalhes {
+              button {
+                color: var(--corLetras) !important;
+                background-color: #222222 !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .agendamentoConfirmado {
+    .bookingSuccess {
+      .check-icon {
+        background-color: #222222;
+      }
+
+      .cardGroup {
+        background-color: #222222;
+
+        .container_confirmAgendamento {
+          .info {
+            .fullLine {
+              .fulllineIcon {
+                svg {
+                  g {
+                    path {
+                      fill: var(--corLetras);
+                    }
+                  }
+
+                  path {
+                    fill: var(--corLetras);
+                  }
+                }
+              }
+
+              p {
+                color: var(--corLetras);
+              }
+            }
+          }
+
+          .mensagemLembrete {
+            color: var(--corLetras);
+          }
+        }
+      }
+
+      .confirmButton {
+        background: #222222;
+
+        &:hover {
+          background-color: #252424;
+        }
+      }
+    }
+  }
+
+  .confirmar {
+    .detalhesAgendamento {
+      .info-agendamento {
+        .container-Agendamento {
+          background: #222222;
+
+          .data {
+            span {
+              color: var(--corLetras) !important;
+
+              svg {
+                path {
+                  fill: var(--corLetras);
+                }
+              }
+            }
+          }
+
+          .servico {
+            span {
+              color: var(--corLetras) !important;
+
+              svg {
+                path {
+                  fill: var(--corLetras);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .detalhesCupom {
+      .info-cupom {
+        .container-cupom {
+          background: #222222;
+
+          .pontos {
+            a {
+              span {
+                color: var(--corLetras) !important;
+
+                svg {
+                  path {
+                    fill: var(--corLetras);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .footerCheckout {
+      .confirmFooter {
+        .container-confirmFooter {
+          .leftFooter {
+            h3 {
+              color: #222222;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .favorito {
+    .background-favorito {
+      .background-box {
+        background: #222222;
+
+        .header-nav {
+          .voltar {
+            a {
+              svg {
+                path {
+                  fill: #222222;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .produtoFavoritado {
+      .product-list {
+        .product-card {
+          background: #222222;
+
+          .heart {
+            svg {
+              g {
+                path {
+                  fill: var(--corLetras);
+                  stroke: var(--corLetras);
+                }
+              }
+            }
+          }
+
+          h3 {
+            color: var(--corLetras);
+          }
+
+          .category {
+            color: var(--corLetras);
+          }
+
+          .price {
+            .new-price {
+              color: var(--corLetras);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .historico {
+    .listServicos {
+      .container-card {
+        .card {
+          background: #222222;
+
+          .box-img {
+            .tag {
+              color: #222222;
+              background-color: var(--corLetras);
+            }
+          }
+
+          .box-info {
+            background: #222222;
+
+            .servicoRealizado {
+
+              h2,
+              h3 {
+                color: var(--corLetras);
+              }
+            }
+
+            .servicoStatus {
+              h2 {
+                color: var(--corLetras);
+              }
+
+              span {
+                color: var(--corLetras);
+
+                svg {
+                  path {
+                    fill: var(--corLetras);
+                  }
+                }
+              }
+            }
+
+            .servicoDetalhes {
+              button {
+                background-color: var(--corLetras);
+                color: #222222;
               }
             }
           }
@@ -1851,6 +2239,9 @@ body {
 
 /* Home */
 .home-app {
+  height: calc(100vh - 25px);
+  overflow-y: auto;
+
   .home-background {
     .background-box {
       display: flex;
@@ -3292,15 +3683,20 @@ body {
   }
 }
 
-.sem-favoritos {
+.sem-favoritos,
+.sem-agendamentos {
   padding: 60px 20px;
   text-align: center;
-  font-size: 18px;
+  font-size: 17px;
   color: #999;
+  font-family: var(--fonteMontserrat);
   font-style: italic;
 }
 
 .favorito {
+  height: calc(100vh - 25px);
+  overflow-y: auto;
+
   .background-favorito {
     margin-bottom: 30px;
 
@@ -3382,7 +3778,6 @@ body {
 
   .produtoFavoritado {
     padding: 5px;
-    height: 85vh;
 
     .product-list {
       display: flex;
@@ -3791,6 +4186,31 @@ body {
             }
           }
 
+          #btn-confirmar-horario {
+            background: var(--corPrincipal);
+            color: #fff;
+            border: none;
+            width: 130px;
+            padding: 10px 10px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background .2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &:hover {
+              background: #b99863;
+            }
+
+            span {
+              display: flex;
+            }
+          }
+
+
+
         }
       }
     }
@@ -3799,6 +4219,8 @@ body {
 }
 
 .escolha {
+  overflow-y: auto;
+
   .header-nav {
     header {
       display: flex;
@@ -3846,7 +4268,8 @@ body {
         .progress-line {
           position: absolute;
           top: 15px;
-          left: 15px;
+          left: 10%;
+          transform: translateX(-25%);
           height: 6px;
           background: linear-gradient(to right, black, #C59D5F);
           width: 22%;
@@ -3856,7 +4279,7 @@ body {
         .background-line {
           position: absolute;
           top: 15px;
-          width: 90%;
+          width: 88%;
           left: 5px;
           right: 0;
           height: 6px;
@@ -4053,8 +4476,8 @@ body {
 
       .stepper {
         .progress-line {
-          left: 0;
-          transform: translateX(120px);
+          left: 50%;
+          transform: translateX(-80%);
         }
       }
     }
@@ -4146,7 +4569,7 @@ body {
           }
 
           &.indisponivel {
-            background: #eee;
+            background: #2C2E3D;
             border-color: #ccc;
             color: #999;
             cursor: not-allowed;
@@ -4204,7 +4627,8 @@ body {
     .bar-line {
       .stepper {
         .progress-line {
-          left: 230px;
+          left: 50%;
+          transform: translateX(56%);
         }
       }
     }
@@ -4617,6 +5041,8 @@ body {
 }
 
 .agendamentos {
+  overflow-y: auto;
+
   .background-favorito {
     .background-box {
       .tema-title {
@@ -4634,7 +5060,6 @@ body {
 
   .listServicos {
     padding: 0;
-    height: 145vh;
 
     .container-card {
       flex-direction: column;
@@ -4699,6 +5124,90 @@ body {
           }
         }
       }
+    }
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .modal-content {
+      background: #fff;
+      border-radius: 8px;
+      width: 360px;
+      max-width: 90%;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      font-family: var(--fonteMontserrat);
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        font-weight: bold;
+        border-bottom: 1px solid #ccc;
+
+        h2 {
+          font-size: 16px;
+          margin: 0;
+        }
+
+        .modal-close {
+          svg {
+            width: 20px;
+            height: 20;
+
+            path {
+              fill: #222222;
+            }
+          }
+        }
+      }
+
+      .modal-body {
+        padding: 20px 16px;
+        font-size: 14px;
+      }
+
+      .modal-footer {
+        padding: 16px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        border-top: 1px solid #ccc;
+
+        .btn {
+          padding: 8px 16px;
+          border: none;
+          color: white;
+          cursor: pointer;
+          font-size: 14px;
+          border-radius: 4px;
+          transition: background 0.2s;
+
+          &.cancelar {
+            background: black;
+          }
+
+          &.confirmar {
+            background: black;
+          }
+
+          &.btn:hover {
+            opacity: 0.9;
+          }
+        }
+      }
+
     }
   }
 }
@@ -4947,6 +5456,9 @@ body {
 }
 
 .carrinho {
+  height: calc(100vh - 40px);
+  overflow-y: auto;
+
   .comprasList {
     margin-bottom: 7.5px;
 
@@ -5035,6 +5547,7 @@ body {
         width: 90%;
         border-radius: 5px;
         max-width: none;
+        margin-bottom: 65px;
       }
     }
   }

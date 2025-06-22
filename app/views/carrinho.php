@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <?php
-    require_once('templates/head.php');
+require_once('templates/head.php');
 ?>
 
 
@@ -108,8 +108,8 @@
             </div>
         </section>
 
-        <?php 
-            require_once('templates/menuNav.php')
+        <?php
+        require_once('templates/menuNav.php');
         ?>
 
         <section class="totalCompra">
@@ -144,6 +144,28 @@
             plusBtn.addEventListener('click', () => {
                 value++;
                 valueSpan.textContent = value;
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const iconLinks = document.querySelectorAll(".nav-icon a");
+
+            // Obtém o valor do parâmetro "url" da URL atual
+            const currentParams = new URLSearchParams(window.location.search);
+            const currentUrl = currentParams.get("url");
+
+            iconLinks.forEach(link => {
+                const linkHref = link.getAttribute("href"); // Pega o href inteiro
+                const linkParams = new URLSearchParams(linkHref.split("?")[1]); // Só a parte dos parâmetros
+                const linkUrl = linkParams.get("url");
+
+                // Remove a classe antes
+                link.classList.remove("icon-ativo");
+
+                // Compara só o valor do parâmetro "url"
+                if (linkUrl === currentUrl || (!currentUrl && linkUrl === "home")) {
+                    link.classList.add("icon-ativo");
+                }
             });
         });
     </script>

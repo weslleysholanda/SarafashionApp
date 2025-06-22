@@ -35,7 +35,7 @@ class FavoritosController extends Controller
         if ($statusCode === 200) {
             $favoritos = json_decode($response, true);
         } elseif ($statusCode === 404) {
-            $favoritos = []; // Sem favoritos, mas não quebra a página
+            $favoritos = [];
         } else {
             die("Erro ao buscar favoritos. Código HTTP: $statusCode");
         }

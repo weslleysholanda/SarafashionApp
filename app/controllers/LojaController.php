@@ -114,7 +114,7 @@ class LojaController extends Controller
         $dados['produtos'] = $listarProdutos;
 
         $dados['produtosPopulares'] = $dataPopulares['data'] ?? [];
-        // var_dump($dados['produtosPopulares']['nome_produto']);
+        // var_dump($dados['produtosPopulares']);
 
 
         // consumir API das promoções

@@ -2,12 +2,12 @@
     <div class="confirmFooter">
         <div class="container-confirmFooter">
             <div class="leftFooter">
-                <h2>Total <span>R$ 00,00</span></h2>
+                <h2>Total <span>R$ <?= number_format($total, 2, ',', '.') ?></span></h2>
                 <h3>(Sujeito a reajuste)</h3>
             </div>
             <div class="rightFooter">
                 <a href="<?= BASE_URL ?>index.php?url=confirmarAgendamento">
-                    <button id="btn-confirmar">
+                    <button id="btn-confirmar-horario">
                         Confirmar
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

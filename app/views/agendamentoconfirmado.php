@@ -9,10 +9,11 @@
     <main class="app agendamentoConfirmado">
 
         <?php
-            require_once('agendamentoConfirmado.php');
+            require_once('templates/agendamentoConfirmado.php');
         ?>
 
     </main>
+    <script src="<?= BASE_URL ?>public/assets/js/tema.js"></script>
 </body>
 
 </html>

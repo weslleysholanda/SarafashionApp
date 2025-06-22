@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<?php 
-    require_once('templates/head.php');
+<?php
+require_once('templates/head.php');
 ?>
 
 <body>
@@ -47,12 +47,13 @@
             <div class="container-title">
                 <h2>Detalhe do agendamento</h2>
             </div>
+            <div id="mensagem"></div>
             <div class="info-agendamento">
                 <div class="container-Agendamento">
                     <div class="data">
-                        <a href="" class="mudar">
+                        <a href="<?= BASE_URL ?>index.php?url=horarioServico" class="mudar">
                             <span>Data:</span>
-                            <span>11:00, 28 Jun 2019</span>
+                            <span><?= date('H:i, d M Y', strtotime($dataHora)) ?></span>
                             <span>mudar <svg xmlns="http://www.w3.org/2000/svg" width="6.998" height="12"
                                     viewBox="0 0 6.998 12">
                                     <path id="Caminho_96" data-name="Caminho 96"
@@ -63,9 +64,13 @@
                         </a>
                     </div>
                     <div class="servico">
-                        <a href="" class="mudar">
+                        <a href="<?= BASE_URL ?>index.php?url=agendamento" class="mudar">
                             <span>Serviço:</span>
-                            <span id="adaptacao">Corte Visagista</span>
+                            <span id="adaptacao">
+                                <?php foreach ($servicos as $servico): ?>
+                                    <?= htmlspecialchars($servico['nome']) ?><br>
+                                <?php endforeach; ?>
+                            </span>
                             <span>mudar <svg xmlns="http://www.w3.org/2000/svg" width="6.998" height="12"
                                     viewBox="0 0 6.998 12">
                                     <path id="Caminho_96" data-name="Caminho 96"
@@ -106,7 +111,7 @@
             <div class="confirmFooter">
                 <div class="container-confirmFooter">
                     <div class="leftFooter">
-                        <h2>Total <span>R$ 00,00</span></h2>
+                        <h2>Total <span>R$ <?= number_format($total, 2, ',', '.') ?></span></h2>
                         <h3>0 Pontos</h3>
                     </div>
                     <div class="rightFooter">
@@ -128,6 +133,77 @@
 
     </main>
     <script src="https://kit.fontawesome.com/25f4259441.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnConfirmar = document.getElementById('btn-confirmar');
+            const mensagem = document.getElementById('mensagem');
+
+            if (btnConfirmar) {
+                btnConfirmar.addEventListener('click', confirmarAgendamento);
+            }
+
+            function confirmarAgendamento() {
+                fetch('<?= BASE_URL ?>index.php?url=confirmarAgendamento/cadastrarAgendamento', {
+                        method: 'POST'
+                    })
+                    .then(async (response) => {
+                        const text = await response.text();
+                        try {
+                            const data = JSON.parse(text);
+                            if (!response.ok) {
+                                throw new Error(data.erro || 'Erro no servidor');
+                            }
+                            return data;
+                        } catch (e) {
+                            console.error('Resposta não é JSON:', text);
+                            throw new Error('Resposta inesperada do servidor.');
+                        }
+                    })
+                    .then((result) => {
+                        if (result.mensagem) {
+                            exibirAlerta('success', 'Agendamento confirmado com sucesso!');
+                            window.location.href = '<?= BASE_URL ?>index.php?url=agendamentoConfirmado';
+                        } else {
+                            exibirAlerta('error', result.message || result.erro || 'Erro ao confirmar o agendamento.');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Erro:', error);
+                        exibirAlerta('error', error.message || 'Erro inesperado ao tentar agendar. Tente novamente.');
+                    });
+            }
+
+            function exibirAlerta(tipo, msg) {
+                mensagem.innerHTML = `
+            <div class="custom-alert-container">
+                <div class="custom-alert ${tipo}">
+                    ${msg}
+                    <span class="close-btn" onclick="fecharAlerta(this);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        `;
+            }
+
+            function fecharAlerta(el) {
+                const alertBox = el.closest('.custom-alert-container');
+                if (alertBox) {
+                    alertBox.style.opacity = '0';
+                    alertBox.style.transform = 'translateY(-10px)';
+                    setTimeout(() => alertBox.remove(), 300);
+                }
+            }
+        });
+    </script>
+
+
+
+
+
+
 </body>
 
 </html>

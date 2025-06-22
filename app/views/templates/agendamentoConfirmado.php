@@ -9,7 +9,6 @@
     </div>
     <div class="generalInfo">
         <h2>Agendamento confirmado com sucesso!</h2>
-        <p>As informações foram enviadas para o seu e-mail.</p>
     </div>
 
     <div class="cardGroup">
@@ -71,7 +70,7 @@
                             </g>
                         </svg>
                     </div>
-                    <p><span>Horário:</span> 11:00, 28 Jun 2019</p>
+                    <p><span>Horário:</span> <?= date('H:i, d M Y', strtotime($dataHora)) ?></p>
                 </div>
             </div>
 
@@ -85,7 +84,7 @@
                                 transform="translate(-568 -105)" fill="#c59d5f" fill-rule="evenodd" />
                         </svg>
                     </div>
-                    <p><span>Local:</span> Rua teste, 298 - Jardim Nazaré</p>
+                    <p><span>Local:</span> Av Monsenhor Agnelo, 628, São Miguel</p>
                 </div>
             </div>
 
@@ -131,13 +130,15 @@
                             </g>
                         </svg>
                     </div>
-                    <p><span>Serviço:</span>Maquiagem</p>
+                    <?php foreach ($servicos as $servico): ?>
+                        <p><span>Serviço:</span><?= htmlspecialchars($servico['nome']) ?></p>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
             <h6 class="mensagemLembrete">lembre-se de chegar com 5 minutos de antecedência.</h6>
         </div>
     </div>
-
-    <button class="confirmButton">OK</button>
+                        
+    <button class="confirmButton" onclick="window.location.href='<?= BASE_URL ?>index.php?url=agendamentoConfirmado/home'">OK</button>
 </div>

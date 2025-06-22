@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php 
-    require_once('templates/head.php');
+<?php
+require_once('templates/head.php');
 ?>
 
 <body>
@@ -48,42 +48,88 @@
         </section>
 
         <section class="listServicos">
-                <div class="container-card">
+            <div class="container-card">
+                <?php foreach ($listarHistorico as $historicoServico): ?>
                     <div class="card">
                         <div class="box-img">
                             <img src="<?= BASE_URL ?>public/assets/img/depilacaoserv.jpeg" alt="imagem serviço depilação">
-                            <span class="tag">Depilação</span>
+                            <span class="tag"><?= htmlspecialchars($historicoServico['nome_servico'], ENT_QUOTES, 'UTF-8') ?></span>
                         </div>
                         <div class="box-info">
                             <div class="servicoRealizado">
                                 <h2>Serviço:</h2>
-                                <h3>Depilação</h3>
+                                <h3><?= htmlspecialchars($historicoServico['nome_servico'], ENT_QUOTES, 'UTF-8') ?></h3>
                             </div>
                             <div class="servicoStatus">
-                                <h2>Status: </h2>
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16.871" height="14.284"
-                                        viewBox="0 0 16.871 14.284">
-                                        <g id="check_icon-icons.com_73639" transform="translate(0 -38.791)">
-                                            <g id="Grupo_174" data-name="Grupo 174" transform="translate(0 36.401)">
-                                                <path id="Caminho_259" data-name="Caminho 259"
-                                                    d="M14.081,44.243a.268.268,0,0,0-.122-.031.32.32,0,0,0-.233.1l-.649.649a.3.3,0,0,0-.091.223v2.577a1.628,1.628,0,0,1-1.623,1.623H2.922a1.563,1.563,0,0,1-1.146-.477A1.563,1.563,0,0,1,1.3,47.763v-8.44a1.563,1.563,0,0,1,.477-1.146A1.563,1.563,0,0,1,2.922,37.7h8.44a1.8,1.8,0,0,1,.456.061.326.326,0,0,0,.091.02.321.321,0,0,0,.233-.1l.5-.5a.315.315,0,0,0,.091-.294.308.308,0,0,0-.183-.233,2.793,2.793,0,0,0-1.187-.254H2.922a2.814,2.814,0,0,0-2.064.857A2.814,2.814,0,0,0,0,39.323v8.44a2.814,2.814,0,0,0,.857,2.064,2.814,2.814,0,0,0,2.064.857h8.44a2.928,2.928,0,0,0,2.922-2.922V44.537A.3.3,0,0,0,14.081,44.243Z"
-                                                    transform="translate(0 -34.011)" />
-                                                <path id="Caminho_260" data-name="Caminho 260"
-                                                    d="M87.394,56.315,86.278,55.2a.809.809,0,0,0-1.157,0l-6.564,6.564L75.89,59.1a.809.809,0,0,0-1.156,0l-1.116,1.116a.808.808,0,0,0,0,1.157L77.98,65.73a.809.809,0,0,0,1.156,0l8.258-8.258a.808.808,0,0,0,0-1.156Z"
-                                                    transform="translate(-70.767 -51.906)" />
+                                <h2>Status:</h2>
+
+                                <?php
+                                $status = htmlspecialchars($historicoServico['status_agendamento'], ENT_QUOTES, 'UTF-8');
+
+                                switch ($status) {
+                                    case 'Concluído':
+                                        echo '<span class="status concluido">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16.871" height="14.284" viewBox="0 0 16.871 14.284">
+                                            <g id="check_icon-icons.com_73639" transform="translate(0 -38.791)">
+                                                <g id="Grupo_174" data-name="Grupo 174" transform="translate(0 36.401)">
+                                                    <path id="Caminho_259" data-name="Caminho 259"
+                                                        d="M14.081,44.243a.268.268,0,0,0-.122-.031.32.32,0,0,0-.233.1l-.649.649a.3.3,0,0,0-.091.223v2.577a1.628,1.628,0,0,1-1.623,1.623H2.922a1.563,1.563,0,0,1-1.146-.477A1.563,1.563,0,0,1,1.3,47.763v-8.44a1.563,1.563,0,0,1,.477-1.146A1.563,1.563,0,0,1,2.922,37.7h8.44a1.8,1.8,0,0,1,.456.061.326.326,0,0,0,.091.02.321.321,0,0,0,.233-.1l.5-.5a.315.315,0,0,0,.091-.294.308.308,0,0,0-.183-.233,2.793,2.793,0,0,0-1.187-.254H2.922a2.814,2.814,0,0,0-2.064.857A2.814,2.814,0,0,0,0,39.323v8.44a2.814,2.814,0,0,0,.857,2.064,2.814,2.814,0,0,0,2.064.857h8.44a2.928,2.928,0,0,0,2.922-2.922V44.537A.3.3,0,0,0,14.081,44.243Z"
+                                                        transform="translate(0 -34.011)" />
+                                                    <path id="Caminho_260" data-name="Caminho 260"
+                                                        d="M87.394,56.315,86.278,55.2a.809.809,0,0,0-1.157,0l-6.564,6.564L75.89,59.1a.809.809,0,0,0-1.156,0l-1.116,1.116a.808.808,0,0,0,0,1.157L77.98,65.73a.809.809,0,0,0,1.156,0l8.258-8.258a.808.808,0,0,0,0-1.156Z"
+                                                        transform="translate(-70.767 -51.906)" />
+                                                </g>
                                             </g>
-                                        </g>
-                                    </svg>
-                                    Concluído
-                                </span>
+                                                </svg>
+                                                Concluído
+                                            </span>';
+                                        break;
+
+                                    case 'Agendado':
+                                        echo '<span class="status agendado">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20.306" height="16.245" viewBox="0 0 20.306 16.245">
+                                                    <g id="reload_78477" transform="translate(0 -51.197)">
+                                                        <path id="Caminho_266" data-name="Caminho 266"
+                                                            d="M125.05,59.319a8.122,8.122,0,0,0-13.866-5.743l1.914,1.914a5.415,5.415,0,0,1,9.244,3.829h-2.031L123.7,62.7l3.384-3.384Z"
+                                                            transform="translate(-106.774)" />
+                                                        <path id="Caminho_267" data-name="Caminho 267"
+                                                            d="M10.153,179.464a5.421,5.421,0,0,1-5.415-5.415H6.769l-3.384-3.384L0,174.049H2.031A8.122,8.122,0,0,0,15.9,179.793l-1.914-1.914A5.38,5.38,0,0,1,10.153,179.464Z"
+                                                            transform="translate(0 -114.73)" />
+                                                    </g>
+                                                </svg>
+                                                Agendado
+                                            </span>';
+                                        break;
+
+                                    case 'Cancelado':
+                                        echo '<span class="status cancelado">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                                    <g id="Grupo_345" data-name="Grupo 345" transform="translate(-86 -805)">
+                                                        <path id="Caminho_280" data-name="Caminho 280"
+                                                            d="M8,15a7,7,0,1,1,7-7,7,7,0,0,1-7,7m0,1A8,8,0,1,0,0,8a8,8,0,0,0,8,8"
+                                                            transform="translate(86 805)"/>
+                                                        <path id="Caminho_281" data-name="Caminho 281"
+                                                            d="M4.646,4.646a.5.5,0,0,1,.708,0L8,7.293l2.646-2.647a.5.5,0,0,1,.708.708L8.707,8l2.647,2.646a.5.5,0,0,1-.708.708L8,8.707,5.354,11.354a.5.5,0,1,1-.708-.708L7.293,8,4.646,5.354a.5.5,0,0,1,0-.708"
+                                                            transform="translate(86 805)"/>
+                                                    </g>
+                                                </svg>
+                                                Cancelado
+                                            </span>';
+                                        break;
+
+                                    default:
+                                        echo '<span class="status desconhecido">Status desconhecido</span>';
+                                }
+                                ?>
                             </div>
+
                             <div class="servicoDetalhes">
                                 <button>Detalhes</button>
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                <?php endforeach; ?>
+                <!-- <div class="card">
                         <div class="box-img">
                             <img src="<?= BASE_URL ?>public/assets/img/corteserv.jpeg" alt="imagem serviço corte visagista">
                             <span class="tag">Corte <br>Visagista</span>
@@ -147,9 +193,9 @@
                                 <button>Detalhes</button>
                             </div>
                         </div>
-                    </div>
-                    
-                </div>
+                    </div> -->
+
+            </div>
 
         </section>
     </main>

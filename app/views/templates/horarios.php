@@ -1,10 +1,10 @@
 <section class="horarios">
     <div class="container-selectHours">
         <div class="grade-horarios">
-            <button class="horario disponivel">9:00</button>
-            <button class="horario disponivel">9:30</button>
-            <button class="horario disponivel">10:00</button>
-            <button class="horario disponivel">10:30</button>
+            <button type="button" class="horario disponivel">9:00</button>
+            <button type="button" class="horario disponivel">9:30</button>
+            <button type="button" class="horario disponivel">10:00</button>
+            <button type="button" class="horario disponivel">10:30</button>
 
             <button class="horario disponivel">11:00</button>
             <button class="horario disponivel">11:30</button>

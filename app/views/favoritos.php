@@ -83,7 +83,7 @@ require_once('templates/head.php');
         </section>
     </main>
 </body>
-
+<script src="<?= BASE_URL ?>public/assets/js/tema.js"></script>
 <script>
     function toggleFavorito(idProduto, el) {
         const heart = el;

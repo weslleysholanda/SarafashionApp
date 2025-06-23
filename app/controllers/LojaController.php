@@ -107,6 +107,26 @@ class LojaController extends Controller
             die("Erro ao buscar produtos populares. HTTP $httpCode - $erroMsg");
         }
 
+        // Buscar categorias
+        $urlCategorias = BASE_API . "listarCategorias";
+        $chCategorias = curl_init($urlCategorias);
+        curl_setopt($chCategorias, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($chCategorias, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $_SESSION['token']
+        ]);
+
+        $responseCategorias = curl_exec($chCategorias);
+        $statusCodeCategorias = curl_getinfo($chCategorias, CURLINFO_HTTP_CODE);
+        curl_close($chCategorias);
+
+        if ($statusCodeCategorias != 200) {
+            die("Erro ao buscar categorias. Código HTTP: $statusCodeCategorias");
+        }
+
+        $categorias = json_decode($responseCategorias, true);
+
+        $dados['categorias'] = $categorias;
+
         $dados = array();
         $dados['titulo'] = 'SarafashionAPP - Loja ';
         $dados['cliente'] = $cliente;
@@ -143,8 +163,68 @@ class LojaController extends Controller
         }
 
         $dados['promocoes'] = $promocoes;
-       
-        $this->carregarViews('loja', $dados);
 
+        $this->carregarViews('loja', $dados);
+    }
+
+    public function buscarProduto()
+    {
+        $termo = $_POST['busca'] ?? '';
+
+        if (empty($termo)) {
+            echo json_encode(['status' => 'error', 'mensagem' => 'Informe um termo de busca']);
+            exit;
+        }
+
+        $url = BASE_API . "buscarProdutos?busca=" . urlencode($termo);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $_SESSION['token']
+        ]);
+
+        $response = curl_exec($ch);
+        $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($statusCode != 200) {
+            echo json_encode(['status' => 'error', 'mensagem' => 'Erro na busca. Código: ' . $statusCode]);
+            exit;
+        }
+
+        $produtos = json_decode($response, true);
+
+        echo json_encode(['status' => 'success', 'data' => $produtos]);
+    }
+
+    public function buscarProdutoPorCategoria()
+    {
+        $categoria = $_POST['categoria'] ?? '';
+
+        if (empty($categoria)) {
+            echo json_encode(['status' => 'error', 'mensagem' => 'Informe a categoria']);
+            exit;
+        }
+
+        $url = BASE_API . "buscarPorCategoria?categoria=" . urlencode($categoria);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $_SESSION['token']
+        ]);
+
+        $response = curl_exec($ch);
+        $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($statusCode != 200) {
+            echo json_encode(['status' => 'error', 'mensagem' => 'Erro ao buscar produtos. Código: ' . $statusCode]);
+            exit;
+        }
+
+        $produtos = json_decode($response, true);
+        echo json_encode(['status' => 'success', 'data' => $produtos]);
     }
 }

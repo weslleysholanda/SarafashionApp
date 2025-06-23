@@ -9,6 +9,23 @@ require_once('templates/head.php');
 
 
 <body>
+    <style>
+        .limpar-filtro-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        #btn-limpar-filtros {
+            padding: 10px 20px;
+            background: #c59d5f;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
     <main class="app home-app favorito loja">
         <section class="home-background">
             <div class="background-box">
@@ -270,6 +287,10 @@ require_once('templates/head.php');
             </div>
         </section>
 
+        <div class="limpar-filtro-wrapper" style="display:none;">
+            <button id="btn-limpar-filtros">Limpar Filtros</button>
+        </div>
+
         <section class="produtoFavoritado">
             <div class="title">
                 <p>Mais Popular</p>
@@ -319,7 +340,7 @@ require_once('templates/head.php');
                 <p>Produtos</p>
             </div>
 
-            <div class="product-list">
+            <div class="product-list produtos-gerais">
                 <?php foreach ($produtos as $produto): ?>
                     <div class="product-card">
 
@@ -479,6 +500,120 @@ require_once('templates/head.php');
                     console.error("Erro na requisição do toggleFavorito.");
                 });
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const BASE_URL = '<?= BASE_URL ?>';
+            const token = '<?= $_SESSION['token'] ?>';
+            const produtosContainer = document.querySelector('.product-list.produtos-gerais');
+            const btnLimpar = document.getElementById('btn-limpar-filtros');
+            const limparWrapper = document.querySelector('.limpar-filtro-wrapper');
+            const inputBusca = document.querySelector('.input-busca');
+
+            function mostrarBotaoLimpar() {
+                limparWrapper.style.display = 'flex';
+            }
+
+            function esconderBotaoLimpar() {
+                limparWrapper.style.display = 'none';
+            }
+
+            inputBusca.addEventListener('input', function() {
+                const termo = this.value?.trim();
+                if (!termo || termo.length < 2) return;
+
+                fetch(`${BASE_URL}index.php?url=loja/buscarProduto`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: 'busca=' + encodeURIComponent(termo)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        renderizarProdutos(data);
+                        mostrarBotaoLimpar();
+                    });
+            });
+
+            document.querySelectorAll('.cardCategoria').forEach(card => {
+                card.addEventListener('click', () => {
+                    const categoria = card.querySelector('p')?.innerText?.trim();
+
+                    fetch(`${BASE_URL}index.php?url=loja/buscarProdutoPorCategoria`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: 'categoria=' + encodeURIComponent(categoria)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            renderizarProdutos(data);
+                            mostrarBotaoLimpar();
+                        });
+                });
+            });
+
+            btnLimpar.addEventListener('click', () => {
+                fetch(`${BASE_URL}index.php?url=loja/buscarProduto`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: 'busca='
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        renderizarProdutos(data);
+                        inputBusca.value = '';
+                        esconderBotaoLimpar();
+                    });
+            });
+
+            function renderizarProdutos(data) {
+                if (!produtosContainer) return;
+
+                if (data.status === 'success' && Array.isArray(data.data)) {
+                    let html = '';
+
+                    if (data.data.length > 0) {
+                        data.data.forEach(prod => {
+                            const imagem = (prod.imagens && prod.imagens.trim() !== '') ?
+                                `<?= BASE_FOTO ?>${prod.imagens}` :
+                                `<?= BASE_FOTO ?>produto/sem-foto-produto.png`;
+
+                            html += `
+                                <div class="product-card">
+                                    <div class="heart" data-id="${prod.id_produto}" onclick="toggleFavorito('${prod.id_produto}', this)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
+                                            <g transform="translate(-0.5 -0.495)">
+                                                <path d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"
+                                                    stroke="#c59d5f" stroke-miterlimit="10" stroke-width="1" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="card-img">
+                                        <img src="${imagem}" alt="${prod.alt_foto_galeria ?? 'imagem'}">
+                                    </div>
+                                    <h3>${prod.nome_produto}</h3>
+                                    <p class="category">${prod.categoria_produto}</p>
+                                    <p class="price">
+                                        <span class="old-price">R$ ${parseFloat(prod.preco_anterior ?? 0).toFixed(2).replace('.', ',')}</span>
+                                        <span class="new-price">R$ ${parseFloat(prod.preco_produto ?? 0).toFixed(2).replace('.', ',')}</span>
+                                    </p>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        html = '<p>Nenhum produto encontrado.</p>';
+                    }
+
+                    produtosContainer.innerHTML = html;
+                } else {
+                    produtosContainer.innerHTML = '';
+                }
+            }
+        });
     </script>
 
 

@@ -86,7 +86,8 @@
 
         <!-- Segurança -->
         <li class="setting-item">
-            <a href="seguranca.html">
+            <!-- questao do 2fa vai ficar pra dps index.php?url=seguranca -->
+            <a href="index.php?url=editarSenha">
                 <div class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="21.874" height="28.209"
                         viewBox="0 0 21.874 28.209">

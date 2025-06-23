@@ -287,6 +287,829 @@
     }
   }
 
+  .carrinho {
+    .comprasList {
+      .containerListCompras {
+        .card {
+          .infoCompras {
+            .valorCompra {
+              .new-price {
+                color: #222222;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .post {
+      .input-post {
+        button {
+          background: #222222;
+          border: 1px solid #222222;
+        }
+      }
+    }
+
+    .totalCompra {
+      .subtotal {
+        h3 {
+          color: #222222 !important;
+        }
+      }
+    }
+  }
+
+  .escolha {
+    .progress-line-bar {
+      .bar-line {
+        .stepper {
+          .progress-line {
+            background: linear-gradient(to right, black, #ffffff);
+          }
+
+          .step {
+            &.current .circle {
+              background: var(--corLetras);
+              color: #222222;
+              filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+            }
+          }
+        }
+      }
+    }
+
+    .escolhaServico {
+      .container-escolha {
+        form {
+          .service {
+            background-color: #222222;
+
+            .content {
+              .top-row {
+                .title {
+                  color: var(--corLetras);
+                }
+
+                .info {
+                  span {
+                    color: var(--corLetras);
+
+                    &:nth-child(2) {
+                      font-size: 0.75em;
+                      color: var(--corLetras);
+                    }
+                  }
+                }
+              }
+            }
+
+            &:not(.selected) .content .top-row .title {
+              color: #B8B8B8;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .agendamento {
+    form {
+      .dataAgendamento {
+        .date-selector {
+          .date-item {
+            &.active .circle {
+              background-color: #222222;
+            }
+          }
+        }
+      }
+
+      .horarios {
+        .container-selectHours {
+          .grade-horarios {
+            .horario {
+              &.selecionado {
+                background: #222222;
+                border-color: #222222;
+              }
+            }
+          }
+        }
+      }
+
+      .footerCheckout {
+        .confirmFooter {
+          .container-confirmFooter {
+            .rightFooter {
+              a {
+                #btn-confirmar-horario {
+                  background: #222222 !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  .checkout {
+    .footerCheckout {
+      .confirmFooter {
+        .container-confirmFooter {
+          .leftFooter {
+            h2 {
+              span {
+                color: #222222;
+              }
+            }
+          }
+
+          .rightFooter {
+            #btn-confirmar {
+              background: #222222 !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .agendamentos {
+    .listServicos {
+      .container-card {
+        .card {
+          background: var(--corLetras) !important;
+
+          .box-img {
+            .tag {
+              background-color: #222222;
+            }
+          }
+
+          .box-info {
+            background: var(--corLetras) !important;
+
+            .servicoRealizado {
+              h2 {
+                color: #222222 !important;
+              }
+            }
+
+            .servicoStatus {
+              .iconAgendamento {
+                svg {
+                  path {
+                    fill: #222222 !important;
+                  }
+                }
+
+                span {
+                  color: #222222;
+                }
+              }
+            }
+
+            .servicoDetalhes {
+              button {
+                color: var(--corLetras) !important;
+                background-color: #222222 !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .agendamentoConfirmado {
+    .bookingSuccess {
+      .check-icon {
+        background-color: #222222;
+      }
+
+      .cardGroup {
+        background-color: #222222;
+
+        .container_confirmAgendamento {
+          .info {
+            .fullLine {
+              .fulllineIcon {
+                svg {
+                  g {
+                    path {
+                      fill: var(--corLetras);
+                    }
+                  }
+
+                  path {
+                    fill: var(--corLetras);
+                  }
+                }
+              }
+
+              p {
+                color: var(--corLetras);
+              }
+            }
+          }
+
+          .mensagemLembrete {
+            color: var(--corLetras);
+          }
+        }
+      }
+
+      .confirmButton {
+        background: #222222;
+
+        &:hover {
+          background-color: #252424;
+        }
+      }
+    }
+  }
+
+  .confirmar {
+    .detalhesAgendamento {
+      .info-agendamento {
+        .container-Agendamento {
+          background: #222222;
+
+          .data {
+            span {
+              color: var(--corLetras) !important;
+
+              svg {
+                path {
+                  fill: var(--corLetras);
+                }
+              }
+            }
+          }
+
+          .servico {
+            span {
+              color: var(--corLetras) !important;
+
+              svg {
+                path {
+                  fill: var(--corLetras);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .detalhesCupom {
+      .info-cupom {
+        .container-cupom {
+          background: #222222;
+
+          .pontos {
+            a {
+              span {
+                color: var(--corLetras) !important;
+
+                svg {
+                  path {
+                    fill: var(--corLetras);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .footerCheckout {
+      .confirmFooter {
+        .container-confirmFooter {
+          .leftFooter {
+            h3 {
+              color: #222222;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .favorito {
+    .background-favorito {
+      .background-box {
+        background: #222222;
+
+        .header-nav {
+          .voltar {
+            a {
+              svg {
+                path {
+                  fill: #222222;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .produtoFavoritado {
+      .product-list {
+        .product-card {
+          background: #222222;
+
+          .heart {
+            svg {
+              g {
+                path {
+                  fill: var(--corLetras);
+                  stroke: var(--corLetras);
+                }
+              }
+            }
+          }
+
+          h3 {
+            color: var(--corLetras);
+          }
+
+          .category {
+            color: var(--corLetras);
+          }
+
+          .price {
+            .new-price {
+              color: var(--corLetras);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .historico {
+    .listServicos {
+      .container-card {
+        .card {
+          background: #222222;
+
+          .box-img {
+            .tag {
+              color: #222222;
+              background-color: var(--corLetras);
+            }
+          }
+
+          .box-info {
+            background: #222222;
+
+            .servicoRealizado {
+
+              h2,
+              h3 {
+                color: var(--corLetras);
+              }
+            }
+
+            .servicoStatus {
+              h2 {
+                color: var(--corLetras);
+              }
+
+              span {
+                color: var(--corLetras);
+
+                svg {
+                  path {
+                    fill: var(--corLetras);
+                  }
+                }
+              }
+            }
+
+            .servicoDetalhes {
+              button {
+                background-color: var(--corLetras);
+                color: #222222;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .config {
+    .background-box {
+      background: #222222;
+    }
+
+    .logout-button {
+      background: #222222;
+
+      &:hover {
+        background: #1b1b1b;
+      }
+    }
+  }
+
+  .seguranca {
+    .background-box {
+      .voltar {
+        a {
+          svg {
+            path {
+              fill: #222222;
+            }
+          }
+        }
+      }
+    }
+
+    .settings-container {
+      .settings-list {
+        .setting-item {
+          a {
+            .text {
+              .container-subtitle {
+                span {
+                  color: #222222;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .perfil {
+    .header-nav {
+      .voltar {
+        background: #222222 !important;
+      }
+
+      a {
+        color: #222222 !important;
+      }
+    }
+
+    .campo-info {
+      .campo {
+        background: #222222;
+
+        svg {
+          path {
+            fill: var(--corLetras);
+          }
+        }
+
+        span {
+          color: var(--corLetras);
+        }
+      }
+    }
+  }
+
+  .editar-perfil {
+    .header-perfil {
+      .header-nav {
+        .voltar {
+          background: #222222;
+        }
+      }
+    }
+
+    .perfil-user {
+      .avatar-container {
+        form {
+          .icon-pic {
+            background: #222222;
+          }
+        }
+      }
+    }
+
+    .campo-info {
+      form {
+        .campo-input {
+          background: #222222;
+
+          svg {
+            path {
+              fill: var(--corLetras);
+            }
+          }
+
+          input {
+            color: var(--corLetras);
+          }
+
+          .form-select {
+            color: var(--corLetras);
+          }
+        }
+
+        .input-post {
+          button {
+            border: 1px solid #222222;
+            background: #222222;
+          }
+        }
+      }
+    }
+  }
+
+  .tema {
+    .background-tema {
+      .background-box {
+        background: #222222;
+
+        .header-nav {
+          .voltar {
+            svg {
+              fill: #222222;
+            }
+          }
+        }
+      }
+    }
+
+    .alterarTema {
+      .mode-toggle {
+        .option {
+          &.active {
+            background: #222222;
+          }
+        }
+      }
+    }
+
+    .picTemas {
+      .container-temas {
+        .celular-dark {
+          .check-icon {
+            background-color: #222222;
+          }
+        }
+      }
+    }
+
+    .darkAbsoluto {
+      .switch {
+        .slider {
+          border: 1px solid #222222;
+
+          &::before {
+            background-color: #222222;
+          }
+        }
+
+        #darkToggle {
+          &:checked+.slider {
+            background-color: #222222;
+
+          }
+        }
+      }
+    }
+  }
+}
+
+[data-mode="claro"] {
+  .menuNav {
+    .bottom-nav {
+      .navbar-Fixed {
+        .nav-icon {
+
+          .icon-Right,
+          .icon-Left {
+            a {
+              &.icon-ativo {
+                svg {
+                  path {
+                    fill: var(--corPrincipal);
+                  }
+                }
+
+                &::after {
+                  background: var(--corPrincipal);
+                  left: 50%;
+                  transform: translateX(-50%);
+                  width: 40px;
+                }
+              }
+            }
+          }
+        }
+
+        .central-button {
+          background: var(--corPrincipal);
+          filter: drop-shadow(5px 5px 25px rgba(197, 157, 95, 0.80));
+        }
+      }
+    }
+  }
+
+  .home-app {
+    .home-background {
+      .background-box {
+        background: #222222;
+
+        .navbar-box {
+          .fidelidade-box {
+            .icones-box {
+              .item {
+                a {
+                  .icone {
+                    svg {
+                      fill: #222222;
+
+                      #Caminho_179 {
+                        stroke: #222222;
+                      }
+
+                      #Grupo_319 {
+                        fill: #222222;
+                        stroke: #222222;
+
+                        rect {
+                          stroke: #222222;
+                        }
+
+                        #Elipse_14 {
+                          fill: #222222;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .menuNav {
+      .bottom-nav {
+        .navbar-Fixed {
+          .central-button {
+            background: #222222;
+            filter: drop-shadow(5px 5px 25px rgba(34, 34, 34));
+          }
+        }
+      }
+    }
+  }
+
+  .loja {
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+
+    .home-background {
+      .background-box {
+        .navbar-box {
+          background: #222222;
+
+          .container-header {
+            .perfil-user {
+              .notification-alarm {
+                .box-alarm {
+                  .notification {
+                    background: #FFFFFF;
+
+                    h2 {
+                      font-weight: bold;
+                      color: #222222;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .slider-produtos {
+        .container-produto {
+          .card {
+            .swiper-pagination-bullet-active {
+              background-color: #222222;
+              border: 1px solid #222222;
+            }
+          }
+        }
+      }
+
+      .categoria {
+        .container-categoria {
+          .selecao-categoria {
+            .cardCategoria {
+              .icon {
+                svg {
+                  path {
+                    fill: #222222;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .navbar-fixed {
+      .bottom-nav {
+        .navbar-Fixed {
+          .central-button {
+            background: #222222;
+            filter: drop-shadow(5px 5px 25px rgba(34, 34, 34));
+          }
+        }
+      }
+    }
+
+    .produtoFavoritado {
+      .product-list {
+        .product-card {
+          background: #222222;
+
+          h3 {
+            color: #ffffff;
+          }
+
+          .category {
+            color: #ffffff;
+          }
+
+          .price {
+            .new-price {
+              color: #ffffff;
+            }
+          }
+
+          .heart {
+            svg {
+              path {
+                stroke: #FFFFFF;
+                fill: transparent !important;
+              }
+            }
+
+            &.favoritado {
+              svg {
+                path {
+                  fill: #ffffff !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .carrinho {
+    .comprasList {
+      .containerListCompras {
+        .card {
+          .infoCompras {
+            .valorCompra {
+              .new-price {
+                color: #222222;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .post {
+      .input-post {
+        button {
+          background: #222222;
+          border: 1px solid #222222;
+        }
+      }
+    }
+
+    .totalCompra {
+      .subtotal {
+        h3 {
+          color: #222222 !important;
+        }
+      }
+    }
+  }
+
   .escolha {
     .progress-line-bar {
       .bar-line {
@@ -3217,8 +4040,49 @@ body {
 .alterar-senha {
   .campo-info {
     margin-top: 80px;
-
+    height: unset;
+    #mensagem-retorno{
+      width: 95%;
+    }
     form {
+      .container_password {
+        width: 100%;
+        text-align: center;
+
+        .forca-senha {
+          margin-bottom: 5px;
+
+          span {
+            display: inline-block;
+            width: 18%;
+            height: 5px;
+            margin-right: 4px;
+            background-color: #ccc;
+            border-radius: 2px;
+          }
+        }
+
+        .erro-senha {
+          color: red;
+          font-family: var(--fonteMontserrat);
+          font-size: 0.938em;
+          margin: 0 0 10px;
+        }
+
+      }
+
+      .senha-confirmada {
+        margin-bottom: 10px;
+      }
+
+      .erro-senha {
+        color: red;
+        text-align: center;
+        font-family: var(--fonteMontserrat);
+        font-size: 0.938em;
+        margin-bottom: 10px;
+      }
+
       .input-post {
         margin-top: 50px;
       }

@@ -1,5 +1,6 @@
 <section class="campo-info">
-    <form action="">
+    <div id="mensagem-retorno"></div>
+    <form id="form-editar-senha">
         <div class="campo-input">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 0 15 20">
                 <path id="Caminho_8" data-name="Caminho 8"
@@ -7,8 +8,17 @@
                     transform="translate(-54.954)" fill="#888" />
             </svg>
 
-            <input type="password" placeholder="Nova Senha: " />
+            <input type="password" name="nova_senha" id="nova-senha" placeholder="Nova Senha: " />
         </div>
+
+        <div class="container_password">
+            <div class="forca-senha">
+                <span></span><span></span><span></span><span></span>
+            </div>
+
+            <div class="erro-senha" id="erro-senha"></div>
+        </div>
+
 
         <div class="campo-input">
             <svg xmlns="http://www.w3.org/2000/svg" width="15.703" height="14.257" viewBox="0 0 15.703 14.257">
@@ -18,12 +28,13 @@
             </svg>
 
 
-            <input type="password" placeholder="Confirmar senha" />
+            <input type="password" name="confirmar_senha" id="confirmar-senha" placeholder="Confirmar senha" />
         </div>
 
+        <div class="erro-senha" id="erro-confirmacao"></div>
 
         <div class="input-post">
-            <button>Atualizar</button>
+            <button type="submit" id="btn-submit" disabled>Alterar</button>
         </div>
 
     </form>

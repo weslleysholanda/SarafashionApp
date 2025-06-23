@@ -297,8 +297,8 @@ require_once('templates/head.php');
             </div>
             <div class="product-list">
                 <?php foreach ($produtosPopulares as $produto): ?>
-                    <div class="product-card">
-                        <div class="heart" data-id="<?= $produto['id_produto'] ?>" onclick="toggleFavorito(<?= $produto['id_produto'] ?>, this)">
+                    <div class="product-card" onclick="window.location.href='<?= BASE_URL ?>index.php?url=loja/produtoDetalhes/<?= $produto['link_produto'] ?>'">
+                        <div class="heart" data-id="<?= $produto['id_produto'] ?>" onclick="event.stopPropagation(); toggleFavorito(<?= $produto['id_produto'] ?>, this)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
                                 <g transform="translate(-0.5 -0.495)">
                                     <path
@@ -342,9 +342,9 @@ require_once('templates/head.php');
 
             <div class="product-list produtos-gerais">
                 <?php foreach ($produtos as $produto): ?>
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='<?= BASE_URL ?>index.php?url=loja/produtoDetalhes/<?= $produto['link_produto'] ?>'">
 
-                        <div class="heart" data-id="<?= $produto['id_produto'] ?>" onclick="toggleFavorito(<?= $produto['id_produto'] ?>, this)">
+                        <div class="heart" data-id="<?= $produto['id_produto'] ?>" onclick="event.stopPropagation(); toggleFavorito(<?= $produto['id_produto'] ?>, this)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
                                 <g transform="translate(-0.5 -0.495)">
                                     <path
@@ -355,14 +355,19 @@ require_once('templates/head.php');
                         </div>
                         <div class="card-img">
                             <?php
-                            $imagemPadrao = BASE_FOTO . 'produto/sem-foto-produto.png';
+                                $caminhoArquivo = BASE_FOTO . $produto['foto_galeria'];
+                                $img = BASE_FOTO . "produto/sem-foto-produto.png";
+                                $alt_foto = "imagem sem foto";
 
-                            $fotoProduto = !empty($produto['imagens']) ?
-                                BASE_FOTO . $produto['imagens'] :
-                                $imagemPadrao;
-
+                                if (!empty($produto['foto_galeria'])) {
+                                    $headers = @get_headers($caminhoArquivo);
+                                    if ($headers && strpos($headers[0], '200') !== false) {
+                                        $img = $caminhoArquivo;
+                                        $alt_foto = htmlspecialchars($produto['alt_foto_galeria'] ?? "imagem sem foto", ENT_QUOTES, 'UTF-8');
+                                    }
+                                }
                             ?>
-                            <img src="<?php echo $fotoProduto ?>" alt="Shampoo Restore">
+                            <img src="<?= htmlspecialchars($img) ?>" alt="<?= $alt_foto ?>">
                         </div>
 
                         <h3><?php echo $produto['nome_produto']; ?> </h3>
@@ -380,7 +385,7 @@ require_once('templates/head.php');
 
         <!-- navegação -->
         <?php
-        require_once('templates/menuNav.php');
+            require_once('templates/menuNav.php');
         ?>
     </main>
 
@@ -488,10 +493,10 @@ require_once('templates/head.php');
 
                             if (document.querySelectorAll('.product-card').length === 0) {
                                 document.querySelector('.product-list').innerHTML = `
-                        <div class="sem-favoritos">
-                            <p>Você ainda não favoritou nenhum produto.</p>
-                        </div>
-                    `;
+                                    <div class="sem-favoritos">
+                                        <p>Você ainda não favoritou nenhum produto.</p>
+                                    </div>
+                                `;
                             }
                         }
                     }
@@ -578,13 +583,13 @@ require_once('templates/head.php');
 
                     if (data.data.length > 0) {
                         data.data.forEach(prod => {
-                            const imagem = (prod.imagens && prod.imagens.trim() !== '') ?
-                                `<?= BASE_FOTO ?>${prod.imagens}` :
+                            const imagem = (prod.foto_galeria && prod.foto_galeria.trim() !== '') ?
+                                `<?= BASE_FOTO ?>${prod.foto_galeria}` :
                                 `<?= BASE_FOTO ?>produto/sem-foto-produto.png`;
 
                             html += `
-                                <div class="product-card">
-                                    <div class="heart" data-id="${prod.id_produto}" onclick="toggleFavorito('${prod.id_produto}', this)">
+                                <div class="product-card"onclick="window.location.href='<?= BASE_URL ?>index.php?url=loja/produtoDetalhes/<?= $produto['link_produto'] ?>'">
+                                    <div class="heart" data-id="${prod.id_produto}" onclick="event.stopPropagation(); toggleFavorito(<?= $produto['id_produto'] ?>, this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.59 16.305">
                                             <g transform="translate(-0.5 -0.495)">
                                                 <path d="M9.3,3.265h0l-.9-.943a4.2,4.2,0,0,0-6.126,0,4.679,4.679,0,0,0,0,6.406l7.027,7.349,7.027-7.349a4.679,4.679,0,0,0,0-6.406,4.2,4.2,0,0,0-6.126,0l-.9.943h0Z"

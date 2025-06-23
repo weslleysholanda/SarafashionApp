@@ -125,16 +125,6 @@ class LojaController extends Controller
 
         $categorias = json_decode($responseCategorias, true);
 
-        $dados['categorias'] = $categorias;
-
-        $dados = array();
-        $dados['titulo'] = 'SarafashionAPP - Loja ';
-        $dados['cliente'] = $cliente;
-
-        $dados['produtos'] = $listarProdutos;
-
-        $dados['produtosPopulares'] = $dataPopulares['data'] ?? [];
-        // var_dump($dados['produtosPopulares']);
 
 
         // consumir API das promoções
@@ -162,6 +152,17 @@ class LojaController extends Controller
             die("Erro ao decodificar JSON das promoções.");
         }
 
+
+
+        $dados['categorias'] = $categorias;
+
+        $dados = array();
+        $dados['titulo'] = 'SarafashionAPP - Loja ';
+        $dados['cliente'] = $cliente;
+        $dados['produtos'] = $listarProdutos;
+        // var_dump($dados['produtos']);
+        $dados['produtosPopulares'] = $dataPopulares['data'] ?? [];
+        // var_dump($dados['produtosPopulares']);
         $dados['promocoes'] = $promocoes;
 
         $this->carregarViews('loja', $dados);
@@ -196,6 +197,57 @@ class LojaController extends Controller
         $produtos = json_decode($response, true);
 
         echo json_encode(['status' => 'success', 'data' => $produtos]);
+    }
+
+    public function produtoDetalhes($link)
+    {
+        // Buscar dados do produto
+        $url = BASE_API . "buscarProdutoUnico?link=" . urlencode($link);
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $_SESSION['token']
+        ]);
+        $response = curl_exec($ch);
+        $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($statusCode != 200) {
+            die('Produto não encontrado. Código: ' . $statusCode);
+        }
+
+        $produto = json_decode($response, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE || !$produto) {
+            die('Erro ao decodificar JSON da API.');
+        }
+
+        // Agora verificar se o produto está favoritado
+        $urlFavoritos = BASE_API . "listarFavoritos";
+        $chFav = curl_init($urlFavoritos);
+        curl_setopt($chFav, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($chFav, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $_SESSION['token']
+        ]);
+        $responseFav = curl_exec($chFav);
+        curl_close($chFav);
+
+        $favoritos = json_decode($responseFav, true);
+        $produto['favoritado'] = false;
+
+         if (isset($favoritos[0]['id_produto'])) {
+            foreach ($favoritos as $fav) {
+                if ($fav['id_produto'] == $produto['id_produto']) {
+                    $produto['favoritado'] = true;
+                    break;
+                }
+            }
+        }
+
+        $dados['titulo'] = 'Detalhes do Produto';
+        $dados['produto'] = $produto;
+
+        $this->carregarViews('produtoUnico', $dados);
     }
 
     public function buscarProdutoPorCategoria()

@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produto Único</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="../../vendors/css/reset.css">
-    <link rel="stylesheet" href="../../public/assets/css/style.css">
-
-</head>
+<?php
+require_once('templates/head.php')
+?>
 
 <body>
 
@@ -17,7 +11,7 @@
         <section class="header-perfil">
             <div class="header-nav">
                 <header class="voltar">
-                    <a href="configuracao.html">
+                    <a href="<?= BASE_URL ?>index.php?url=loja">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 15">
                             <path id="Caminho_6" data-name="Caminho 6"
                                 d="M.281,38.669a1.249,1.249,0,0,0,0,1.516L5.53,46.611a.768.768,0,0,0,1.238,0,1.249,1.249,0,0,0,0-1.516l-4.631-5.67,4.628-5.67a1.249,1.249,0,0,0,0-1.516.768.768,0,0,0-1.238,0L.279,38.665Z"
@@ -32,25 +26,30 @@
         <section class="productBox">
             <div class="swiper destaqueProduto">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="../../public/assets/img/joico_Defy_Damage.png" alt="Produto 1" />
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="../../public/assets/img/joico_Defy_Damage.png" alt="Produto 2" />
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="../../public/assets/img/joico_Defy_Damage.png" alt="Produto 3" />
-                    </div>
+                    <?php if (!empty($produto['imagens'])): ?>
+                        <?php foreach ($produto['imagens'] as $imagem): ?>
+                            <div class="swiper-slide">
+                                <img src="<?= BASE_FOTO . $imagem ?>" alt="<?= htmlspecialchars($produto['nome_produto']) ?>">
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="swiper-slide">
+                            <img src="<?= BASE_FOTO ?>produto/sem-foto-produto.png" alt="Sem imagem">
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="swiper-pagination"></div>
         </section>
+
+
         <div class="of-height-60"></div>
         <section class="primaryContent">
             <div class="productDetails">
                 <div class="details">
-                    <h2>KIT TRIPLO PROTETOR E NUTRITIVO DEFY</h2>
-                    <div class="heart">
+                    <h2><?= htmlspecialchars($produto['nome_produto'], ENT_QUOTES, "UTF-8") ?></h2>
+                    <div class="heart <?= !empty($produto['favoritado']) ? 'favoritado' : '' ?>" data-id="<?= $produto['id_produto'] ?>" onclick="toggleFavorito(<?= $produto['id_produto'] ?>, this)">
+
                         <svg xmlns="http://www.w3.org/2000/svg" width="23.543" height="21.717"
                             viewBox="0 0 23.543 21.717">
                             <path id="Caminho_179" data-name="Caminho 179"
@@ -62,11 +61,11 @@
                     </div>
                 </div>
                 <div class="productPrice">
-                    <span class="old">R$79,00</span>
-                    <span class="new">R$59,00</span>
+                    <span class="old">R$<?= htmlspecialchars($produto['preco_anterior'], ENT_QUOTES, "UTF-8") ?></span>
+                    <span class="new">R$<?= htmlspecialchars($produto['preco_produto'], ENT_QUOTES, "UTF-8") ?></span>
                 </div>
 
-                <div class="userFeedback">
+                <!-- <div class="userFeedback">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="15.347" height="14.596"
                             viewBox="0 0 15.347 14.596">
@@ -101,20 +100,19 @@
 
                     </div>
                     <span class="contagem-review">6</span>
-                </div>
+                </div> -->
             </div>
         </section>
 
         <section class="secondaryContent">
             <div>
                 <p class="productInfo">
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                    alteration.
+                    <?= htmlspecialchars($produto['descricao_produto'], ENT_QUOTES, "UTF-8") ?>
                 </p>
 
-                <p class="dadosEnvio"><strong class="tituloEnv">Frete Grátis</strong><br>
+                <!-- <p class="dadosEnvio"><strong class="tituloEnv">Frete Grátis</strong><br>
                     To Bangladesh from seller via china. Shipping method online.
-                </p>
+                </p> -->
             </div>
         </section>
 
@@ -142,9 +140,7 @@
             <div class="details">
                 <h3>Especificação</h3>
                 <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                    totam
-                    ae dicta sunt explicabo.
+                    <?= htmlspecialchars($produto['informacao_produto'], ENT_QUOTES, "UTF-8") ?>
                 </p>
             </div>
         </section>
@@ -156,7 +152,7 @@
         </div>
         </div>
     </main>
-
+    <script src="<?= BASE_URL ?>public/assets/js/tema.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         const swiper = new Swiper('.destaqueProduto', {
@@ -179,18 +175,63 @@
                 el: '.swiper-pagination',
                 clickable: true,
             },
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
+            //autoplay: {
+            //    delay: 3000,
+            //    disableOnInteraction: false,
+            // },
 
         });
 
-        document.querySelectorAll('.heart').forEach(heart => {
-            heart.addEventListener('click', () => {
-                heart.classList.toggle('favoritado');
-            });
-        });
+        function toggleFavorito(id_produto, el) {
+            const token = "<?= $_SESSION['token'] ?>";
+
+            fetch("<?= BASE_API ?>toggleFavorito", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: "id_produto=" + encodeURIComponent(id_produto)
+                })
+                .then(async response => {
+                    const text = await response.text();
+                    let data;
+                    try {
+                        data = JSON.parse(text);
+                    } catch (e) {
+                        console.error("Erro ao parsear JSON:", text);
+                        return;
+                    }
+
+                    // Seleciona TODOS os corações que representam esse produto
+                    const hearts = document.querySelectorAll(`.heart[data-id='${id_produto}']`);
+
+                    if (data.status === 'adicionado') {
+                        hearts.forEach(h => h.classList.add('favoritado'));
+                    } else if (data.status === 'removido') {
+                        hearts.forEach(h => h.classList.remove('favoritado'));
+
+                        // Se estiver na página de favoritos, remove o card
+                        if (document.body.classList.contains('pagina-favoritos')) {
+                            hearts.forEach(h => {
+                                const card = h.closest('.product-card');
+                                if (card) card.remove();
+                            });
+
+                            if (document.querySelectorAll('.product-card').length === 0) {
+                                document.querySelector('.product-list').innerHTML = `
+                        <div class="sem-favoritos">
+                            <p>Você ainda não favoritou nenhum produto.</p>
+                        </div>
+                    `;
+                            }
+                        }
+                    }
+                })
+                .catch(() => {
+                    console.error("Erro na requisição do toggleFavorito.");
+                });
+        }
     </script>
 </body>
 

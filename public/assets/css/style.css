@@ -287,6 +287,60 @@
     }
   }
 
+  .produtoInfo{
+    .productBox{
+      .swiper-pagination{
+        .swiper-pagination-bullet-active{
+          background-color: #222222;
+          border: 1px solid #222222;
+        }
+      }
+    }
+    .primaryContent{
+      .productDetails{
+        .details{
+          .heart{
+            svg{
+              path{
+                stroke:#222222;
+              }
+            }
+            &.favoritado{
+              svg{
+                path{
+                  fill: #222222;
+                }
+              }
+            }
+          }
+        }
+        .productPrice{
+          .new{
+            color: #222222;
+          }
+        }
+      }
+    }
+    .payment{
+      .paymentProtection{
+        span{
+          svg{
+            g{
+              path{
+                fill: #222222;
+              }
+            }
+          }
+        }
+      }
+    }
+    .buttons{
+      .buy{
+        background:#222222;
+      }
+    }
+  }
+
   .carrinho {
     .comprasList {
       .containerListCompras {
@@ -814,6 +868,15 @@
 
           .form-select {
             color: var(--corLetras);
+          }
+
+          select option {
+            color: black;
+            background-color: white;
+          }
+
+          select option[value=""] {
+            color: gray;
           }
         }
 
@@ -4041,9 +4104,11 @@ body {
   .campo-info {
     margin-top: 80px;
     height: unset;
-    #mensagem-retorno{
+
+    #mensagem-retorno {
       width: 95%;
     }
+
     form {
       .container_password {
         width: 100%;
